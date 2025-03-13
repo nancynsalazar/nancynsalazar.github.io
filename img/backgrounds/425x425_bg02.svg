@@ -1,0 +1,11 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+    width="425px" height="425px" viewBox="0 0 425 425" style="enable-background:new 0 0 425 425;" xml:space="preserve">
+  <style type="text/css">
+    .bg02{fill:url(#color-gradient-2);}
+  </style>
+  <radialGradient id="color-gradient-2" cx="212.5" cy="212.5" r="212.5" fx="403.0356" fy="118.4126" gradientUnits="userSpaceOnUse">
+    <stop  offset="0" style="stop-color:#CEC4EF"/>
+    <stop  offset="1" style="stop-color:#CEC4EF;stop-opacity:0"/>
+  </radialGradient>
+  <circle class="bg02" cx="212.5" cy="212.5" r="212.5"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+	<style type="text/css">
+		.icon {
+			fill: #7059e2;
+		}
+		@media (prefers-color-scheme: dark) {
+			.icon {
+				fill: #CEC4EF;
+			}
+		}
+	</style>
+	<circle class="icon" cx="8" cy="8" r="6"/>
+</svg>

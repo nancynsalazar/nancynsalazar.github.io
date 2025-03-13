@@ -1,0 +1,11 @@
+{
+  "name": "Nancy N. Salazar - Portafolio y CV",
+  "short_name": "Nancy N. Salazar CV/Resume",
+  "icons": [
+    { "src": "/img/favicon/android-icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/img/favicon/android-icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "theme_color": "#efefef",
+  "background_color": "#efefef",
+  "display": "standalone"
+}

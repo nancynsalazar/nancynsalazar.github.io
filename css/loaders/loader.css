@@ -1,0 +1,376 @@
+/*! ------------------------------------------------
+ * Project Name: Name: Braxton - Personal Portfolio & Resume HTML Template
+ * Project Description: Show yourself brightly with Braxton - unique and creative portfolio and resume template!
+ * Tags: mix_design, resume, portfolio, personal page, cv, template, one page, responsive, html5, css3, creative, clean 
+ * Version: 1.0.0
+ * Build Date: March 2024
+ * Last Update: March 2024
+ * This product is available exclusively on Themeforest
+ * Author: mix_design
+ * Author URI: https://themeforest.net/user/mix_design */
+/*! File name: loader.css
+ * ------------------------------------------------
+ *
+ * ------------------------------------------------
+ * Table of Contents
+ * ------------------------------------------------
+ *  01. Loader Styles
+ * ------------------------------------------------
+ * Table of Contents End
+ * ------------------------------------------------ */
+:root {
+  --_size: 1.6rem;
+  --_font-default: "Syne", sans-serif;
+  --_font-accent: "Syne", sans-serif;
+  --_radius-s: 1.5rem;
+  --_radius-m: 2.2rem;
+  --_radius-l: 3rem;
+  --_radius-xl: 3.6rem;
+  --_animspeed-fast: 0.1s;
+  --_animspeed-medium: 0.3s;
+  --_animspeed-slow: 0.6s;
+  --_animbezier: cubic-bezier(0.23, 0.65, 0.74, 1.09);
+  /* light color scheme */
+  --base--light: #e6ebf4;
+  --base-tint--light: #ebf0f7;
+  --base-shade--light: #bdc1c8;
+  --accent--light: #aa70e0;
+  --secondary--light: #7059e2;
+  --secondary-rgba--light: rgba(112,89,226,0.3);
+  --stroke-controls--light: #a8b0c1;
+  --stroke-controls-neutral--light: rgba(0,0,0,0.3);
+  --stroke-elements--light: #d1d5e0;
+  --t-bright--light: #22232c;
+  --t-medium--light: #424550;
+  --t-muted--light: #666a79;
+  --t-accent--light: #8f56cc;
+  --t-secondary--light: #5d4ec4;
+  --t-disabled--light: #717586;
+  --t-placeholder--light: #969bb2;
+  --base-opp--light: #111111;
+  --t-opp-bright--light: #ebf0f7;
+  --t-opp-medium--light: #C7C6D3;
+  --t-opp-muted--light: #A1A1AF;
+  --gradient-one--light: #CEC4EF;
+  --gradient-two--light: #f5c5cd;
+  --gradient-three--light: #ac8fe3;
+  /* dark color scheme */
+  --base--dark: #111111;
+  --base-tint--dark: #161616;
+  --base-shade--dark: #000000;
+  --accent--dark: #E4B8BF;
+  --secondary--dark: #CEC4EF;
+  --secondary-rgba--dark: rgba(206,196,239,0.2);
+  --stroke-controls--dark: #4B4B51;
+  --stroke-controls-neutral--dark: rgba(255,255,255,0.3);
+  --stroke-elements--dark: #303033;
+  --t-bright--dark: #e9e9f1;
+  --t-medium--dark: #C7C6D3;
+  --t-muted--dark: #A1A1AF;
+  --t-accent--dark: #E1BAC5;
+  --t-secondary--dark: #CEC4EF;
+  --t-disabled--dark: #8B8A91;
+  --t-placeholder--dark: #58585E;
+  --base-opp--dark: #fafafa;
+  --t-opp-bright--dark: #121319;
+  --t-opp-medium--dark: #626577;
+  --t-opp-muted--dark: #717586;
+  --gradient-one--dark: #a287d5;
+  --gradient-two--dark: #E4B8BF;
+  --gradient-three--dark: #8b6bc5;
+  /* permanent colors */
+  --per-base: #111111;
+  --per-base-tint: #212121;
+  --per-stroke-controls: rgba(255,255,255,0.4);
+  --t-per-bright-light: #ffffff;
+  --t-per-medium-light: #f2f2f2;
+  --t-per-muted-light: #C7C6D3;
+  --t-per-bright-dark: #27293b;
+  --t-per-medium-dark: #626577;
+  --t-per-muted-dark: #717586;
+}
+@media only screen and (min-width: 1600px) {
+  :root {
+    --_radius-s: 1.7rem;
+    --_radius-m: 2.6rem;
+  }
+}
+
+/* defaults */
+@media (prefers-color-scheme: light) {
+  :root {
+    --base: var(--base--light);
+    --base-tint: var(--base-tint--light);
+    --base-shade: var(--base-shade--light);
+    --accent: var(--accent--light);
+    --secondary: var(--secondary--light);
+    --secondary-rgba: var(--secondary-rgba--light);
+    --stroke-controls: var(--stroke-controls--light);
+    --stroke-controls-neutral: var(--stroke-controls-neutral--light);
+    --stroke-elements: var(--stroke-elements--light);
+    --t-bright: var(--t-bright--light);
+    --t-medium: var(--t-medium--light);
+    --t-muted: var(--t-muted--light);
+    --t-accent: var(--t-accent--light);
+    --t-secondary: var(--t-secondary--light);
+    --t-disabled: var(--t-disabled--light);
+    --t-placeholder: var(--t-placeholder--light);
+    --base-opp: var(--base-opp--light);
+    --t-opp-bright: var(--t-opp-bright--light);
+    --t-opp-medium: var(--t-opp-medium--light);
+    --t-opp-muted: var(--t-opp-muted--light);
+    --gradient-one: var(--gradient-one--light);
+    --gradient-two: var(--gradient-two--light);
+    --gradient-three: var(--gradient-three--light);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --base: var(--base--dark);
+    --base-tint: var(--base-tint--dark);
+    --base-shade: var(--base-shade--dark);
+    --accent: var(--accent--dark);
+    --secondary: var(--secondary--dark);
+    --secondary-rgba: var(--secondary-rgba--dark);
+    --stroke-controls: var(--stroke-controls--dark);
+    --stroke-controls-neutral: var(--stroke-controls-neutral--dark);
+    --stroke-elements: var(--stroke-elements--dark);
+    --t-bright: var(--t-bright--dark);
+    --t-medium: var(--t-medium--dark);
+    --t-muted: var(--t-muted--dark);
+    --t-accent: var(--t-accent--dark);
+    --t-secondary: var(--t-secondary--dark);
+    --t-disabled: var(--t-disabled--dark);
+    --t-placeholder: var(--t-placeholder--dark);
+    --base-opp: var(--base-opp--dark);
+    --t-opp-bright: var(--t-opp-bright--dark);
+    --t-opp-medium: var(--t-opp-medium--dark);
+    --t-opp-muted: var(--t-opp-muted--dark);
+    --gradient-one: var(--gradient-one--dark);
+    --gradient-two: var(--gradient-two--dark);
+    --gradient-three: var(--gradient-three--dark);
+  }
+}
+[color-scheme=light] {
+  --base: var(--base--light);
+  --base-tint: var(--base-tint--light);
+  --base-shade: var(--base-shade--light);
+  --accent: var(--accent--light);
+  --secondary: var(--secondary--light);
+  --secondary-rgba: var(--secondary-rgba--light);
+  --stroke-controls: var(--stroke-controls--light);
+  --stroke-controls-neutral: var(--stroke-controls-neutral--light);
+  --stroke-elements: var(--stroke-elements--light);
+  --t-bright: var(--t-bright--light);
+  --t-medium: var(--t-medium--light);
+  --t-muted: var(--t-muted--light);
+  --t-accent: var(--t-accent--light);
+  --t-secondary: var(--t-secondary--light);
+  --t-disabled: var(--t-disabled--light);
+  --t-placeholder: var(--t-placeholder--light);
+  --base-opp: var(--base-opp--light);
+  --t-opp-bright: var(--t-opp-bright--light);
+  --t-opp-medium: var(--t-opp-medium--light);
+  --t-opp-muted: var(--t-opp-muted--light);
+  --gradient-one: var(--gradient-one--light);
+  --gradient-two: var(--gradient-two--light);
+  --gradient-three: var(--gradient-three--light);
+}
+
+[color-scheme=dark] {
+  --base: var(--base--dark);
+  --base-tint: var(--base-tint--dark);
+  --base-shade: var(--base-shade--dark);
+  --accent: var(--accent--dark);
+  --secondary: var(--secondary--dark);
+  --secondary-rgba: var(--secondary-rgba--dark);
+  --stroke-controls: var(--stroke-controls--dark);
+  --stroke-controls-neutral: var(--stroke-controls-neutral--dark);
+  --stroke-elements: var(--stroke-elements--dark);
+  --t-bright: var(--t-bright--dark);
+  --t-medium: var(--t-medium--dark);
+  --t-muted: var(--t-muted--dark);
+  --t-accent: var(--t-accent--dark);
+  --t-secondary: var(--t-secondary--dark);
+  --t-disabled: var(--t-disabled--dark);
+  --t-placeholder: var(--t-placeholder--dark);
+  --base-opp: var(--base-opp--dark);
+  --t-opp-bright: var(--t-opp-bright--dark);
+  --t-opp-medium: var(--t-opp-medium--dark);
+  --t-opp-muted: var(--t-opp-muted--dark);
+  --gradient-one: var(--gradient-one--dark);
+  --gradient-two: var(--gradient-two--dark);
+  --gradient-three: var(--gradient-three--dark);
+}
+
+/* ------------------------------------------------*/
+/* Loader Styles Start */
+/* ------------------------------------------------*/
+.loader {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: var(--base-tint);
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: all var(--_animspeed-slow) ease-in-out;
+  -moz-transition: all var(--_animspeed-slow) ease-in-out;
+  transition: all var(--_animspeed-slow) ease-in-out;
+}
+.loader.loaded {
+  background-color: var(--base);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader__content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  bottom: auto;
+  right: auto;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+     -moz-transform: translateX(-50%) translateY(-50%);
+      -ms-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+  width: 40px;
+  height: 60px;
+  -webkit-transition: opacity var(--_animspeed-medium) ease-in-out;
+  -moz-transition: opacity var(--_animspeed-medium) ease-in-out;
+  transition: opacity var(--_animspeed-medium) ease-in-out;
+  opacity: 1;
+}
+.loader__content.fade-out {
+  opacity: 0;
+}
+
+.loader__box {
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  background: -moz-linear-gradient(315deg, var(--accent) 0%, var(--secondary) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+  -webkit-animation: jump 0.5s linear infinite;
+     -moz-animation: jump 0.5s linear infinite;
+          animation: jump 0.5s linear infinite;
+  -moz-border-radius: 10px;
+       border-radius: 10px;
+}
+
+@-webkit-keyframes jump {
+  17% {
+    border-bottom-right-radius: 10px;
+  }
+  25% {
+    -webkit-transform: translateY(9px) rotate(22.5deg);
+            transform: translateY(9px) rotate(22.5deg);
+  }
+  50% {
+    -webkit-transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+            transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+    border-bottom-right-radius: 40px;
+  }
+  75% {
+    -webkit-transform: translateY(9px) rotate(67.5deg);
+            transform: translateY(9px) rotate(67.5deg);
+  }
+  100% {
+    -webkit-transform: translateY(0) rotate(90deg);
+            transform: translateY(0) rotate(90deg);
+  }
+}
+
+@-moz-keyframes jump {
+  17% {
+    -moz-border-radius-bottomright: 10px;
+         border-bottom-right-radius: 10px;
+  }
+  25% {
+    -moz-transform: translateY(9px) rotate(22.5deg);
+         transform: translateY(9px) rotate(22.5deg);
+  }
+  50% {
+    -moz-transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+         transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+    -moz-border-radius-bottomright: 40px;
+         border-bottom-right-radius: 40px;
+  }
+  75% {
+    -moz-transform: translateY(9px) rotate(67.5deg);
+         transform: translateY(9px) rotate(67.5deg);
+  }
+  100% {
+    -moz-transform: translateY(0) rotate(90deg);
+         transform: translateY(0) rotate(90deg);
+  }
+}
+
+@keyframes jump {
+  17% {
+    -moz-border-radius-bottomright: 10px;
+         border-bottom-right-radius: 10px;
+  }
+  25% {
+    -webkit-transform: translateY(9px) rotate(22.5deg);
+       -moz-transform: translateY(9px) rotate(22.5deg);
+            transform: translateY(9px) rotate(22.5deg);
+  }
+  50% {
+    -webkit-transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+       -moz-transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+            transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+    -moz-border-radius-bottomright: 40px;
+         border-bottom-right-radius: 40px;
+  }
+  75% {
+    -webkit-transform: translateY(9px) rotate(67.5deg);
+       -moz-transform: translateY(9px) rotate(67.5deg);
+            transform: translateY(9px) rotate(67.5deg);
+  }
+  100% {
+    -webkit-transform: translateY(0) rotate(90deg);
+       -moz-transform: translateY(0) rotate(90deg);
+            transform: translateY(0) rotate(90deg);
+  }
+}
+.loader__shadow {
+  width: 40px;
+  height: 5px;
+  background-color: var(--base-shade);
+  position: absolute;
+  top: 49px;
+  left: 0;
+  -moz-border-radius: 50%;
+       border-radius: 50%;
+  -webkit-animation: shadow 0.5s linear infinite;
+     -moz-animation: shadow 0.5s linear infinite;
+          animation: shadow 0.5s linear infinite;
+}
+
+@-webkit-keyframes shadow {
+  50% {
+    -webkit-transform: scale(1.2, 1);
+            transform: scale(1.2, 1);
+  }
+}
+
+@-moz-keyframes shadow {
+  50% {
+    -moz-transform: scale(1.2, 1);
+         transform: scale(1.2, 1);
+  }
+}
+
+@keyframes shadow {
+  50% {
+    -webkit-transform: scale(1.2, 1);
+       -moz-transform: scale(1.2, 1);
+            transform: scale(1.2, 1);
+  }
+}
+/* ------------------------------------------------*/
+/* Loader Styles End */
+/* ------------------------------------------------*/
