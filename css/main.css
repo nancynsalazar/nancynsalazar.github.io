@@ -3923,7 +3923,7 @@ form textarea:required:valid {
   width: auto;
   height: 60px;
   margin: 0 auto;
-  filter: hue-rotate(270deg);
+  fill: #564476;
 }
 @media only screen and (min-width: 768px) {
   .tools-card__icon {
