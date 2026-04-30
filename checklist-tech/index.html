@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía + Checklist · @nancynsalazar</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==============================
+       VARIABLES & RESET
+       ============================== */
+    :root {
+      --bg-main: #000000;
+      --bg-surface-1: #111111;
+      --bg-surface-2: #181818;
+      --neon-green: #2CFF05;
+      --neon-purple: #BF00FF;
+      --text-main: #F0F0F0;
+      --text-sec: #666666;
+      --font-title: 'Syne', sans-serif;
+      --font-body: 'Instrument Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-bottom: 80px; /* Espacio para barra de progreso */
+    }
+
+    h1, h2, h3, h4, .title-font {
+      font-family: var(--font-title);
+    }
+
+    /* ==============================
+       ANIMACIONES
+       ============================== */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    /* ==============================
+       HERO SECTION
+       ============================== */
+    .hero {
+      padding: 60px 20px 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--neon-green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--neon-green);
+      animation: blink 1.5s infinite alternate;
+    }
+
+    @keyframes blink {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .tech-italic {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-desc {
+      color: var(--text-sec);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ==============================
+       CHECKLIST SECTIONS
+       ============================== */
+    .checklist-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+
+    .section-card {
+      background-color: var(--bg-surface-1);
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      transition: all 0.4s ease;
+    }
+
+    .section-card.active-border {
+      border-color: rgba(44, 255, 5, 0.18);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .circle-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 1.2rem;
+      border: 2px solid;
+    }
+
+    .c-green { border-color: var(--neon-green); color: var(--neon-green); }
+    .c-purple { border-color: var(--neon-purple); color: var(--neon-purple); }
+
+    .section-titles {
+      flex: 1;
+    }
+
+    .section-titles h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .section-subtitle {
+      font-style: italic;
+      color: var(--text-sec);
+      font-size: 0.95rem;
+    }
+
+    .section-score {
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text-sec);
+      transition: all 0.3s;
+    }
+
+    .section-score.completed {
+      color: var(--neon-green);
+      text-shadow: 0 0 10px rgba(44, 255, 5, 0.5);
+    }
+
+    /* Checkbox Items */
+    .check-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .check-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .check-input {
+      display: none;
+    }
+
+    .custom-box {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #444;
+      border-radius: 6px;
+      display: inline-block;
+      position: relative;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .check-input:checked + .custom-box {
+      background-color: rgba(44, 255, 5, 0.1);
+      border-color: var(--neon-green);
+      box-shadow: 0 0 12px rgba(44, 255, 5, 0.4);
+    }
+
+    .check-input:checked + .custom-box::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 8px;
+      width: 5px;
+      height: 10px;
+      border: solid var(--neon-green);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .item-text {
+      font-size: 1rem;
+      color: var(--text-main);
+      transition: color 0.2s;
+    }
+
+    .check-input:checked ~ .item-text {
+      color: #aaa;
+    }
+
+    .note {
+      color: var(--neon-purple);
+      font-style: italic;
+      display: block;
+      margin-top: 4px;
+      font-size: 0.9rem;
+    }
+
+    /* ==============================
+       BARRA GLOBAL
+       ============================== */
+    .global-progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-surface-2);
+      padding: 16px 20px;
+      border-top: 1px solid #333;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      font-family: var(--font-title);
+      font-weight: 600;
+    }
+
+    .track {
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      height: 8px;
+      background-color: #333;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-purple));
+      transition: width 0.4s ease;
+    }
+
+    .fill.active-glow {
+      box-shadow: 0 0 10px rgba(44, 255, 5, 0.5);
+    }
+
+    /* ==============================
+       GATE & FORM
+       ============================== */
+    .gate-section {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 40px 20px;
+      text-align: center;
+      background-color: var(--bg-surface-2);
+      border-radius: 16px;
+      border: 1px solid #222;
+    }
+
+    .gate-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid var(--neon-purple);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--neon-purple);
+      margin-bottom: 20px;
+    }
+
+    .gate-section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .gate-section p {
+      color: var(--text-sec);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    input[type="email"] {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background-color: var(--bg-main);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    input[type="email"]:focus {
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 15px rgba(191, 0, 255, 0.15);
+    }
+
+    button {
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: none;
+      background-color: var(--neon-green);
+      color: #000;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    button:hover:not(:disabled) {
+      box-shadow: 0 0 20px rgba(44, 255, 5, 0.4);
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .spam-note {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    /* ==============================
+       RESULTS SECTION
+       ============================== */
+    .hidden {
+      display: none !important;
+    }
+
+    .result-section {
+      max-width: 800px;
+      margin: 40px auto 80px;
+      border-radius: 16px;
+      padding: 40px;
+      border-bottom: 4px solid;
+      text-align: center;
+    }
+
+    .score-display {
+      font-size: 50px;
+      font-family: var(--font-title);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .level-name {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
+    .level-desc {
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      color: #ddd;
+    }
+
+    .honest-close {
+      background-color: rgba(255,255,255,0.03);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      text-align: left;
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      text-align: left;
+      margin-bottom: 40px;
+    }
+
+    .resource-card {
+      background-color: rgba(0,0,0,0.4);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #222;
+    }
+
+    .resource-card h4 {
+      color: var(--neon-purple);
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .resource-card p {
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+
+    .final-signature {
+      font-family: var(--font-title);
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ==============================
+       RESPONSIVE
+       ============================== */
+    @media (max-width: 480px) {
+      .section-subtitle { display: none; }
+      .form-group { flex-direction: column; }
+      button { width: 100%; }
+      .resources-grid { grid-template-columns: 1fr; }
+      .hero { padding: 40px 15px 20px; }
+      h1 { font-size: 2rem; }
+      .result-section { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero fade-up">
+    <div class="indicator">
+      <div class="dot"></div>
+      Guía + Checklist · @nancynsalazar
+    </div>
+    <h1>¿Estoy lista para aplicar a ese trabajo <span class="tech-italic">tech</span>?</h1>
+    <p class="hero-desc">Descubre en qué punto estás y qué necesitas para dar tu siguiente paso estratégico en tecnología.</p>
+  </header>
+
+  <main class="checklist-container" id="checklist-container">
+    
+    <section class="section-card fade-up" style="animation-delay: 0.1s;" data-section="1">
+      <div class="section-header">
+        <div class="circle-num c-green">1</div>
+        <div class="section-titles">
+          <h2>Claridad de lo que buscas</h2>
+          <p class="section-subtitle">Aplicar "a lo que sea" también es una estrategia — pero no muy buena.</p>
+        </div>
+        <div class="section-score" id="score-1">0 / 5</div>
+      </div>
+      <div class="items">
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Sé a qué área de tech me quiero dedicar</b> → Ya sea datos, desarrollo, diseño UX, ciberseguridad, producto o gestión de proyectos tech — no necesito saberlo todo, pero sí apunto a algo concreto.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Conozco al menos 3 roles con nombre real que existen en esa área</b> → Por ejemplo: Data Analyst, UX Researcher, Scrum Master, QA Tester, Product Owner. No sólo "algo de tecnología" — roles específicos que puedo buscar en una vacante.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>He leído vacantes reales — no sólo los títulos, sino los requisitos completos</b> → En LinkedIn, OCC, Indeed o Glassdoor. Aunque todavía no aplique, leer vacantes me da claridad sobre qué pide el mercado. <span class="note">Si aún no lo he hecho, me propongo dedicar 30 minutos esta semana. Solo leer, sin presión.</span></span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Tengo claro qué habilidades de mi trayectoria actual transfieren a tech</b> → Gestión de proyectos, comunicación con clientes, análisis básico de datos, manejo de herramientas digitales — lo que ya sé hacer tiene valor en tech, aunque no lo parezca.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Sé en qué tipo de empresa quiero trabajar</b> → Startup, corporativo, gobierno, agencia — la cultura importa tanto como el puesto. Una startup y un banco corporativo son mundos muy distintos, y ya sé a cuál me quiero acercar.</span></label>
+      </div>
+    </section>
+
+    <section class="section-card fade-up" style="animation-delay: 0.2s;" data-section="2">
+      <div class="section-header">
+        <div class="circle-num c-purple">2</div>
+        <div class="section-titles">
+          <h2>Habilidades técnicas básicas</h2>
+          <p class="section-subtitle">No necesitas saber programar — pero sí necesitas algo concreto.</p>
+        </div>
+        <div class="section-score" id="score-2">0 / 5</div>
+      </div>
+      <div class="items">
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Tengo una habilidad técnica que puedo demostrar, no sólo mencionar</b> → Excel avanzado, SQL básico, Figma, Google Analytics, Python básico, herramientas de IA generativa — algo que puedo mostrar en acción, no sólo escribir en mi CV.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>He completado al menos un curso, bootcamp o certificación relacionada</b> → Google, Coursera, LinkedIn Learning, Platzi, YouTube estructurado — cualquiera vale. Lo que importa es que lo terminé. <span class="note">Empezar 10 cursos y no terminar ninguno no es lo mismo que terminar uno.</span></span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Entiendo el vocabulario tech básico del área a la que apunto</b> → No necesito hablar como ingeniera, pero sí entender los términos que aparecen en las vacantes: MVP, sprint, KPI, API, UX, backend, frontend.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Uso herramientas digitales de productividad con fluidez</b> → Notion, Slack, Trello, Asana, G Suite, Zoom, Teams — me muevo con comodidad en el entorno digital de trabajo.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>He aplicado lo que sé en algo real — aunque sea un proyecto personal o voluntario</b> → Una base de datos para mi negocio, un dashboard para mi comunidad, un prototipo, un análisis de algo que me importa. <span class="note">"Lo vi en clase" importa menos que "lo usé en algo real".</span></span></label>
+      </div>
+    </section>
+
+    <section class="section-card fade-up" style="animation-delay: 0.3s;" data-section="3">
+      <div class="section-header">
+        <div class="circle-num c-green">3</div>
+        <div class="section-titles">
+          <h2>Tu presencia digital profesional</h2>
+          <p class="section-subtitle">Tu perfil online muchas veces llega antes que tu CV.</p>
+        </div>
+        <div class="section-score" id="score-3">0 / 5</div>
+      </div>
+      <div class="items">
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Mi LinkedIn está completo y actualizado</b> → Tiene foto, titular profesional, descripción y experiencia — no el perfil que creé en 2019 y nunca volví a abrir.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Mi CV tiene menos de 2 páginas y muestra logros, no sólo tareas</b> → "Reduje los tiempos de reporte un 40%" dice mucho más que "Responsable de reportes". Mis logros están escritos con datos, no sólo con funciones.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Tengo algo que mostrar: portafolio, repositorio o casos de estudio</b> → Según mi área, ya cuento con algo concreto que respalde lo que digo que sé hacer. <span class="note">Si aún no tengo nada, esto es lo primero que construyo.</span></span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Mi LinkedIn muestra interés activo en tech</b> → Sigo referentes del área, interactúo con contenido y de vez en cuando publico algo. No sólo tengo el perfil — lo uso.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Busqué mi nombre en Google — y lo que aparece no me perjudica</b> → Los reclutadores buscan antes de llamar. Me aseguré de que lo que encuentren me represente bien.</span></label>
+      </div>
+    </section>
+
+    <section class="section-card fade-up" style="animation-delay: 0.4s;" data-section="4">
+      <div class="section-header">
+        <div class="circle-num c-purple">4</div>
+        <div class="section-titles">
+          <h2>Tu red y comunidad</h2>
+          <p class="section-subtitle">El networking es saber quiénes ya están donde tú quieres ir.</p>
+        </div>
+        <div class="section-score" id="score-4">0 / 5</div>
+      </div>
+      <div class="items">
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Conozco a al menos una persona que trabaja en el área a la que quiero entrar</b> → No tiene que ser mi mejor amiga. Solo alguien a quien pueda escribirle para pedirle 20 minutos de su tiempo y una perspectiva real del sector.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Pertenezco a alguna comunidad de mujeres en tech</b> → Laboratoria, Technolatinas, Women Who Code, Girls in Tech, grupos en Slack, Discord o LinkedIn. <span class="note">Si aún no pertenezco a ninguna, busco "mujeres en tech México" esta semana y me uno a algo.</span></span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>He asistido a algún evento, meetup o webinar del sector en los últimos 6 meses</b> → Presencial, virtual o grabado — el punto es que me mantengo en circulación y en contacto con la comunidad.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Sé pedir ayuda — y lo hago</b> → Pido revisión de mi CV, pido que me presenten a alguien, pido feedback de mi portafolio. Pedir no es carga — es parte del proceso de crecer.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Alguien de mi red sabe que estoy buscando trabajo en tech</b> → Mi círculo no puede ayudarme si no sabe qué necesito. Ya lo hice visible — porque la visibilidad también es una habilidad.</span></label>
+      </div>
+    </section>
+
+    <section class="section-card fade-up" style="animation-delay: 0.5s;" data-section="5">
+      <div class="section-header">
+        <div class="circle-num c-green">5</div>
+        <div class="section-titles">
+          <h2>Mentalidad y estrategia de búsqueda</h2>
+          <p class="section-subtitle">La actitud no lo es todo — pero sin ella, lo demás no despega.</p>
+        </div>
+        <div class="section-score" id="score-5">0 / 5</div>
+      </div>
+      <div class="items">
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Entiendo que no cumpliré el 100% de los requisitos — y aplicaré igual</b> → Si cumplo el 60-70%, aplico. Los requisitos son listas de deseos, no filtros absolutos.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Tengo una carta de presentación que no empieza con "Me dirijo a usted"</b> → Mi carta habla de por qué esa empresa específica me interesa, no sólo de mí. Está escrita para la vacante, no copiada de una plantilla genérica.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Estoy preparada para el rechazo — y sé que no es personal</b> → Los procesos de selección son imperfectos y un "no" no define mi valor. Ya lo sé — y no voy a dejar que me paralice.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>He investigado la empresa antes de aplicar, no sólo el puesto</b> → Reviso su cultura, su producto, noticias recientes y cómo se ven sus colaboradoras en LinkedIn. Aplicar informada es aplicar con ventaja.</span></label>
+        <label class="check-item"><input type="checkbox" class="check-input" value="1"><span class="custom-box"></span><span class="item-text"><b>Tengo claro qué necesito aprender y ya tengo un plan, aunque sea básico</b> → No "voy a aprender más" — sino "voy a terminar X curso en Y semanas para cubrir Z habilidad". Tengo algo escrito, no sólo una intención.</span></label>
+      </div>
+    </section>
+
+  </main>
+
+  <section id="gate" class="gate-section fade-up" style="animation-delay: 0.6s;">
+    <div class="gate-icon">✦</div>
+    <h3 class="title-font">Ver mi diagnóstico</h3>
+    <p>Deja tu correo para desbloquear tu resultado + recursos gratis para tu siguiente paso en tech.</p>
+    <form id="email-form">
+      <div class="form-group">
+        <input type="email" id="email-input" placeholder="tu@correo.com" required>
+        <button type="submit" id="submit-btn">Descubrir mi nivel</button>
+      </div>
+      <p class="spam-note">Sin spam. Solo contenido que vale la pena.</p>
+    </form>
+  </section>
+
+  <section id="result" class="result-section hidden fade-up">
+    <div class="score-display" id="res-score">0 / 25</div>
+    <div class="level-name title-font" id="res-level">Nivel</div>
+    <p class="level-desc" id="res-desc">Descripción...</p>
+
+    <div class="honest-close">
+      Este checklist mide preparación visible y estratégica. No mide tu inteligencia, tu capacidad de aprendizaje, tu resiliencia ni todas las cosas que traes contigo que ninguna vacante sabe preguntar bien. Las mujeres en tech hemos tenido que demostrar más para que nos crean lo mismo. Eso es una falla del sistema, no tuya. Lo que sí puedes controlar: prepararte bien, aplicar de forma inteligente, construir tu red y no rendirte después del primer rechazo.
+    </div>
+
+    <div class="resources-grid">
+      <div class="resource-card">
+        <h4>Para aprender</h4>
+        <p>Google Career Certificates, Platzi, LinkedIn Learning, CS50 Harvard (edX)</p>
+      </div>
+      <div class="resource-card">
+        <h4>Comunidades</h4>
+        <p>Laboratoria, Technolatinas, Women Who Code, Girls in Tech México</p>
+      </div>
+      <div class="resource-card">
+        <h4>Para buscar trabajo</h4>
+        <p>LinkedIn Jobs, Glassdoor, Tecla.io, Getontop.io</p>
+      </div>
+      <div class="resource-card">
+        <h4>Para tu portafolio</h4>
+        <p>GitHub, Behance / Dribbble, Notion, Medium o Substack</p>
+      </div>
+    </div>
+
+    <div class="final-signature">
+      Hecho con honestidad para las mujeres que se preguntan si son suficientes. Sí lo eres. Aplica. <br><span style="font-size: 0.9rem; font-weight: normal; color: var(--text-sec);">@nancynsalazar</span>
+    </div>
+  </section>
+
+  <div class="global-progress-bar">
+    <div class="progress-header">
+      <span>Tu progreso</span>
+      <span id="global-score-text">0 / 25</span>
+    </div>
+    <div class="track">
+      <div class="fill" id="global-fill"></div>
+    </div>
+  </div>
+
+  <script>
+    // ==============================
+    // LÓGICA Y ESTADO
+    // ==============================
+    const checkboxes = document.querySelectorAll('.check-input');
+    const globalScoreText = document.getElementById('global-score-text');
+    const globalFill = document.getElementById('global-fill');
+    
+    let totalScore = 0;
+    
+    // Niveles de resultado
+    const levels = [
+      {
+        min: 0, max: 9,
+        title: "Construyendo la base",
+        bg: "#110800",
+        accent: "#ff6b2b",
+        desc: "Estás al principio del camino y eso está perfectamente bien. Antes de aplicar, enfócate en completar una habilidad técnica concreta, actualizar tu LinkedIn y leer vacantes reales para entender qué pide el mercado. El momento de aplicar se acerca — pero hoy tu energía va mejor invertida en preparación."
+      },
+      {
+        min: 10, max: 15,
+        title: "En proceso, con brechas claras",
+        bg: "#0d0018",
+        accent: "#BF00FF",
+        desc: "Tienes base, pero hay huecos específicos que trabajar. Revisa qué secciones tuvieron menos puntos y prioriza esos. Puedes empezar a explorar vacantes y hacer contactos mientras avanzas. No apliques a ciegas — aplica con estrategia a posiciones de entrada o de transición."
+      },
+      {
+        min: 16, max: 20,
+        title: "Lista para aplicar con estrategia",
+        bg: "#001408",
+        accent: "#2CFF05",
+        desc: "Estás bien posicionada. Tienes habilidades, presencia y algo de red. Ahora es cuestión de afinar tu búsqueda, personalizar tus aplicaciones y ser constante. No esperes la vacante perfecta — aplica a las que encajen en un 60-70% y aprende del proceso."
+      },
+      {
+        min: 21, max: 25,
+        title: "¿Qué estás esperando?",
+        bg: "#000d1a",
+        accent: "#2CFF05",
+        desc: "Tienes claridad, habilidades, presencia y red. El único obstáculo en este punto probablemente eres tú misma. Abre LinkedIn, elige 5 vacantes que te interesen, aplica esta semana. El momento perfecto no llega — se crea aplicando."
+      }
+    ];
+
+    function updateScores() {
+      totalScore = 0;
+      const sectionScores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          totalScore++;
+          const sectionNum = cb.closest('.section-card').dataset.section;
+          sectionScores[sectionNum]++;
+        }
+      });
+
+      // Actualizar UI de Secciones
+      for (let i = 1; i <= 5; i++) {
+        const card = document.querySelector(`.section-card[data-section="${i}"]`);
+        const scoreText = document.getElementById(`score-${i}`);
+        
+        scoreText.textContent = `${sectionScores[i]} / 5`;
+        
+        if (sectionScores[i] > 0) {
+          card.classList.add('active-border');
+        } else {
+          card.classList.remove('active-border');
+        }
+
+        if (sectionScores[i] === 5) {
+          scoreText.classList.add('completed');
+        } else {
+          scoreText.classList.remove('completed');
+        }
+      }
+
+      // Actualizar Barra Global
+      globalScoreText.textContent = `${totalScore} / 25`;
+      const percentage = (totalScore / 25) * 100;
+      globalFill.style.width = `${percentage}%`;
+
+      if (totalScore > 0) {
+        globalFill.classList.add('active-glow');
+        globalScoreText.style.color = 'var(--neon-green)';
+        globalScoreText.style.textShadow = '0 0 10px rgba(44, 255, 5, 0.5)';
+      } else {
+        globalFill.classList.remove('active-glow');
+        globalScoreText.style.color = 'inherit';
+        globalScoreText.style.textShadow = 'none';
+      }
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', updateScores));
+
+    // ==============================
+    // ENVÍO DE FORMULARIO & RESULTADO
+    // ==============================
+    const form = document.getElementById('email-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const gateSection = document.getElementById('gate');
+    const resultSection = document.getElementById('result');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email-input').value;
+      
+      // Validación básica
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) return;
+
+      // Determinar Nivel
+      const currentLevel = levels.find(l => totalScore >= l.min && totalScore <= l.max);
+
+      // Estado del Botón
+      submitBtn.textContent = "Guardando...";
+      submitBtn.disabled = true;
+
+      // API POST
+      const url = "https://script.google.com/macros/s/AKfycbw7rdbTBxlvgnkf6rizTKtjIexJZAvWzXwSt5iqZ9Hhz2HyOOpDfK1ouZDmkjQV4n8Zng/exec";
+      
+      const payload = {
+        email: email,
+        puntaje: totalScore,
+        nivel: currentLevel.title
+      };
+
+      fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .finally(() => {
+        // Mostrar Resultado SIEMPRE
+        mostrarResultado(currentLevel);
+      });
+    });
+
+    function mostrarResultado(levelData) {
+      // Poblar datos
+      document.getElementById('res-score').textContent = `${totalScore} / 25`;
+      document.getElementById('res-score').style.color = levelData.accent;
+      
+      document.getElementById('res-level').textContent = levelData.title;
+      document.getElementById('res-level').style.color = levelData.accent;
+      
+      document.getElementById('res-desc').textContent = levelData.desc;
+
+      // Estilos del contenedor resultado
+      resultSection.style.backgroundColor = levelData.bg;
+      resultSection.style.borderColor = levelData.accent;
+
+      // Ocultar Gate, Mostrar Resultado
+      gateSection.classList.add('hidden');
+      resultSection.classList.remove('hidden');
+
+      // Scroll suave hacia el resultado
+      setTimeout(() => {
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  </script>
+</body>
+</html>
