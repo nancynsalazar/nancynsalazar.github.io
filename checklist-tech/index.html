@@ -491,6 +491,39 @@
       h1 { font-size: 2rem; }
       .result-section { padding: 30px 20px; }
     }
+
+    /* Instrucciones */
+.instructions {
+  margin: 30px auto 0;
+  max-width: 600px;
+  padding: 16px 24px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--neon-green);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  text-align: left;
+  color: #ccc;
+}
+
+/* Privacy Link */
+.privacy-text { display: block; margin-top: 8px; font-size: 0.8rem; color: #888; }
+.privacy-text a { color: var(--neon-purple); text-decoration: underline; cursor: pointer; }
+
+/* Modal Styles */
+.modal {
+  position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center;
+}
+.modal-content {
+  background-color: var(--bg-surface-2); padding: 30px; border-radius: 12px;
+  max-width: 500px; border: 1px solid #333; position: relative; margin: 20px;
+}
+.close-modal {
+  position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: var(--text-sec);
+}
+.modal-content h3 { margin-bottom: 15px; color: var(--neon-green); }
+.modal-content p, .modal-content li { font-size: 0.9rem; color: #aaa; margin-bottom: 10px; }
+.modal-content ul { padding-left: 20px; }
   </style>
 </head>
 <body>
@@ -502,6 +535,9 @@
     </div>
     <h1>¿Estoy lista para aplicar a ese trabajo <span class="tech-italic">tech</span>?</h1>
     <p class="hero-desc">Descubre en qué punto estás y qué necesitas para dar tu siguiente paso estratégico en tecnología.</p>
+    <div class="instructions fade-up" style="animation-delay: 0.1s;">
+  <p><strong>Cómo funciona:</strong> Lee cada punto y marca sólo aquellos con los que cumples <em>actualmente</em>. Al finalizar las 5 secciones, desbloquea tu diagnóstico. Te tomará menos de 3 minutos.</p>
+</div>
   </header>
 
   <main class="checklist-container" id="checklist-container">
@@ -607,7 +643,13 @@
         <input type="email" id="email-input" placeholder="tu@correo.com" required>
         <button type="submit" id="submit-btn">Descubrir mi nivel</button>
       </div>
-      <p class="spam-note">Sin spam. Solo contenido que vale la pena.</p>
+      <p class="spam-note">
+  Sin spam. Sólo contenido que vale la pena.<br>
+  <span class="privacy-text">
+    Tus datos están seguros. Consulta nuestro 
+    <a href="javascript:void(0)" onclick="openPrivacy()">Aviso de Privacidad</a>.
+  </span>
+</p>
     </form>
   </section>
 
@@ -816,6 +858,32 @@
         resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
     }
+
+    function openPrivacy() {
+  document.getElementById('privacy-modal').classList.remove('hidden');
+}
+
+function closePrivacy() {
+  document.getElementById('privacy-modal').classList.add('hidden');
+}
+
+// Cerrar modal si hacen clic fuera de la caja
+window.onclick = function(event) {
+  const modal = document.getElementById('privacy-modal');
+  if (event.target == modal) { closePrivacy(); }
+}
   </script>
+
+  <div id="privacy-modal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closePrivacy()">&times;</span>
+    <h3 class="title-font">Aviso de Privacidad Simplificado</h3>
+    <p>Nancy Salazar utilizará tu correo electrónico exclusivamente para:</p>
+    <ul>
+      <li>Compartir recursos gratuitos, herramientas y artículos sobre tecnología y carrera profesional.</li>
+    </ul>
+    <p>No compartimos tu información con terceros. En cualquier momento puedes darte de baja desde los correos que recibas.</p>
+  </div>
+</div>
 </body>
 </html>
