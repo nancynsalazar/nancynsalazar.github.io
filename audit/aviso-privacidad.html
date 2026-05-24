@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aviso de Privacidad — Audit de Carrera Tech · @nancynsalazar</title>
+<meta name="description" content="Aviso de Privacidad del Audit de Carrera Tech a 5 años por Nancy Salazar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-elev: #fafafa;
+  --bg-elev-2: #f4f4f4;
+  --ink: #0a0a0a;
+  --ink-muted: #6b6b6b;
+  --ink-dim: #a3a3a3;
+  --line: #e8e8e8;
+  --neon-green: #2CFF05;
+  --neon-magenta: #FF00FF;
+  --neon-yellow: #FFFF00;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 60px 40px 120px;
+}
+
+/* === HEADER === */
+.brand-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 60px;
+}
+
+.brand-mark {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand-mark em {
+  color: var(--neon-magenta);
+  font-style: italic;
+}
+
+.brand-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* === DOCUMENT === */
+.doc-label {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-green);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 8px 14px;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 32px;
+  max-width: 700px;
+}
+
+h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--neon-magenta);
+}
+
+.doc-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.doc-meta strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.doc-intro {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.55;
+  margin-bottom: 56px;
+  max-width: 720px;
+  color: var(--ink);
+}
+
+h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  margin-top: 56px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+h2 .section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-magenta);
+  padding: 4px 10px;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  align-self: center;
+}
+
+h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+p {
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+
+ul, ol {
+  margin-bottom: 20px;
+  padding-left: 24px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+ul li::marker {
+  color: var(--neon-magenta);
+}
+
+strong {
+  font-weight: 600;
+}
+
+a {
+  color: var(--ink);
+  border-bottom: 2px solid var(--neon-green);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+a:hover {
+  background: var(--neon-green);
+}
+
+.callout {
+  background: var(--bg-elev);
+  border: 2px solid var(--ink);
+  border-left: 6px solid var(--neon-green);
+  padding: 24px 28px;
+  margin: 32px 0;
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.callout strong {
+  font-weight: 600;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  background: var(--neon-green);
+  display: inline-block;
+  padding: 3px 8px;
+  margin-bottom: 12px;
+}
+
+.data-table {
+  margin: 24px 0;
+  border: 2px solid var(--ink);
+}
+
+.data-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  border-bottom: 1px solid var(--line);
+}
+
+.data-row:last-child { border-bottom: none; }
+
+.data-row .label {
+  background: var(--bg-elev);
+  padding: 16px 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  border-right: 1px solid var(--line);
+  font-weight: 600;
+}
+
+.data-row .value {
+  padding: 16px 20px;
+}
+
+@media (max-width: 600px) {
+  .data-row {
+    grid-template-columns: 1fr;
+  }
+  .data-row .label {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+/* Footer / back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 72px;
+  padding: 16px 28px;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.back-link:hover {
+  background: var(--neon-green);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+.footer {
+  margin-top: 80px;
+  padding-top: 32px;
+  border-top: 2px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer a {
+  border-bottom: none;
+}
+
+.footer a:hover {
+  background: transparent;
+  color: var(--neon-magenta);
+}
+
+@media (max-width: 600px) {
+  .container { padding: 32px 20px 80px; }
+  h2 { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="brand-header">
+    <a href="/audit/" class="brand-mark">@nancyn<em>salazar</em></a>
+    <div class="brand-tag">Documento legal</div>
+  </header>
+
+  <div class="doc-label">Aviso de Privacidad Integral</div>
+
+  <h1>Cómo cuidamos <em>tus datos</em>.</h1>
+
+  <div class="doc-meta">
+    <strong>Última actualización:</strong> 24 de mayo de 2026 &nbsp; · &nbsp; <strong>Versión:</strong> 1.0
+  </div>
+
+  <p class="doc-intro">
+    En cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), su Reglamento y los Lineamientos del Aviso de Privacidad, te informamos cómo tratamos los datos personales que nos proporcionas al usar el Audit de Carrera Tech.
+  </p>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">01</span> Identidad del responsable</h2>
+
+  <p>El responsable del tratamiento de tus datos personales es:</p>
+
+  <div class="data-table">
+    <div class="data-row">
+      <div class="label">Responsable</div>
+      <div class="value"><strong>Nancy Salazar</strong> (persona física con actividad empresarial)</div>
+    </div>
+    <div class="data-row">
+      <div class="label">Domicilio</div>
+      <div class="value">León, Guanajuato, México</div>
+    </div>
+    <div class="data-row">
+      <div class="label">Correo de contacto</div>
+      <div class="value"><a href="mailto:hola@nancynsalazar.tech">hola@nancynsalazar.tech</a></div>
+    </div>
+    <div class="data-row">
+      <div class="label">Sitio web</div>
+      <div class="value"><a href="https://nancynsalazar.tech">nancynsalazar.tech</a></div>
+    </div>
+  </div>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">02</span> Datos personales que recopilamos</h2>
+
+  <p>Para brindarte el servicio del Audit de Carrera Tech, recopilamos los siguientes datos:</p>
+
+  <h3>Datos de identificación y contacto</h3>
+  <ul>
+    <li>Nombre completo</li>
+    <li>Correo electrónico</li>
+  </ul>
+
+  <h3>Datos profesionales que ingresas en el formulario del audit</h3>
+  <ul>
+    <li>Puesto actual y empresa</li>
+    <li>Años de experiencia y nivel de seniority</li>
+    <li>Habilidades técnicas y herramientas que dominas</li>
+    <li>Capacitación actual y logros profesionales</li>
+    <li>Inquietudes y aspiraciones profesionales</li>
+    <li>Respuestas a las preguntas de reflexión estratégica</li>
+  </ul>
+
+  <h3>Datos de la transacción</h3>
+  <ul>
+    <li>Datos de pago (procesados directamente por Stripe; nosotros no almacenamos tu número de tarjeta)</li>
+    <li>Información fiscal sólo si solicitas factura (RFC, razón social, dirección fiscal, uso de CFDI)</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Importante</strong>
+    No recopilamos datos personales sensibles (estado de salud, origen étnico, creencias religiosas, preferencia sexual, afiliación sindical o ideología política).
+  </div>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">03</span> Finalidades del tratamiento</h2>
+
+  <p>Tus datos serán utilizados para las siguientes finalidades:</p>
+
+  <h3>Finalidades primarias (necesarias para el servicio)</h3>
+  <ol>
+    <li>Procesar tu pago y confirmar la compra del audit</li>
+    <li>Generar tu reporte personalizado del Audit de Carrera Tech</li>
+    <li>Enviar el reporte y materiales asociados a tu correo electrónico</li>
+    <li>Emitir factura fiscal cuando la solicites</li>
+    <li>Atender solicitudes, dudas o reclamaciones relacionadas con el servicio</li>
+    <li>Cumplir con obligaciones legales y fiscales aplicables</li>
+  </ol>
+
+  <h3>Finalidades secundarias (opcionales)</h3>
+  <ol>
+    <li>Enviarte comunicaciones sobre nuevos productos, actualizaciones o contenido relevante</li>
+    <li>Realizar estadísticas anónimas y agregadas para mejorar el servicio</li>
+  </ol>
+
+  <p>Si no deseas que tus datos sean tratados para las finalidades secundarias, puedes manifestar tu negativa enviando un correo a <a href="mailto:hola@nancynsalazar.tech">hola@nancynsalazar.tech</a> en cualquier momento.</p>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">04</span> Transferencias de datos</h2>
+
+  <p>Para operar el servicio, tus datos pueden ser compartidos con los siguientes terceros, todos sujetos a sus propias políticas de privacidad:</p>
+
+  <div class="data-table">
+    <div class="data-row">
+      <div class="label">Anthropic (USA)</div>
+      <div class="value">
+        Las respuestas que ingresas en el formulario son procesadas por la API de Claude para generar tu reporte personalizado. <strong>Anthropic no entrena modelos con estos datos.</strong> <a href="https://www.anthropic.com/legal/privacy" target="_blank">Política de Anthropic</a>
+      </div>
+    </div>
+    <div class="data-row">
+      <div class="label">Stripe Inc. (USA / MX)</div>
+      <div class="value">
+        Procesador del pago. Maneja directamente tus datos de tarjeta bajo estándares PCI-DSS Nivel 1. <a href="https://stripe.com/mx/privacy" target="_blank">Política de Stripe</a>
+      </div>
+    </div>
+    <div class="data-row">
+      <div class="label">Vercel Inc. (USA)</div>
+      <div class="value">
+        Hosting del sitio web y procesamiento de las solicitudes técnicas. <a href="https://vercel.com/legal/privacy-policy" target="_blank">Política de Vercel</a>
+      </div>
+    </div>
+    <div class="data-row">
+      <div class="label">Google LLC (USA)</div>
+      <div class="value">
+        Almacenamiento de los datos de las compradoras en Google Sheets para gestión interna. <a href="https://policies.google.com/privacy" target="_blank">Política de Google</a>
+      </div>
+    </div>
+  </div>
+
+  <p>Estas transferencias son <strong>necesarias para la prestación del servicio</strong> y no requieren tu consentimiento expreso conforme al Artículo 37 de la LFPDPPP. Ningún tercero está autorizado a utilizar tus datos para fines distintos a los descritos.</p>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">05</span> Tus derechos ARCO</h2>
+
+  <p>Tienes derecho a conocer qué datos personales tenemos de ti, para qué los utilizamos y las condiciones del uso que les damos (<strong>Acceso</strong>). Asimismo, es tu derecho solicitar la corrección de tu información personal en caso de que esté desactualizada, sea inexacta o incompleta (<strong>Rectificación</strong>); que la eliminemos de nuestros registros cuando consideres que no está siendo utilizada conforme a los principios, deberes y obligaciones previstas en la normativa (<strong>Cancelación</strong>); así como oponerte al uso de tus datos personales para fines específicos (<strong>Oposición</strong>).</p>
+
+  <h3>¿Cómo ejercer tus derechos ARCO?</h3>
+
+  <p>Envía una solicitud al correo <a href="mailto:hola@nancynsalazar.tech">hola@nancynsalazar.tech</a> con la siguiente información:</p>
+
+  <ol>
+    <li>Tu nombre completo y correo con el que adquiriste el servicio</li>
+    <li>Documento que acredite tu identidad (INE, pasaporte o equivalente)</li>
+    <li>Descripción clara y precisa de los datos sobre los que ejerces el derecho y qué derecho específico deseas ejercer</li>
+    <li>Cualquier otro elemento que facilite la localización de tus datos</li>
+  </ol>
+
+  <p>Te responderemos en un plazo máximo de <strong>20 días hábiles</strong> contados desde la recepción de la solicitud. La respuesta se enviará al correo desde el cual hiciste la solicitud.</p>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">06</span> Revocación del consentimiento</h2>
+
+  <p>Puedes revocar tu consentimiento para el tratamiento de tus datos personales en cualquier momento enviando un correo a <a href="mailto:hola@nancynsalazar.tech">hola@nancynsalazar.tech</a>. Sin embargo, considera que en algunos casos no podremos atender tu solicitud de inmediato o concluir el uso por obligaciones legales (por ejemplo, conservar registros fiscales por 5 años conforme al Código Fiscal de la Federación).</p>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">07</span> Conservación de los datos</h2>
+
+  <p>Tus datos personales serán conservados durante los siguientes plazos:</p>
+
+  <ul>
+    <li><strong>Datos del audit (formulario y respuestas):</strong> 12 meses contados desde la compra, después de los cuales se eliminan automáticamente.</li>
+    <li><strong>Datos de contacto y facturación:</strong> mínimo 5 años conforme a obligaciones fiscales mexicanas.</li>
+    <li><strong>Datos de marketing (si diste consentimiento):</strong> hasta que solicites darte de baja.</li>
+  </ul>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">08</span> Cookies y tecnologías de rastreo</h2>
+
+  <p>Actualmente, el sitio del Audit de Carrera Tech <strong>no utiliza cookies de rastreo ni herramientas de analítica de terceros</strong> (no usamos Google Analytics, Facebook Pixel ni similares). Si en el futuro implementáramos estas tecnologías, actualizaríamos este Aviso de Privacidad y te lo comunicaríamos.</p>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">09</span> Medidas de seguridad</h2>
+
+  <p>Implementamos medidas administrativas, técnicas y físicas razonables para proteger tus datos personales contra daño, pérdida, alteración, destrucción, uso, acceso o tratamiento no autorizado, entre las que se incluyen:</p>
+
+  <ul>
+    <li>Conexiones cifradas (HTTPS/TLS) en todas las transacciones</li>
+    <li>Almacenamiento de claves de API y credenciales en variables de entorno seguras</li>
+    <li>Acceso limitado a los datos solo a las personas autorizadas</li>
+    <li>Procesamiento de pagos a través de Stripe (certificación PCI-DSS Nivel 1)</li>
+  </ul>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">10</span> Cambios al Aviso de Privacidad</h2>
+
+  <p>Nos reservamos el derecho de modificar o actualizar este Aviso de Privacidad en cualquier momento para reflejar cambios en nuestras prácticas de tratamiento de datos o requerimientos legales. Cualquier modificación será publicada en esta misma página, indicando la fecha de la última actualización.</p>
+
+  <p>Si los cambios son sustanciales, te notificaremos por correo electrónico con al menos <strong>15 días naturales de anticipación</strong>.</p>
+
+  <!-- ═════════════════════════════════════════════════════════════ -->
+  <h2><span class="section-num">11</span> Autoridad competente</h2>
+
+  <p>Si consideras que tu derecho a la protección de datos personales ha sido lesionado, tienes derecho a acudir al <strong>Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI)</strong>, ubicado en Av. Insurgentes Sur 3211, Col. Insurgentes Cuicuilco, Coyoacán, C.P. 04530, Ciudad de México. Más información en <a href="https://home.inai.org.mx" target="_blank">home.inai.org.mx</a>.</p>
+
+  <div class="callout">
+    <strong>¿Tienes dudas?</strong>
+    Si algo de este Aviso de Privacidad no te queda claro, escríbeme directamente a <a href="mailto:hola@nancynsalazar.tech">hola@nancynsalazar.tech</a> y te respondo personalmente. Tu privacidad importa.
+  </div>
+
+  <a href="/audit/" class="back-link">← Volver al Audit</a>
+
+  <footer class="footer">
+    <div>© 2026 Nancy Salazar · León, México</div>
+    <div>
+      <a href="/audit/terminos">Términos y Condiciones</a>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
