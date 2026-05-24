@@ -1364,7 +1364,7 @@ textarea {
 <div class="screen active" id="screen-landing">
   <header class="brand-header">
     <div class="brand-mark">@nancyn<em>salazar</em></div>
-    <div class="brand-tag">Strategic Career Tools</div>
+    <div class="brand-tag">Strategic Career Tools — v1.0</div>
   </header>
 
   <div class="hero">
@@ -1414,8 +1414,8 @@ textarea {
   <footer class="footer">
     <div>© 2026 @nancynsalazar · Hecho en León, México</div>
     <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-      <a href="/audit/aviso-privacidad.html" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Aviso de Privacidad</a>
-      <a href="/audit/terminos.html" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Términos</a>
+      <a href="/audit/aviso-privacidad" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Aviso de Privacidad</a>
+      <a href="/audit/terminos" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Términos</a>
       <span>Strategic Career Tools</span>
     </div>
   </footer>
@@ -1442,11 +1442,11 @@ textarea {
         <span class="value">$349 MXN</span>
       </div>
       <div class="gate-preview-stat">
-        <span class="label">Reporte PDF + sesión de reflexión</span>
+        <span class="label">Reporte completo + sesión de reflexión</span>
         <span class="value">Incluido</span>
       </div>
       <div class="gate-preview-stat">
-        <span class="label">Actualizaciones de mercado x 12 meses</span>
+        <span class="label">Satisfacción garantizada · 7 días</span>
         <span class="value">Incluido</span>
       </div>
     </div>
@@ -1458,7 +1458,7 @@ textarea {
       <label style="display: flex; align-items: flex-start; gap: 12px; text-align: left; font-size: 13px; color: var(--ink-muted); line-height: 1.5; cursor: pointer; padding: 12px; border: 1px solid var(--line); background: var(--bg-elev);">
         <input type="checkbox" id="acceptTerms" style="margin-top: 3px; width: 18px; height: 18px; accent-color: var(--neon-magenta); flex-shrink: 0;">
         <span>
-          He leído y acepto los <a href="/audit/terminos.html" target="_blank" style="color: var(--ink); border-bottom: 1px solid var(--neon-magenta); text-decoration: none;">Términos y Condiciones</a> y el <a href="/audit/aviso-privacidad.html" target="_blank" style="color: var(--ink); border-bottom: 1px solid var(--neon-green); text-decoration: none;">Aviso de Privacidad</a>.
+          He leído y acepto los <a href="/audit/terminos" target="_blank" style="color: var(--ink); border-bottom: 1px solid var(--neon-magenta); text-decoration: none;">Términos y Condiciones</a> y el <a href="/audit/aviso-privacidad" target="_blank" style="color: var(--ink); border-bottom: 1px solid var(--neon-green); text-decoration: none;">Aviso de Privacidad</a>.
         </span>
       </label>
 
@@ -1679,6 +1679,23 @@ textarea {
   <div class="nav-buttons">
     <button class="btn btn-secondary" onclick="goToScreen('screen-landing')">← Volver</button>
     <button class="btn btn-primary btn-arrow" onclick="submitAudit()">Generar mi audit</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SCREEN: VERIFICANDO PAGO DE STRIPE -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-verifying">
+  <header class="brand-header">
+    <div class="brand-mark">@nancyn<em>salazar</em></div>
+    <div class="brand-tag">Confirmando tu compra</div>
+  </header>
+
+  <div class="loading-screen">
+    <div class="loading-percent"><span>✓</span></div>
+    <div class="loading-progress-track"><div class="loading-progress-bar" style="width: 80%;"></div></div>
+    <div class="loading-message">Verificando tu pago con Stripe...</div>
+    <div class="loading-sub">Esto toma unos segundos</div>
   </div>
 </div>
 
@@ -2064,10 +2081,11 @@ function startAudit() {
   goToScreen('screen-payment');
 }
 
-function processPurchase() {
+async function processPurchase() {
   const email = document.getElementById('userEmail').value;
   const name = document.getElementById('userName').value;
   const accepted = document.getElementById('acceptTerms').checked;
+  const payBtn = document.querySelector('#screen-payment .btn-primary');
 
   if (!email || !email.includes('@')) {
     alert('Por favor ingresa un correo válido.');
@@ -2078,10 +2096,119 @@ function processPurchase() {
     return;
   }
 
+  // Guardar localmente por si algo falla
   state.formData.email = email;
   state.formData.purchaseName = name;
-  goToScreen('screen-form');
-  if (name) document.getElementById('f_name').value = name;
+
+  // Disable botón mientras crea la sesión
+  const originalText = payBtn.innerHTML;
+  payBtn.disabled = true;
+  payBtn.style.opacity = '0.6';
+  payBtn.style.cursor = 'wait';
+  payBtn.innerHTML = 'Redirigiendo a Stripe...';
+
+  try {
+    const response = await fetch('/api/stripe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'create-checkout',
+        payload: {
+          email: email,
+          name: name,
+          origin: window.location.origin
+        }
+      })
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error || 'Error al crear sesión de pago');
+
+    // Redirigir a Stripe Checkout
+    window.location.href = data.data.url;
+  } catch (err) {
+    console.error('Error creando checkout:', err);
+    payBtn.disabled = false;
+    payBtn.style.opacity = '1';
+    payBtn.style.cursor = 'pointer';
+    payBtn.innerHTML = originalText;
+    alert('Hubo un error al iniciar el pago. Por favor intenta de nuevo o escríbenos a hola@nancynsalazar.tech');
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+// VERIFICACIÓN DE RETORNO DE STRIPE
+// Detecta si la URL tiene ?session_id=xxx (regreso de pago exitoso)
+// o ?cancelled=true (regreso de pago cancelado)
+// ════════════════════════════════════════════════════════════════
+async function checkStripeReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  const cancelled = params.get('cancelled');
+
+  if (cancelled) {
+    // Limpiar la URL y mostrar mensaje
+    history.replaceState({}, '', window.location.pathname);
+    setTimeout(() => {
+      alert('Pago cancelado. Cuando estés lista, puedes intentar de nuevo.');
+    }, 300);
+    return;
+  }
+
+  if (!sessionId) return;
+
+  // Mostrar pantalla de verificación mientras consultamos a Stripe
+  goToScreen('screen-verifying');
+
+  try {
+    const response = await fetch('/api/stripe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'verify-session',
+        payload: { sessionId: sessionId }
+      })
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error || 'No se pudo verificar el pago');
+
+    if (data.data.paid) {
+      // Pago confirmado: limpiar URL y desbloquear el flujo
+      history.replaceState({}, '', window.location.pathname);
+
+      // Prellenar email y nombre
+      state.formData.email = data.data.email || '';
+      state.formData.purchaseName = data.data.name || '';
+      state.formData.paid = true;
+      state.formData.sessionId = sessionId;
+
+      // Saltar directo al formulario
+      goToScreen('screen-form');
+      if (data.data.name) {
+        const nameField = document.getElementById('f_name');
+        if (nameField) nameField.value = data.data.name;
+      }
+    } else {
+      throw new Error('El pago aún no está confirmado. Intenta de nuevo en unos segundos.');
+    }
+  } catch (err) {
+    console.error('Error verificando sesión:', err);
+    history.replaceState({}, '', window.location.pathname);
+    goToScreen('screen-landing');
+    setTimeout(() => {
+      alert('No pudimos confirmar tu pago automáticamente. Si ya pagaste, escríbenos a hola@nancynsalazar.tech con tu correo y te damos acceso manualmente.');
+    }, 500);
+  }
+}
+
+// Ejecutar al cargar la página
+window.addEventListener('DOMContentLoaded', checkStripeReturn);
+// Fallback si DOMContentLoaded ya pasó
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  setTimeout(checkStripeReturn, 100);
 }
 
 // ════════════════════════════════════════════════════════════════
