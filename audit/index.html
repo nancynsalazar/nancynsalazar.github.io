@@ -1413,7 +1413,11 @@ textarea {
 
   <footer class="footer">
     <div>© 2026 @nancynsalazar · Hecho en León, México</div>
-    <div>Strategic Career Tools</div>
+    <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+      <a href="/audit/aviso-privacidad" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Aviso de Privacidad</a>
+      <a href="/audit/terminos" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Términos</a>
+      <span>Strategic Career Tools</span>
+    </div>
   </footer>
 </div>
 
@@ -1450,10 +1454,18 @@ textarea {
     <div class="gate-form">
       <input type="email" id="userEmail" placeholder="tu@correo.com" required>
       <input type="text" id="userName" placeholder="Tu nombre">
+
+      <label style="display: flex; align-items: flex-start; gap: 12px; text-align: left; font-size: 13px; color: var(--ink-muted); line-height: 1.5; cursor: pointer; padding: 12px; border: 1px solid var(--line); background: var(--bg-elev);">
+        <input type="checkbox" id="acceptTerms" style="margin-top: 3px; width: 18px; height: 18px; accent-color: var(--neon-magenta); flex-shrink: 0;">
+        <span>
+          He leído y acepto los <a href="/audit/terminos" target="_blank" style="color: var(--ink); border-bottom: 1px solid var(--neon-magenta); text-decoration: none;">Términos y Condiciones</a> y el <a href="/audit/aviso-privacidad" target="_blank" style="color: var(--ink); border-bottom: 1px solid var(--neon-green); text-decoration: none;">Aviso de Privacidad</a>.
+        </span>
+      </label>
+
       <button class="btn btn-primary btn-arrow" onclick="processPurchase()">Pagar $349 MXN y comenzar</button>
     </div>
 
-    <div class="gate-disclaimer">Pago seguro · Reembolso 7 días · Sin renovación automática</div>
+    <div class="gate-disclaimer">Pago seguro vía Stripe · Satisfacción garantizada 7 días · Sin renovación automática</div>
   </div>
 </div>
 
@@ -1818,7 +1830,11 @@ textarea {
 
   <footer class="footer">
     <div>Reporte generado por @nancynsalazar · Strategic Career Tools</div>
-    <div>v1.0 · Confidencial</div>
+    <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+      <a href="/audit/aviso-privacidad" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Privacidad</a>
+      <a href="/audit/terminos" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Términos</a>
+      <span>v1.0 · Confidencial</span>
+    </div>
   </footer>
 </div>
 
@@ -2051,10 +2067,17 @@ function startAudit() {
 function processPurchase() {
   const email = document.getElementById('userEmail').value;
   const name = document.getElementById('userName').value;
+  const accepted = document.getElementById('acceptTerms').checked;
+
   if (!email || !email.includes('@')) {
-    alert('Por favor ingresa un correo válido');
+    alert('Por favor ingresa un correo válido.');
     return;
   }
+  if (!accepted) {
+    alert('Para continuar, necesitas aceptar los Términos y Condiciones y el Aviso de Privacidad.');
+    return;
+  }
+
   state.formData.email = email;
   state.formData.purchaseName = name;
   goToScreen('screen-form');
