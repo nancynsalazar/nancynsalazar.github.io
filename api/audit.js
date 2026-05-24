@@ -106,7 +106,7 @@ FORMATO DE RESPUESTA:
       'content-type': 'application/json'
     },
     body: JSON.stringify({
-      model: 'claude-opus-4-7',
+      model: 'claude-sonnet-4-5',
       max_tokens: 3000,
       tools: [{
         type: 'web_search_20250305',
