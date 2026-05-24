@@ -2,6 +2,9 @@
   "functions": {
     "api/audit.js": {
       "maxDuration": 60
+    },
+    "api/stripe.js": {
+      "maxDuration": 15
     }
   }
 }
