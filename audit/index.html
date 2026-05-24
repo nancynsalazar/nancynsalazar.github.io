@@ -1364,7 +1364,7 @@ textarea {
 <div class="screen active" id="screen-landing">
   <header class="brand-header">
     <div class="brand-mark">@nancyn<em>salazar</em></div>
-    <div class="brand-tag">Strategic Career Tools</div>
+    <div class="brand-tag">Strategic Career Tools — v1.0</div>
   </header>
 
   <div class="hero">
@@ -1738,6 +1738,16 @@ textarea {
 <!-- SCREEN 5: REPORT -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <div class="screen" id="screen-report">
+
+  <!-- Banner sutil de confirmación de email -->
+  <div id="emailConfirmBanner" style="background: var(--neon-green); color: var(--ink); padding: 12px 20px; margin-bottom: 24px; border: 2px solid var(--ink); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+    <div style="display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">
+      <span style="font-size: 18px;">✓</span>
+      <span>Te enviamos un correo con el link a tu reporte para que lo guardes</span>
+    </div>
+    <button onclick="document.getElementById('emailConfirmBanner').style.display='none'" style="background: transparent; border: none; cursor: pointer; font-family: var(--mono); font-size: 11px; color: var(--ink); text-decoration: underline; padding: 0;">cerrar</button>
+  </div>
+
   <div class="report-cover">
     <div class="report-cover-label">Audit Estratégico · Carrera Tech</div>
     <h1>Reporte para <em id="r_name">[nombre]</em></h1>
@@ -2139,20 +2149,24 @@ async function processPurchase() {
 
 // ════════════════════════════════════════════════════════════════
 // LEAD CAPTURE: envía datos al backend que los guarda en Google Sheets
-// Es "fire and forget" — no bloquea el flujo si falla
+// Para "compra": fire-and-forget (no bloquea flujo)
+// Para "audit":  retorna el auditId generado por Apps Script
+// Para "email":  fire-and-forget
 // ════════════════════════════════════════════════════════════════
 function saveLead(type, payload) {
-  // Llamada asíncrona sin await — no queremos bloquear el flujo del usuario
-  fetch('/api/leads', {
+  return fetch('/api/leads', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ type: type, payload: payload })
   }).then(response => {
     if (!response.ok) {
       console.warn(`Lead capture failed (${type}): HTTP ${response.status}`);
+      return null;
     }
+    return response.json();
   }).catch(err => {
     console.warn(`Lead capture error (${type}):`, err);
+    return null;
   });
 }
 
@@ -2451,12 +2465,23 @@ async function generateReport() {
   const scores = calculateScores();
   state.scores = scores;
 
-  // Guardar el audit completo en el Sheet (silencioso, no bloquea)
+  // Guardar el audit en el Sheet — esperamos al auditId para mandar el email
+  // Esto sí se espera (no es fire-and-forget) pero es paralelo al resto del rendering
   saveLead('audit', {
     sessionId: state.formData.sessionId || '',
     formData: state.formData,
     skills: state.skills,
     scores: scores
+  }).then(result => {
+    if (result && result.success && result.auditId) {
+      state.auditId = result.auditId;
+      // Una vez tenemos el auditId, disparamos el email con el link al reporte
+      saveLead('email', {
+        email: state.formData.email,
+        name: state.formData.name,
+        auditId: result.auditId
+      });
+    }
   });
 
   // === Header
