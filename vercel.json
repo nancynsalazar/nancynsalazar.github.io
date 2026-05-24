@@ -5,6 +5,9 @@
     },
     "api/stripe.js": {
       "maxDuration": 15
+    },
+    "api/leads.js": {
+      "maxDuration": 15
     }
   }
 }
