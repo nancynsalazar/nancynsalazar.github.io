@@ -8,6 +8,9 @@
     },
     "api/leads.js": {
       "maxDuration": 15
+    },
+    "api/report.js": {
+      "maxDuration": 15
     }
   }
 }
