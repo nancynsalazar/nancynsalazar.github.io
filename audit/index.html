@@ -1364,7 +1364,7 @@ textarea {
 <div class="screen active" id="screen-landing">
   <header class="brand-header">
     <div class="brand-mark">@nancyn<em>salazar</em></div>
-    <div class="brand-tag">Strategic Career Tools</div>
+    <div class="brand-tag">Strategic Career Tools — v1.0</div>
   </header>
 
   <div class="hero">
@@ -2138,6 +2138,25 @@ async function processPurchase() {
 }
 
 // ════════════════════════════════════════════════════════════════
+// LEAD CAPTURE: envía datos al backend que los guarda en Google Sheets
+// Es "fire and forget" — no bloquea el flujo si falla
+// ════════════════════════════════════════════════════════════════
+function saveLead(type, payload) {
+  // Llamada asíncrona sin await — no queremos bloquear el flujo del usuario
+  fetch('/api/leads', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: type, payload: payload })
+  }).then(response => {
+    if (!response.ok) {
+      console.warn(`Lead capture failed (${type}): HTTP ${response.status}`);
+    }
+  }).catch(err => {
+    console.warn(`Lead capture error (${type}):`, err);
+  });
+}
+
+// ════════════════════════════════════════════════════════════════
 // VERIFICACIÓN DE RETORNO DE STRIPE
 // Detecta si la URL tiene ?session_id=xxx (regreso de pago exitoso)
 // o ?cancelled=true (regreso de pago cancelado)
@@ -2184,6 +2203,17 @@ async function checkStripeReturn() {
       state.formData.purchaseName = data.data.name || '';
       state.formData.paid = true;
       state.formData.sessionId = sessionId;
+
+      // Guardar la compra en el Sheet (silencioso, no bloquea el flujo)
+      saveLead('compra', {
+        sessionId: sessionId,
+        email: data.data.email || '',
+        name: data.data.name || '',
+        amountMxn: data.data.amountPaid ? Math.round(data.data.amountPaid / 100) : 349,
+        status: data.data.paymentStatus || 'paid',
+        mode: sessionId.startsWith('cs_test_') ? 'test' : 'live',
+        termsAccepted: true
+      });
 
       // Saltar directo al formulario
       goToScreen('screen-form');
@@ -2420,6 +2450,14 @@ function calculateScores() {
 async function generateReport() {
   const scores = calculateScores();
   state.scores = scores;
+
+  // Guardar el audit completo en el Sheet (silencioso, no bloquea)
+  saveLead('audit', {
+    sessionId: state.formData.sessionId || '',
+    formData: state.formData,
+    skills: state.skills,
+    scores: scores
+  });
 
   // === Header
   document.getElementById('r_name').textContent = state.formData.name;
