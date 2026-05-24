@@ -111,7 +111,7 @@ FORMATO DE RESPUESTA:
       tools: [{
         type: 'web_search_20250305',
         name: 'web_search',
-        max_uses: 4  // limitamos para controlar costo y latencia
+        max_uses: 2  // limitado a 2 búsquedas para asegurar que cabe en el timeout de Vercel (60s)
       }],
       messages: [{ role: 'user', content: prompt }]
     })
