@@ -1,1 +1,2652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit de tu Carrera Tech a 5 Años — por @nancynsalazar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Base — blancos y negros */
+  --bg: #ffffff;
+  --bg-elev: #fafafa;
+  --bg-elev-2: #f4f4f4;
+  --ink: #0a0a0a;
+  --ink-muted: #6b6b6b;
+  --ink-dim: #a3a3a3;
+  --line: #e8e8e8;
+  --line-strong: #0a0a0a;
 
+  /* Neones — dominantes y acentos */
+  --neon-green: #2CFF05;
+  --neon-magenta: #FF00FF;
+  --neon-purple: #BF00FF;
+  --neon-cyan: #00FFFF;
+  --neon-pink: #FF0080;
+  --neon-yellow: #FFFF00;
+  --neon-orange: #FF7F00;
+  --neon-red: #FF0000;
+  --neon-blue: #0000FF;
+  --neon-lime: #80FF00;
+
+  /* Semánticos */
+  --accent: var(--neon-magenta);
+  --accent-soft: #FF40FF;
+  --rising: var(--neon-green);
+  --stable: var(--ink-muted);
+  --declining: var(--neon-orange);
+  --critical: var(--neon-red);
+  --good: var(--neon-green);
+  --warn: var(--neon-orange);
+  --danger: var(--neon-red);
+
+  /* Tipografía */
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-glow-green: 0 0 0 1px var(--neon-green), 0 0 20px rgba(44, 255, 5, 0.15);
+  --shadow-glow-magenta: 0 0 0 1px var(--neon-magenta), 0 0 20px rgba(255, 0, 255, 0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Grain texture overlay sutil sobre blanco */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+/* === SCREEN MANAGEMENT === */
+.screen { display: none; animation: fadeIn 0.6s ease; }
+.screen.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === HEADER === */
+.brand-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 60px;
+}
+
+.brand-mark {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.brand-mark em {
+  color: var(--neon-magenta);
+  font-style: italic;
+}
+
+.brand-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* === HERO === */
+.hero-label {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-green);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 8px 14px;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 40px;
+  max-width: 900px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--neon-magenta);
+}
+
+.hero-lead {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1.5;
+  max-width: 640px;
+  color: var(--ink);
+  margin-bottom: 48px;
+}
+
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 2px solid var(--ink);
+  margin-bottom: 56px;
+}
+
+.meta-cell {
+  background: var(--bg);
+  padding: 24px;
+  border-right: 1px solid var(--line);
+}
+
+.meta-cell:last-child { border-right: none; }
+
+.meta-cell-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+}
+
+.meta-cell-value {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.meta-cell-value small {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-weight: 400;
+  display: block;
+  margin-top: 8px;
+}
+
+/* === BUTTONS === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 32px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: 2px solid var(--ink);
+  transition: all 0.18s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--neon-green);
+  color: var(--ink);
+}
+
+.btn-primary:hover {
+  background: var(--neon-magenta);
+  color: var(--bg);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn-secondary {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.btn-secondary:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-muted);
+  padding: 12px 0;
+  border: none;
+}
+
+.btn-ghost:hover {
+  color: var(--neon-magenta);
+}
+
+.btn-arrow::after {
+  content: '→';
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.btn-arrow:hover::after {
+  transform: translateX(4px);
+}
+
+/* === PRICING BLOCK === */
+.pricing-block {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.price {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--neon-magenta);
+}
+
+.price-original {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink-muted);
+  text-decoration: line-through;
+}
+
+.price-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-yellow);
+  padding: 4px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+}
+
+/* === FORM === */
+.form-section {
+  margin-bottom: 64px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--line);
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.section-number {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-magenta);
+  padding: 4px 10px;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+}
+
+.section-help {
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin-top: -16px;
+  margin-bottom: 28px;
+  max-width: 600px;
+}
+
+.field {
+  margin-bottom: 28px;
+}
+
+.field-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+
+.field-label .required {
+  color: var(--neon-magenta);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  padding: 14px 16px;
+  transition: all 0.15s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  background: var(--bg);
+  box-shadow: 4px 4px 0 var(--neon-green);
+  transform: translate(-2px, -2px);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+  font-family: var(--sans);
+}
+
+.field-hint {
+  font-size: 12px;
+  color: var(--ink-dim);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 700px) {
+  .field-row { grid-template-columns: 1fr; }
+}
+
+/* Skill tag input */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  min-height: 32px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--neon-green);
+  border: 1px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.tag-remove {
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.tag-remove:hover { color: var(--neon-magenta); }
+
+/* Radio cards */
+.radio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 700px) {
+  .radio-grid { grid-template-columns: 1fr; }
+}
+
+.radio-card {
+  padding: 16px;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 14px;
+}
+
+.radio-card:hover {
+  background: var(--bg-elev);
+}
+
+.radio-card.selected {
+  background: var(--neon-green);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.radio-card-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* Progress superior global */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--line);
+  z-index: 100;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--neon-magenta) 100%);
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+/* Form progress sticky superior */
+.form-progress {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  padding: 16px 0;
+  margin-bottom: 32px;
+  border-bottom: 2px solid var(--ink);
+  z-index: 50;
+}
+
+.form-progress-bar {
+  height: 6px;
+  background: var(--line);
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.form-progress-fill {
+  height: 100%;
+  background: var(--neon-green);
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.form-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.form-progress-meta strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* === LOADING === */
+.loading-screen {
+  text-align: center;
+  padding: 120px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.loading-percent {
+  font-family: var(--serif);
+  font-size: 120px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+  color: var(--ink);
+}
+
+.loading-percent .pct-symbol {
+  color: var(--neon-magenta);
+  font-style: italic;
+  font-weight: 300;
+}
+
+.loading-progress-track {
+  height: 8px;
+  background: var(--line);
+  margin-bottom: 40px;
+  position: relative;
+  border: 2px solid var(--ink);
+}
+
+.loading-progress-bar {
+  height: 100%;
+  background: var(--neon-green);
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.loading-message {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 12px;
+  min-height: 36px;
+  font-weight: 400;
+}
+
+.loading-sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.loading-steps {
+  margin-top: 60px;
+  text-align: left;
+  border-top: 1px solid var(--line);
+  padding-top: 32px;
+}
+
+.loading-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-dim);
+  transition: color 0.3s ease;
+}
+
+.loading-step.active {
+  color: var(--ink);
+}
+
+.loading-step.done {
+  color: var(--ink-muted);
+}
+
+.loading-step-icon {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.loading-step.active .loading-step-icon {
+  background: var(--neon-green);
+  border-color: var(--ink);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.loading-step.done .loading-step-icon {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.loading-step.done .loading-step-icon::after {
+  content: '✓';
+  position: absolute;
+  top: -3px;
+  left: 1px;
+  color: var(--neon-green);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* === REPORT === */
+.report-cover {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 80px 60px;
+  margin-bottom: 60px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+}
+
+.report-cover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: var(--neon-magenta);
+  transform: rotate(45deg) translate(60px, -100px);
+}
+
+.report-cover::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  background: var(--neon-green);
+  transform: rotate(45deg) translate(-60px, 60px);
+}
+
+.report-cover-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--neon-green);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.report-cover h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 28px;
+  max-width: 700px;
+  position: relative;
+  z-index: 1;
+}
+
+.report-cover h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--neon-magenta);
+}
+
+.report-cover-meta {
+  display: flex;
+  gap: 48px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  z-index: 1;
+}
+
+.report-cover-meta strong {
+  color: var(--bg);
+  display: block;
+  font-family: var(--serif);
+  font-size: 16px;
+  margin-top: 4px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+/* Report sections */
+.report-section {
+  margin-bottom: 80px;
+}
+
+.report-section-header {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.report-section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-magenta);
+  letter-spacing: 0.15em;
+  padding: 6px 10px;
+  font-weight: 600;
+  display: inline-block;
+  height: fit-content;
+}
+
+.report-section-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+}
+
+.report-content {
+  padding-left: 104px;
+}
+
+@media (max-width: 700px) {
+  .report-section-header { grid-template-columns: 1fr; }
+  .report-content { padding-left: 0; }
+}
+
+/* Executive summary */
+.exec-summary {
+  background: var(--bg-elev);
+  padding: 40px;
+  border-left: 6px solid var(--neon-green);
+  border-top: 2px solid var(--ink);
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 32px;
+}
+
+.exec-summary-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-green);
+  display: inline-block;
+  padding: 4px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.exec-summary p {
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Score visualization */
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 700px) {
+  .score-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.score-card {
+  background: var(--bg);
+  padding: 24px;
+  border: 2px solid var(--ink);
+  transition: transform 0.2s ease;
+}
+
+.score-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.score-card-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+
+.score-card-value {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.score-card-value .denom {
+  font-size: 16px;
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.score-card-bar {
+  margin-top: 16px;
+  height: 6px;
+  background: var(--line);
+  overflow: hidden;
+  border: 1px solid var(--ink);
+}
+
+.score-card-fill {
+  height: 100%;
+  background: var(--neon-magenta);
+  width: 0%;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.score-card.warn .score-card-fill { background: var(--neon-orange); }
+.score-card.danger .score-card-fill { background: var(--neon-red); }
+.score-card.good .score-card-fill { background: var(--neon-green); }
+
+/* Skills depreciation */
+.skills-list {
+  list-style: none;
+  margin-bottom: 40px;
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 1fr auto 100px;
+  gap: 24px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.skill-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.skill-name small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+.skill-trend {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  font-weight: 600;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+
+.skill-trend.rising { background: var(--neon-green); }
+.skill-trend.stable { background: var(--bg); color: var(--ink-muted); border-color: var(--ink-muted); }
+.skill-trend.declining { background: var(--neon-orange); }
+.skill-trend.critical { background: var(--neon-red); color: var(--bg); }
+
+.skill-bar {
+  height: 8px;
+  background: var(--line);
+  position: relative;
+  border: 1px solid var(--ink);
+}
+
+.skill-bar-fill {
+  height: 100%;
+  width: 0%;
+  transition: width 1s ease;
+}
+
+.skill-bar-fill.high { background: var(--neon-green); }
+.skill-bar-fill.med { background: var(--neon-orange); }
+.skill-bar-fill.low { background: var(--neon-red); }
+
+/* Roles aspirables */
+.roles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .roles-grid { grid-template-columns: 1fr; }
+}
+
+.role-card {
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  padding: 24px;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.role-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--neon-green);
+}
+
+.role-card-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink);
+  background: var(--neon-magenta);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+  padding: 3px 8px;
+  font-weight: 600;
+}
+
+.role-card-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.role-card-salary {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--ink-muted);
+  font-weight: 500;
+}
+
+.role-card-salary small {
+  color: var(--ink-muted);
+  font-size: 11px;
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+.role-card-desc {
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.role-card-fit {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.role-card-fit strong {
+  color: var(--neon-magenta);
+  margin-left: 8px;
+  font-weight: 700;
+}
+
+/* AI Plan section */
+.plan-section {
+  background: var(--bg);
+  padding: 48px;
+  border: 2px solid var(--ink);
+  border-top: 8px solid var(--neon-magenta);
+}
+
+.plan-quarter {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.plan-quarter:last-child { border-bottom: none; }
+
+.quarter-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--neon-green);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  height: fit-content;
+  font-weight: 700;
+  text-align: center;
+}
+
+.quarter-label small {
+  display: block;
+  color: var(--ink);
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.quarter-content h4 {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.quarter-content p {
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.quarter-actions {
+  list-style: none;
+  padding-left: 0;
+}
+
+.quarter-actions li {
+  padding: 10px 0 10px 28px;
+  position: relative;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.quarter-actions li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--neon-magenta);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* Reflection */
+.reflection-section {
+  margin-top: 80px;
+  padding: 60px 0;
+  border-top: 2px solid var(--ink);
+}
+
+.reflection-q {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.reflection-q:last-child { border-bottom: none; }
+
+.reflection-q-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-magenta);
+  display: inline-block;
+  padding: 4px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.reflection-q-text {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  max-width: 700px;
+}
+
+.reflection-insight {
+  background: var(--bg-elev);
+  border: 2px solid var(--ink);
+  border-left: 6px solid var(--neon-green);
+  padding: 28px 32px;
+  margin-top: 20px;
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 400;
+  font-style: italic;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reflection-insight strong {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--neon-green);
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+  padding: 4px 8px;
+}
+
+/* Loading state for insight */
+.insight-loading {
+  background: var(--bg-elev);
+  border: 2px solid var(--ink);
+  border-left: 6px solid var(--neon-magenta);
+  padding: 28px 32px;
+  margin-top: 20px;
+  animation: slideIn 0.4s ease;
+}
+
+.insight-loading-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.insight-loading-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+  background: var(--neon-magenta);
+  padding: 4px 8px;
+  font-weight: 600;
+}
+
+.insight-loading-timer {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-muted);
+  letter-spacing: 0.1em;
+}
+
+.insight-loading-bar {
+  height: 4px;
+  background: var(--line);
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.insight-loading-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-magenta), var(--neon-green));
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.insight-loading-status {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.insight-loading-dots::after {
+  content: '';
+  animation: dots 1.4s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+/* Payment gate */
+.gate {
+  text-align: center;
+  padding: 80px 40px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.gate-mark {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-green);
+  display: inline-block;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+.gate h2 {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.gate-preview {
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  padding: 32px;
+  margin: 40px 0;
+  text-align: left;
+}
+
+.gate-preview h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+}
+
+.gate-preview-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.gate-preview-stat:last-child { border-bottom: none; }
+
+.gate-preview-stat .label { color: var(--ink-muted); font-size: 14px; }
+.gate-preview-stat .value { font-family: var(--mono); font-size: 14px; font-weight: 600; }
+
+.gate-form {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gate-disclaimer {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-top: 24px;
+  letter-spacing: 0.05em;
+}
+
+/* Nav buttons */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 2px solid var(--ink);
+}
+
+/* Footer */
+.footer {
+  margin-top: 120px;
+  padding-top: 40px;
+  border-top: 2px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+@media (max-width: 700px) {
+  .container { padding: 32px 20px; }
+  .footer { flex-direction: column; gap: 16px; }
+  .hero-meta { grid-template-columns: 1fr; }
+  .nav-buttons { flex-direction: column-reverse; gap: 16px; }
+  .nav-buttons .btn { width: 100%; justify-content: center; }
+}
+
+/* Print/save mode */
+@media print {
+  body { background: white; color: black; }
+  .no-print { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SCREEN 1: LANDING -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="screen active" id="screen-landing">
+  <header class="brand-header">
+    <div class="brand-mark">@nancyn<em>salazar</em></div>
+    <div class="brand-tag">Strategic Career Tools — v1.0</div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-label">Audit Profesional · Tech LATAM</div>
+    <h1>Tu carrera tech<br>a <em>5 años</em>.</h1>
+    <p class="hero-lead">
+      Un diagnóstico estratégico para profesionistas mid y senior en tecnología.
+      Identifica qué de tu stack se está depreciando, qué skills emergentes te abren puertas
+      y qué roles realmente puedes aspirar — con datos de mercado LATAM.
+    </p>
+
+    <div class="hero-meta">
+      <div class="meta-cell">
+        <div class="meta-cell-label">Duración</div>
+        <div class="meta-cell-value">12 min<small>Diagnóstico + reflexión</small></div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-cell-label">Output</div>
+        <div class="meta-cell-value">8 pp<small>Reporte ejecutivo completo</small></div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-cell-label">Audiencia</div>
+        <div class="meta-cell-value">Mid+<small>3+ años en tech</small></div>
+      </div>
+    </div>
+
+    <div class="pricing-block">
+      <span class="price">$349<span style="font-size: 18px; color: var(--ink-muted);"> MXN</span></span>
+      <span class="price-original">$599 MXN</span>
+      <span class="price-label">Precio de lanzamiento</span>
+    </div>
+
+    <button class="btn btn-primary btn-arrow" onclick="startAudit()">Iniciar audit</button>
+    <button class="btn btn-ghost" onclick="goToScreen('screen-sample')">Ver muestra del reporte →</button>
+
+    <div style="margin-top: 80px; max-width: 700px;">
+      <h3 style="font-family: var(--serif); font-size: 24px; font-weight: 400; margin-bottom: 24px; letter-spacing: -0.01em;">Qué obtienes</h3>
+      <ul style="list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <li><strong style="font-family: var(--mono); font-size: 11px; color: var(--ink); background: var(--neon-green); padding: 3px 8px; text-transform: uppercase; letter-spacing: 0.15em; display: inline-block; margin-bottom: 8px; font-weight: 600;">01 · Mapa de depreciación</strong><br><span style="color: var(--ink-muted); font-size: 14px;">Cuáles de tus skills suben, cuáles bajan, cuáles están en riesgo crítico de obsolescencia.</span></li>
+        <li><strong style="font-family: var(--mono); font-size: 11px; color: var(--ink); background: var(--neon-green); padding: 3px 8px; text-transform: uppercase; letter-spacing: 0.15em; display: inline-block; margin-bottom: 8px; font-weight: 600;">02 · Roles aspirables</strong><br><span style="color: var(--ink-muted); font-size: 14px;">4-6 trayectorias realistas a 3-5 años con rangos salariales LATAM verificados.</span></li>
+        <li><strong style="font-family: var(--mono); font-size: 11px; color: var(--bg); background: var(--neon-magenta); padding: 3px 8px; text-transform: uppercase; letter-spacing: 0.15em; display: inline-block; margin-bottom: 8px; font-weight: 600;">03 · Plan a 12 meses</strong><br><span style="color: var(--ink-muted); font-size: 14px;">Roadmap trimestral hiperpersonalizado generado por IA con base en tu contexto.</span></li>
+        <li><strong style="font-family: var(--mono); font-size: 11px; color: var(--bg); background: var(--neon-magenta); padding: 3px 8px; text-transform: uppercase; letter-spacing: 0.15em; display: inline-block; margin-bottom: 8px; font-weight: 600;">04 · Sesión de reflexión</strong><br><span style="color: var(--ink-muted); font-size: 14px;">5 preguntas socráticas con análisis personalizado para ganar claridad estratégica.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div>© 2026 @nancynsalazar · Hecho en León, México</div>
+    <div>Strategic Career Tools</div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SCREEN 2: PAYMENT GATE (simulado) -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-payment">
+  <header class="brand-header">
+    <div class="brand-mark">@nancyn<em>salazar</em></div>
+    <div class="brand-tag">Checkout</div>
+  </header>
+
+  <div class="gate">
+    <div class="gate-mark">Paso 1 de 3 · Acceso</div>
+    <h2>Confirma tu acceso al audit.</h2>
+    <p style="color: var(--ink-muted); margin-bottom: 32px;">Te enviamos el reporte completo en PDF a tu correo al finalizar.</p>
+
+    <div class="gate-preview">
+      <h4>Resumen de compra</h4>
+      <div class="gate-preview-stat">
+        <span class="label">Audit de Carrera Tech a 5 Años</span>
+        <span class="value">$349 MXN</span>
+      </div>
+      <div class="gate-preview-stat">
+        <span class="label">Reporte PDF + sesión de reflexión</span>
+        <span class="value">Incluido</span>
+      </div>
+      <div class="gate-preview-stat">
+        <span class="label">Actualizaciones de mercado x 12 meses</span>
+        <span class="value">Incluido</span>
+      </div>
+    </div>
+
+    <div class="gate-form">
+      <input type="email" id="userEmail" placeholder="tu@correo.com" required>
+      <input type="text" id="userName" placeholder="Tu nombre">
+      <button class="btn btn-primary btn-arrow" onclick="processPurchase()">Pagar $349 MXN y comenzar</button>
+    </div>
+
+    <div class="gate-disclaimer">Pago seguro · Reembolso 7 días · Sin renovación automática</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SCREEN 3: FORM (diagnóstico) -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-form">
+  <header class="brand-header">
+    <div class="brand-mark">@nancyn<em>salazar</em></div>
+    <div class="brand-tag">Audit en progreso</div>
+  </header>
+
+  <div style="margin-bottom: 60px;">
+    <div class="hero-label">Diagnóstico</div>
+    <h1 style="font-family: var(--serif); font-weight: 400; font-size: 56px; line-height: 1; letter-spacing: -0.03em; margin-bottom: 24px;">Cuéntame de tu carrera<br>hoy.</h1>
+    <p style="color: var(--ink-muted); font-size: 16px; max-width: 600px;">Mientras más preciso seas, más útil será el análisis. Esta información sólo se usa para generar tu reporte — nada se almacena después.</p>
+  </div>
+
+  <!-- Form progress bar sticky -->
+  <div class="form-progress">
+    <div class="form-progress-bar"><div class="form-progress-fill" id="formProgressFill"></div></div>
+    <div class="form-progress-meta">
+      <span>Tu avance</span>
+      <span><strong id="formProgressPct">0</strong>% completado · <strong id="formProgressNum">0</strong>/13 campos</span>
+    </div>
+  </div>
+
+  <!-- Sección 01: Perfil -->
+  <div class="form-section">
+    <div class="section-header">
+      <span class="section-number">SEC · 01</span>
+      <h2 class="section-title">Perfil actual</h2>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Tu nombre <span class="required">*</span></label>
+      <input type="text" id="f_name" placeholder="Ej. María Rodríguez">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Puesto actual <span class="required">*</span></label>
+        <input type="text" id="f_role" placeholder="Ej. Senior Product Designer">
+      </div>
+      <div class="field">
+        <label class="field-label">Empresa / Industria <span class="required">*</span></label>
+        <input type="text" id="f_company" placeholder="Ej. Fintech, 200 empleados">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Años en tech <span class="required">*</span></label>
+        <select id="f_years">
+          <option value="">Selecciona...</option>
+          <option value="3-5">3 a 5 años</option>
+          <option value="5-8">5 a 8 años</option>
+          <option value="8-12">8 a 12 años</option>
+          <option value="12+">Más de 12 años</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">Nivel de seniority <span class="required">*</span></label>
+        <select id="f_level">
+          <option value="">Selecciona...</option>
+          <option value="mid">Mid (intermedio)</option>
+          <option value="senior">Senior</option>
+          <option value="staff">Staff / Lead</option>
+          <option value="principal">Principal / Director</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Tipo de perfil <span class="required">*</span></label>
+      <div class="radio-grid">
+        <div class="radio-card" data-field="profile_type" data-value="ic-tech">
+          <div class="radio-card-title">IC Técnico</div>
+          Dev, data, infra, security
+        </div>
+        <div class="radio-card" data-field="profile_type" data-value="ic-product">
+          <div class="radio-card-title">IC Producto/Diseño</div>
+          PM, designer, UX research
+        </div>
+        <div class="radio-card" data-field="profile_type" data-value="ic-business">
+          <div class="radio-card-title">IC Business/Ops</div>
+          PMM, tech ops, growth, BD
+        </div>
+        <div class="radio-card" data-field="profile_type" data-value="manager">
+          <div class="radio-card-title">Manager / Lead</div>
+          EM, design lead, head of...
+        </div>
+        <div class="radio-card" data-field="profile_type" data-value="director">
+          <div class="radio-card-title">Director / VP</div>
+          Multi-equipo, estrategia
+        </div>
+        <div class="radio-card" data-field="profile_type" data-value="founder">
+          <div class="radio-card-title">Founder / Indie</div>
+          Construyendo algo propio
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección 02: Skills -->
+  <div class="form-section">
+    <div class="section-header">
+      <span class="section-number">SEC · 02</span>
+      <h2 class="section-title">Tu stack actual</h2>
+    </div>
+    <p class="section-help">Lista las skills, herramientas, frameworks o metodologías que dominas y usas hoy en tu trabajo. Sé honesta — esto define el análisis de depreciación.</p>
+
+    <div class="field">
+      <label class="field-label">Tus 5-10 skills principales <span class="required">*</span></label>
+      <input type="text" id="f_skill_input" placeholder="Escribe una skill y presiona Enter" onkeydown="if(event.key==='Enter'){event.preventDefault();addSkill(this.value); this.value='';}">
+      <div class="field-hint">Ej: Figma, Python, gestión de stakeholders, SQL, Scrum, customer research...</div>
+      <div class="tags-container" id="skillsTags"></div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Skills en las que te estás capacitando actualmente</label>
+      <textarea id="f_learning" placeholder="¿Qué estás aprendiendo activamente? Cursos, certificaciones, lecturas técnicas..."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label">¿Usas IA en tu trabajo diario? <span class="required">*</span></label>
+      <div class="radio-grid">
+        <div class="radio-card" data-field="ai_usage" data-value="none">
+          <div class="radio-card-title">Casi nada</div>
+          Apenas la he probado
+        </div>
+        <div class="radio-card" data-field="ai_usage" data-value="some">
+          <div class="radio-card-title">Algo</div>
+          ChatGPT/Claude ocasional
+        </div>
+        <div class="radio-card" data-field="ai_usage" data-value="deep">
+          <div class="radio-card-title">Profundo</div>
+          Agentes, APIs, workflows
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección 03: Logros e impacto -->
+  <div class="form-section">
+    <div class="section-header">
+      <span class="section-number">SEC · 03</span>
+      <h2 class="section-title">Impacto y logros</h2>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Tu logro profesional más importante de los últimos 2 años <span class="required">*</span></label>
+      <textarea id="f_achievement" placeholder="Describe brevemente: qué hiciste, qué problema resolviste, qué impacto tuvo (en números si es posible)..."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label">¿Lideras o coordinas a otras personas?</label>
+      <div class="radio-grid">
+        <div class="radio-card" data-field="leadership" data-value="ic">
+          <div class="radio-card-title">No, soy IC pura</div>
+          Sin reportes directos
+        </div>
+        <div class="radio-card" data-field="leadership" data-value="influence">
+          <div class="radio-card-title">Lidero sin autoridad</div>
+          Por influencia / proyecto
+        </div>
+        <div class="radio-card" data-field="leadership" data-value="manager">
+          <div class="radio-card-title">Soy manager</div>
+          Reportes directos
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección 04: Contexto y aspiraciones -->
+  <div class="form-section">
+    <div class="section-header">
+      <span class="section-number">SEC · 04</span>
+      <h2 class="section-title">Contexto y aspiraciones</h2>
+    </div>
+
+    <div class="field">
+      <label class="field-label">¿Cuál es tu mayor inquietud profesional hoy? <span class="required">*</span></label>
+      <textarea id="f_concern" placeholder="¿Sientes que tu rol se está volviendo obsoleto? ¿Estás estancada? ¿No sabes qué sigue? ¿Te preocupa la IA? Sé directa..."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label">En 5 años, ¿qué te gustaría haber logrado profesionalmente?</label>
+      <textarea id="f_aspiration" placeholder="Sin filtros. ¿Qué rol, qué tipo de proyecto, qué nivel de impacto, qué ingresos, qué estilo de vida?"></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label">¿Qué tan dispuesta estás a cambiar de empresa o industria? <span class="required">*</span></label>
+      <div class="radio-grid">
+        <div class="radio-card" data-field="change_appetite" data-value="low">
+          <div class="radio-card-title">Poco</div>
+          Quiero crecer aquí
+        </div>
+        <div class="radio-card" data-field="change_appetite" data-value="medium">
+          <div class="radio-card-title">Abierta</div>
+          Si vale la pena
+        </div>
+        <div class="radio-card" data-field="change_appetite" data-value="high">
+          <div class="radio-card-title">Muy</div>
+          Listo para algo nuevo
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="goToScreen('screen-landing')">← Volver</button>
+    <button class="btn btn-primary btn-arrow" onclick="submitAudit()">Generar mi audit</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SCREEN 4: LOADING -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-loading">
+  <div class="loading-screen">
+    <div class="loading-percent"><span id="loadingPct">0</span><span class="pct-symbol">%</span></div>
+    <div class="loading-progress-track"><div class="loading-progress-bar" id="loadingProgressBar"></div></div>
+    <div class="loading-message" id="loadingMsg">Analizando tu perfil...</div>
+    <div class="loading-sub" id="loadingSub">Cruzando con data de mercado LATAM</div>
+
+    <div class="loading-steps">
+      <div class="loading-step" id="step-1">
+        <div class="loading-step-icon"></div>
+        <span>01 · Lectura del contexto profesional</span>
+      </div>
+      <div class="loading-step" id="step-2">
+        <div class="loading-step-icon"></div>
+        <span>02 · Clasificación del stack con base LATAM 2026</span>
+      </div>
+      <div class="loading-step" id="step-3">
+        <div class="loading-step-icon"></div>
+        <span>03 · Cálculo de trayectorias y roles aspirables</span>
+      </div>
+      <div class="loading-step" id="step-4">
+        <div class="loading-step-icon"></div>
+        <span>04 · Generación de plan personalizado con IA</span>
+      </div>
+      <div class="loading-step" id="step-5">
+        <div class="loading-step-icon"></div>
+        <span>05 · Preparación del reporte final</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SCREEN 5: REPORT -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-report">
+  <div class="report-cover">
+    <div class="report-cover-label">Audit Estratégico · Carrera Tech</div>
+    <h1>Reporte para <em id="r_name">[nombre]</em></h1>
+    <div class="report-cover-meta">
+      <div>Generado<strong id="r_date">—</strong></div>
+      <div>Perfil<strong id="r_profile">—</strong></div>
+      <div>Años en tech<strong id="r_years">—</strong></div>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="report-section">
+    <div class="report-section-header">
+      <span class="report-section-num">01</span>
+      <h2 class="report-section-title">Resumen ejecutivo</h2>
+    </div>
+    <div class="report-content">
+      <div class="exec-summary">
+        <div class="exec-summary-label">Diagnóstico</div>
+        <p id="r_summary">—</p>
+      </div>
+
+      <div class="score-grid">
+        <div class="score-card" id="card_resilience">
+          <div class="score-card-label">Resiliencia stack</div>
+          <div class="score-card-value"><span id="s_resilience">—</span><span class="denom">/100</span></div>
+          <div class="score-card-bar"><div class="score-card-fill" id="bar_resilience"></div></div>
+        </div>
+        <div class="score-card" id="card_market">
+          <div class="score-card-label">Alineación mercado</div>
+          <div class="score-card-value"><span id="s_market">—</span><span class="denom">/100</span></div>
+          <div class="score-card-bar"><div class="score-card-fill" id="bar_market"></div></div>
+        </div>
+        <div class="score-card" id="card_growth">
+          <div class="score-card-label">Potencial crecimiento</div>
+          <div class="score-card-value"><span id="s_growth">—</span><span class="denom">/100</span></div>
+          <div class="score-card-bar"><div class="score-card-fill" id="bar_growth"></div></div>
+        </div>
+        <div class="score-card" id="card_ai">
+          <div class="score-card-label">AI-readiness</div>
+          <div class="score-card-value"><span id="s_ai">—</span><span class="denom">/100</span></div>
+          <div class="score-card-bar"><div class="score-card-fill" id="bar_ai"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills depreciación -->
+  <div class="report-section">
+    <div class="report-section-header">
+      <span class="report-section-num">02</span>
+      <h2 class="report-section-title">Mapa de depreciación</h2>
+    </div>
+    <div class="report-content">
+      <p style="color: var(--ink-muted); margin-bottom: 32px;">Análisis de la trayectoria de mercado de cada una de tus skills declaradas. La clasificación se basa en demanda actual, tendencia de búsquedas técnicas y patrones de adopción organizacional en LATAM.</p>
+      <ul class="skills-list" id="skillsList"></ul>
+
+      <div style="margin-top: 40px; padding: 24px; background: var(--bg-elev); border-left: 3px solid var(--warn);">
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--warn); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px;">Skills emergentes recomendadas</div>
+        <p id="r_emerging" style="font-family: var(--serif); font-size: 18px; line-height: 1.5; font-weight: 300;">—</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Roles aspirables -->
+  <div class="report-section">
+    <div class="report-section-header">
+      <span class="report-section-num">03</span>
+      <h2 class="report-section-title">Roles aspirables a 3-5 años</h2>
+    </div>
+    <div class="report-content">
+      <p style="color: var(--ink-muted); margin-bottom: 32px;">Trayectorias realistas basadas en tu stack, experiencia y apetito de cambio. Los rangos salariales reflejan el mercado mexicano y LATAM en empresas tech de tamaño mediano-grande.</p>
+      <div class="roles-grid" id="rolesGrid"></div>
+    </div>
+  </div>
+
+  <!-- Plan AI -->
+  <div class="report-section">
+    <div class="report-section-header">
+      <span class="report-section-num">04</span>
+      <h2 class="report-section-title">Tu plan a 12 meses</h2>
+    </div>
+    <div class="report-content">
+      <p style="color: var(--ink-muted); margin-bottom: 32px;">Plan trimestral generado específicamente para tu perfil. Diseñado para ser realista — no requiere abandonar tu trabajo actual ni jornadas inhumanas de estudio.</p>
+      <div class="plan-section" id="planSection">
+        <!-- Generado dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Sesión de reflexión -->
+  <div class="report-section reflection-section">
+    <div class="report-section-header">
+      <span class="report-section-num">05</span>
+      <h2 class="report-section-title">Sesión de reflexión estratégica</h2>
+    </div>
+    <div class="report-content">
+      <p style="color: var(--ink-muted); margin-bottom: 40px;">Cinco preguntas para sentarte con honestidad. No hay respuestas correctas. Después de cada una, recibes un insight personalizado para profundizar tu pensamiento.</p>
+      <div id="reflectionContainer"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" onclick="window.print()">Descargar PDF (imprimir)</button>
+    <button class="btn btn-primary btn-arrow" onclick="goToScreen('screen-landing')">Nuevo audit</button>
+  </div>
+
+  <footer class="footer">
+    <div>Reporte generado por @nancynsalazar · Strategic Career Tools</div>
+    <div>v1.0 · Confidencial</div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SCREEN: SAMPLE REPORT (demo) -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-sample">
+  <header class="brand-header">
+    <div class="brand-mark">@nancyn<em>salazar</em></div>
+    <div class="brand-tag">Muestra · Sólo lectura</div>
+  </header>
+
+  <div style="background: var(--bg); border: 2px solid var(--ink); border-left: 6px solid var(--neon-magenta); padding: 24px; margin-bottom: 40px;">
+    <div style="font-family: var(--mono); font-size: 11px; color: var(--bg); background: var(--neon-magenta); display: inline-block; padding: 3px 8px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; font-weight: 600;">Vista previa</div>
+    <p>Este es un reporte de ejemplo con datos ficticios. Tu reporte real será generado con base en tu perfil específico.</p>
+  </div>
+
+  <div class="report-cover">
+    <div class="report-cover-label">Audit Estratégico · Muestra</div>
+    <h1>Reporte para <em>Profesionista Senior</em></h1>
+    <div class="report-cover-meta">
+      <div>Generado<strong>Ejemplo</strong></div>
+      <div>Perfil<strong>IC Producto Senior</strong></div>
+      <div>Años en tech<strong>8-12</strong></div>
+    </div>
+  </div>
+
+  <div class="report-section">
+    <div class="report-section-header">
+      <span class="report-section-num">01</span>
+      <h2 class="report-section-title">Resumen ejecutivo</h2>
+    </div>
+    <div class="report-content">
+      <div class="exec-summary">
+        <div class="exec-summary-label">Diagnóstico</div>
+        <p>Tu perfil tiene una base sólida en producto/diseño con 9 años de experiencia, pero presenta una brecha significativa en AI-readiness que limitará tu acceso a roles senior+ en los próximos 24 meses. Tu mayor activo es la combinación de research + estrategia; tu mayor riesgo es haberte concentrado en herramientas Figma sin desarrollar competencia en sistemas, métricas de producto avanzadas o AI tooling. Ventana de acción crítica: próximos 9 meses.</p>
+      </div>
+      <div class="score-grid">
+        <div class="score-card good"><div class="score-card-label">Resiliencia stack</div><div class="score-card-value">72<span class="denom">/100</span></div><div class="score-card-bar"><div class="score-card-fill" style="width: 72%;"></div></div></div>
+        <div class="score-card warn"><div class="score-card-label">Alineación mercado</div><div class="score-card-value">61<span class="denom">/100</span></div><div class="score-card-bar"><div class="score-card-fill" style="width: 61%;"></div></div></div>
+        <div class="score-card good"><div class="score-card-label">Potencial crecimiento</div><div class="score-card-value">78<span class="denom">/100</span></div><div class="score-card-bar"><div class="score-card-fill" style="width: 78%;"></div></div></div>
+        <div class="score-card danger"><div class="score-card-label">AI-readiness</div><div class="score-card-value">34<span class="denom">/100</span></div><div class="score-card-bar"><div class="score-card-fill" style="width: 34%;"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; padding: 60px; background: var(--bg); border: 2px solid var(--ink); margin-top: 40px;">
+    <p style="font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 24px;">El reporte completo incluye 4 secciones más: depreciación de skills, roles aspirables con salarios, plan a 12 meses y sesión de reflexión.</p>
+    <button class="btn btn-primary btn-arrow" onclick="goToScreen('screen-landing')">Volver y obtener mi audit</button>
+  </div>
+</div>
+
+</div> <!-- /container -->
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// CONFIGURACIÓN
+// ════════════════════════════════════════════════════════════════
+// Endpoint relativo: como el backend vive en el mismo dominio
+// (nancynsalazar.tech/api/audit), no necesitamos URL absoluta.
+// Esto evita problemas de CORS automáticamente.
+const API_ENDPOINT = '/api/audit';
+
+// ════════════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════════════
+const state = {
+  skills: [],
+  formData: {},
+  scores: {},
+  report: null
+};
+
+// ════════════════════════════════════════════════════════════════
+// SKILLS DATABASE (lógica determinística curada)
+// ════════════════════════════════════════════════════════════════
+// trend: 'rising' | 'stable' | 'declining' | 'critical'
+// value: score base 0-100 de relevancia en mercado actual
+const SKILLS_DB = {
+  // Rising — emergentes y en alta demanda
+  'ai': { trend: 'rising', value: 95, category: 'ai' },
+  'llm': { trend: 'rising', value: 95, category: 'ai' },
+  'prompt': { trend: 'rising', value: 88, category: 'ai' },
+  'rag': { trend: 'rising', value: 92, category: 'ai' },
+  'langchain': { trend: 'rising', value: 85, category: 'ai' },
+  'mlops': { trend: 'rising', value: 90, category: 'ai' },
+  'machine learning': { trend: 'rising', value: 88, category: 'ai' },
+  'deep learning': { trend: 'rising', value: 85, category: 'ai' },
+  'agents': { trend: 'rising', value: 90, category: 'ai' },
+  'rust': { trend: 'rising', value: 82, category: 'lang' },
+  'go': { trend: 'rising', value: 80, category: 'lang' },
+  'typescript': { trend: 'rising', value: 85, category: 'lang' },
+  'kubernetes': { trend: 'rising', value: 82, category: 'infra' },
+  'terraform': { trend: 'rising', value: 80, category: 'infra' },
+  'webassembly': { trend: 'rising', value: 75, category: 'frontend' },
+  'next.js': { trend: 'rising', value: 82, category: 'frontend' },
+  'observability': { trend: 'rising', value: 78, category: 'infra' },
+  'platform engineering': { trend: 'rising', value: 80, category: 'infra' },
+  'product analytics': { trend: 'rising', value: 80, category: 'product' },
+  'product-led growth': { trend: 'rising', value: 78, category: 'product' },
+  'design systems': { trend: 'rising', value: 75, category: 'design' },
+  'figma': { trend: 'rising', value: 78, category: 'design' },
+
+  // Stable — sólidas, en demanda constante
+  'python': { trend: 'stable', value: 85, category: 'lang' },
+  'sql': { trend: 'stable', value: 82, category: 'data' },
+  'aws': { trend: 'stable', value: 80, category: 'infra' },
+  'gcp': { trend: 'stable', value: 78, category: 'infra' },
+  'azure': { trend: 'stable', value: 75, category: 'infra' },
+  'react': { trend: 'stable', value: 78, category: 'frontend' },
+  'node': { trend: 'stable', value: 72, category: 'backend' },
+  'docker': { trend: 'stable', value: 78, category: 'infra' },
+  'product management': { trend: 'stable', value: 75, category: 'product' },
+  'scrum': { trend: 'stable', value: 60, category: 'method' },
+  'agile': { trend: 'stable', value: 68, category: 'method' },
+  'okrs': { trend: 'stable', value: 70, category: 'method' },
+  'leadership': { trend: 'stable', value: 85, category: 'soft' },
+  'stakeholder': { trend: 'stable', value: 80, category: 'soft' },
+  'communication': { trend: 'stable', value: 80, category: 'soft' },
+  'research': { trend: 'stable', value: 75, category: 'design' },
+  'ux research': { trend: 'stable', value: 78, category: 'design' },
+  'customer research': { trend: 'stable', value: 75, category: 'product' },
+  'data analysis': { trend: 'stable', value: 78, category: 'data' },
+  'tableau': { trend: 'stable', value: 65, category: 'data' },
+  'power bi': { trend: 'stable', value: 68, category: 'data' },
+  'java': { trend: 'stable', value: 65, category: 'lang' },
+  'c#': { trend: 'stable', value: 60, category: 'lang' },
+  '.net': { trend: 'stable', value: 58, category: 'lang' },
+
+  // Declining — todavía valiosas pero en descenso
+  'jquery': { trend: 'declining', value: 30, category: 'frontend' },
+  'php': { trend: 'declining', value: 45, category: 'backend' },
+  'wordpress': { trend: 'declining', value: 40, category: 'frontend' },
+  'angularjs': { trend: 'declining', value: 25, category: 'frontend' },
+  'ruby on rails': { trend: 'declining', value: 48, category: 'backend' },
+  'sketch': { trend: 'declining', value: 35, category: 'design' },
+  'invision': { trend: 'declining', value: 25, category: 'design' },
+  'photoshop': { trend: 'declining', value: 45, category: 'design' },
+  'waterfall': { trend: 'declining', value: 30, category: 'method' },
+  'pmp': { trend: 'declining', value: 40, category: 'method' },
+
+  // Critical — riesgo de obsolescencia
+  'flash': { trend: 'critical', value: 5, category: 'frontend' },
+  'cobol': { trend: 'critical', value: 15, category: 'lang' },
+  'perl': { trend: 'critical', value: 20, category: 'lang' },
+  'silverlight': { trend: 'critical', value: 5, category: 'frontend' },
+  'visual basic': { trend: 'critical', value: 18, category: 'lang' },
+  'flash builder': { trend: 'critical', value: 5, category: 'frontend' }
+};
+
+function classifySkill(name) {
+  const lower = name.toLowerCase().trim();
+  // Exact match
+  if (SKILLS_DB[lower]) return { ...SKILLS_DB[lower], name };
+  // Partial match
+  for (const key in SKILLS_DB) {
+    if (lower.includes(key) || key.includes(lower)) return { ...SKILLS_DB[key], name };
+  }
+  // Default: stable medio
+  return { trend: 'stable', value: 60, category: 'other', name };
+}
+
+// ════════════════════════════════════════════════════════════════
+// ROLES DATABASE (con rangos salariales LATAM 2026)
+// ════════════════════════════════════════════════════════════════
+const ROLES_DB = {
+  'ic-tech': {
+    senior: [
+      { title: 'Staff Engineer', salary: '$110k-$180k MXN/mes', desc: 'Liderazgo técnico sin gestión de personas. Influencia transversal en arquitectura y decisiones técnicas mayores.', fit: 85 },
+      { title: 'AI/ML Engineer', salary: '$130k-$220k MXN/mes', desc: 'Construyes sistemas con IA en producción. Una de las rutas con mayor crecimiento salarial.', fit: 78 },
+      { title: 'Platform Engineer', salary: '$100k-$165k MXN/mes', desc: 'Construyes la infraestructura sobre la que otros equipos desarrollan. Alto leverage.', fit: 75 },
+      { title: 'Engineering Manager', salary: '$120k-$190k MXN/mes', desc: 'Salto a gestión. Requiere desarrollar empatía organizacional y soltar el código diario.', fit: 70 }
+    ]
+  },
+  'ic-product': {
+    senior: [
+      { title: 'Principal Designer', salary: '$95k-$160k MXN/mes', desc: 'Líder de craft sin gestión de personas. Setes la dirección de diseño en múltiples productos.', fit: 88 },
+      { title: 'Senior Product Manager', salary: '$110k-$180k MXN/mes', desc: 'Llevas un área de producto end-to-end. Combina visión, ejecución y stakeholder management.', fit: 80 },
+      { title: 'Head of Design', salary: '$140k-$230k MXN/mes', desc: 'Gestionas un equipo de diseñadoras. Operas más como estratega que como practicante.', fit: 72 },
+      { title: 'Design Engineer', salary: '$90k-$150k MXN/mes', desc: 'Híbrido entre diseño y código. Rol creciente en startups y empresas con design systems maduros.', fit: 75 }
+    ]
+  },
+  'ic-business': {
+    senior: [
+      { title: 'Head of Growth', salary: '$120k-$200k MXN/mes', desc: 'Diriges la estrategia de crecimiento de la empresa con métricas claras de impacto en ingresos.', fit: 80 },
+      { title: 'Product Marketing Lead', salary: '$95k-$160k MXN/mes', desc: 'Lideras posicionamiento, lanzamientos y narrativa de producto. Puente entre producto y mercado.', fit: 82 },
+      { title: 'Strategy & Ops Manager', salary: '$100k-$170k MXN/mes', desc: 'Brazo derecho del CEO o CPO. Resuelves los problemas que nadie más resuelve.', fit: 75 },
+      { title: 'Revenue Operations', salary: '$85k-$140k MXN/mes', desc: 'Optimizas todo el funnel de ingresos con data y procesos. Rol crítico en SaaS.', fit: 70 }
+    ]
+  },
+  'manager': {
+    senior: [
+      { title: 'Director of Engineering', salary: '$180k-$320k MXN/mes', desc: 'Diriges múltiples equipos. Más estrategia organizacional que técnica.', fit: 82 },
+      { title: 'Senior Engineering Manager', salary: '$140k-$230k MXN/mes', desc: 'Gestionas a managers. Operas en horizonte de 6-12 meses con foco en gente y procesos.', fit: 85 },
+      { title: 'Head of Product', salary: '$170k-$280k MXN/mes', desc: 'Diriges toda la función de producto. Reportas a CEO o CPO.', fit: 70 },
+      { title: 'Fractional CTO', salary: '$80k-$200k MXN/mes', desc: 'Asesor técnico de múltiples startups. Mayor libertad, riesgo y variabilidad.', fit: 65 }
+    ]
+  },
+  'director': {
+    senior: [
+      { title: 'VP of Engineering', salary: '$280k-$500k MXN/mes', desc: 'Lideras la organización de ingeniería completa. Reportas al CEO o CTO.', fit: 85 },
+      { title: 'CTO (startup)', salary: '$200k-$400k MXN/mes + equity', desc: 'Lideras tecnología en startup mid-stage. Equity puede multiplicar comp.', fit: 78 },
+      { title: 'Chief Product Officer', salary: '$300k-$550k MXN/mes', desc: 'Lideras producto a nivel ejecutivo. Asiento en la mesa de la estrategia de empresa.', fit: 72 },
+      { title: 'Independent Board Advisor', salary: '$30k-$100k MXN/mes por board', desc: 'Múltiples roles de consejera. Mayor diversificación de ingresos y flexibilidad.', fit: 68 }
+    ]
+  },
+  'founder': {
+    senior: [
+      { title: 'Solo Founder (bootstrapped)', salary: 'Variable + equity 100%', desc: 'Construyes algo propio sin VC. Más libertad, ritmo sostenible, ingresos variables.', fit: 80 },
+      { title: 'Co-Founder (VC-backed)', salary: '$80k-$250k MXN/mes + equity', desc: 'Levantas capital. Ritmo intenso pero potencial de salida significativo.', fit: 75 },
+      { title: 'Indie Hacker / Studio', salary: '$50k-$300k MXN/mes', desc: 'Múltiples productos pequeños. Ingresos diversificados, alta autonomía.', fit: 78 },
+      { title: 'Operator-Investor', salary: 'Variable + portfolio', desc: 'Combinas operación de tu empresa con inversiones angel. Network como activo central.', fit: 70 }
+    ]
+  }
+};
+
+// ════════════════════════════════════════════════════════════════
+// UI: NAVIGATION
+// ════════════════════════════════════════════════════════════════
+function goToScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startAudit() {
+  goToScreen('screen-payment');
+}
+
+function processPurchase() {
+  const email = document.getElementById('userEmail').value;
+  const name = document.getElementById('userName').value;
+  if (!email || !email.includes('@')) {
+    alert('Por favor ingresa un correo válido');
+    return;
+  }
+  state.formData.email = email;
+  state.formData.purchaseName = name;
+  goToScreen('screen-form');
+  if (name) document.getElementById('f_name').value = name;
+}
+
+// ════════════════════════════════════════════════════════════════
+// UI: SKILLS TAG INPUT
+// ════════════════════════════════════════════════════════════════
+function addSkill(value) {
+  const v = value.trim();
+  if (!v || state.skills.includes(v) || state.skills.length >= 15) return;
+  state.skills.push(v);
+  renderSkillTags();
+  updateFormProgress();
+}
+
+function removeSkill(skill) {
+  state.skills = state.skills.filter(s => s !== skill);
+  renderSkillTags();
+  updateFormProgress();
+}
+
+function renderSkillTags() {
+  const c = document.getElementById('skillsTags');
+  c.innerHTML = state.skills.map(s =>
+    `<span class="tag">${escapeHtml(s)}<span class="tag-remove" onclick="removeSkill('${escapeAttr(s)}')">×</span></span>`
+  ).join('');
+}
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+function escapeAttr(s) { return s.replace(/'/g, "\\'"); }
+
+// ════════════════════════════════════════════════════════════════
+// UI: RADIO CARDS
+// ════════════════════════════════════════════════════════════════
+document.querySelectorAll('.radio-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const field = card.dataset.field;
+    const value = card.dataset.value;
+    document.querySelectorAll(`.radio-card[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.formData[field] = value;
+    updateFormProgress();
+  });
+});
+
+// ════════════════════════════════════════════════════════════════
+// FORM PROGRESS
+// ════════════════════════════════════════════════════════════════
+const FORM_FIELDS = [
+  'f_name', 'f_role', 'f_company', 'f_years', 'f_level',  // 5
+  'f_learning', 'f_achievement', 'f_concern', 'f_aspiration'  // 4
+];
+const FORM_RADIO_FIELDS = ['profile_type', 'ai_usage', 'leadership', 'change_appetite']; // 4
+const TOTAL_FIELDS = FORM_FIELDS.length + FORM_RADIO_FIELDS.length; // 13
+
+function updateFormProgress() {
+  let filled = 0;
+  FORM_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.value && el.value.trim().length > 0) filled++;
+  });
+  FORM_RADIO_FIELDS.forEach(f => {
+    if (state.formData[f]) filled++;
+  });
+  // Skills cuenta por separado: si tiene 3+ es un "campo" adicional implícito (no contado para no inflar)
+  const pct = Math.round((filled / TOTAL_FIELDS) * 100);
+  const fillEl = document.getElementById('formProgressFill');
+  if (fillEl) {
+    fillEl.style.width = pct + '%';
+    document.getElementById('formProgressPct').textContent = pct;
+    document.getElementById('formProgressNum').textContent = filled;
+  }
+}
+
+// Listen to all form inputs
+document.addEventListener('DOMContentLoaded', () => {
+  FORM_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateFormProgress);
+    if (el && el.tagName === 'SELECT') el.addEventListener('change', updateFormProgress);
+  });
+});
+
+// Fallback si DOMContentLoaded ya disparó
+setTimeout(() => {
+  FORM_FIELDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', updateFormProgress);
+      if (el.tagName === 'SELECT') el.addEventListener('change', updateFormProgress);
+    }
+  });
+}, 100);
+
+// ════════════════════════════════════════════════════════════════
+// SUBMIT & SCORING
+// ════════════════════════════════════════════════════════════════
+function submitAudit() {
+  // Collect form data
+  state.formData.name = document.getElementById('f_name').value;
+  state.formData.role = document.getElementById('f_role').value;
+  state.formData.company = document.getElementById('f_company').value;
+  state.formData.years = document.getElementById('f_years').value;
+  state.formData.level = document.getElementById('f_level').value;
+  state.formData.learning = document.getElementById('f_learning').value;
+  state.formData.achievement = document.getElementById('f_achievement').value;
+  state.formData.concern = document.getElementById('f_concern').value;
+  state.formData.aspiration = document.getElementById('f_aspiration').value;
+
+  // Validate
+  const required = ['name', 'role', 'company', 'years', 'level', 'profile_type', 'ai_usage', 'concern', 'change_appetite'];
+  for (const f of required) {
+    if (!state.formData[f]) {
+      alert(`Falta completar un campo obligatorio. Revisa el formulario.`);
+      return;
+    }
+  }
+  if (state.skills.length < 3) {
+    alert('Por favor agrega al menos 3 skills.');
+    return;
+  }
+
+  goToScreen('screen-loading');
+  runLoadingSequence();
+  // El plan se genera dentro de generateReport — el loading screen es decorativo
+  // mientras el frontend ejecuta todos los cálculos determinísticos
+  setTimeout(() => generateReport(), 4500);
+}
+
+function runLoadingSequence() {
+  const messages = [
+    ['Analizando tu perfil...', 'Lectura del contexto profesional', 1],
+    ['Clasificando tu stack actual...', 'Cruzando con tendencias LATAM 2026', 2],
+    ['Calculando trayectorias posibles...', 'Mapeo de roles aspirables', 3],
+    ['Preparando tu reporte...', 'El plan personalizado se genera con datos en vivo después', 4],
+    ['Casi listo...', 'Renderizando reporte final', 5]
+  ];
+  let i = 0;
+  const totalDuration = 4500;
+  const stepDuration = totalDuration / messages.length;
+  const pctEl = document.getElementById('loadingPct');
+  const barEl = document.getElementById('loadingProgressBar');
+
+  // Smooth percent counter
+  let currentPct = 0;
+  const targetPct = 100;
+  const pctInterval = setInterval(() => {
+    currentPct += 1;
+    if (currentPct > targetPct) { clearInterval(pctInterval); return; }
+    pctEl.textContent = currentPct;
+    barEl.style.width = currentPct + '%';
+  }, totalDuration / 100);
+
+  const stepInterval = setInterval(() => {
+    if (i >= messages.length) { clearInterval(stepInterval); return; }
+    const [msg, sub, stepNum] = messages[i];
+    document.getElementById('loadingMsg').textContent = msg;
+    document.getElementById('loadingSub').textContent = sub;
+
+    for (let s = 1; s <= 5; s++) {
+      const el = document.getElementById(`step-${s}`);
+      el.classList.remove('active', 'done');
+      if (s < stepNum) el.classList.add('done');
+      else if (s === stepNum) el.classList.add('active');
+    }
+    i++;
+  }, stepDuration);
+}
+
+// ════════════════════════════════════════════════════════════════
+// CORE SCORING LOGIC (determinístico)
+// ════════════════════════════════════════════════════════════════
+function calculateScores() {
+  const skillsAnalyzed = state.skills.map(classifySkill);
+
+  // Resiliencia stack: promedio ponderado de skills (penalizando declining/critical)
+  const resilienceRaw = skillsAnalyzed.reduce((acc, s) => {
+    const weight = s.trend === 'critical' ? 0.3 : s.trend === 'declining' ? 0.6 : 1;
+    return acc + (s.value * weight);
+  }, 0) / skillsAnalyzed.length;
+  const resilience = Math.round(Math.min(100, Math.max(20, resilienceRaw)));
+
+  // Alineación mercado: % de skills rising/stable vs total
+  const aligned = skillsAnalyzed.filter(s => s.trend === 'rising' || s.trend === 'stable').length;
+  const marketAlignment = Math.round((aligned / skillsAnalyzed.length) * 100);
+
+  // Potencial crecimiento: combinación de change_appetite, learning, achievement
+  let growth = 50;
+  if (state.formData.change_appetite === 'high') growth += 20;
+  else if (state.formData.change_appetite === 'medium') growth += 10;
+  if (state.formData.learning && state.formData.learning.length > 30) growth += 15;
+  if (state.formData.achievement && state.formData.achievement.length > 50) growth += 15;
+  growth = Math.min(100, growth);
+
+  // AI-readiness
+  const aiUsage = state.formData.ai_usage;
+  const hasAiSkills = skillsAnalyzed.some(s => s.category === 'ai');
+  let aiReady = 20;
+  if (aiUsage === 'deep') aiReady = 85;
+  else if (aiUsage === 'some') aiReady = 55;
+  if (hasAiSkills) aiReady = Math.min(100, aiReady + 15);
+
+  return { resilience, marketAlignment, growth, aiReady, skillsAnalyzed };
+}
+
+// ════════════════════════════════════════════════════════════════
+// REPORT GENERATION
+// ════════════════════════════════════════════════════════════════
+async function generateReport() {
+  const scores = calculateScores();
+  state.scores = scores;
+
+  // === Header
+  document.getElementById('r_name').textContent = state.formData.name;
+  document.getElementById('r_date').textContent = new Date().toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' });
+  const profileLabels = {
+    'ic-tech': 'IC Técnico', 'ic-product': 'IC Producto/Diseño', 'ic-business': 'IC Business',
+    'manager': 'Manager/Lead', 'director': 'Director/VP', 'founder': 'Founder'
+  };
+  document.getElementById('r_profile').textContent = profileLabels[state.formData.profile_type] || '—';
+  document.getElementById('r_years').textContent = state.formData.years;
+
+  // === Scores
+  setScore('resilience', scores.resilience);
+  setScore('market', scores.marketAlignment);
+  setScore('growth', scores.growth);
+  setScore('ai', scores.aiReady);
+
+  // === Executive Summary (heurístico)
+  const summary = buildExecSummary(scores);
+  document.getElementById('r_summary').textContent = summary;
+
+  // === Skills list
+  renderSkillsList(scores.skillsAnalyzed);
+
+  // === Emerging skills recommendations
+  const emerging = recommendEmergingSkills(scores.skillsAnalyzed);
+  document.getElementById('r_emerging').textContent = emerging;
+
+  // === Roles
+  renderRoles();
+
+  // === Plan (AI-powered, con fallback determinístico)
+  await generateAIPlan(scores);
+
+  // === Reflection
+  renderReflection();
+
+  goToScreen('screen-report');
+}
+
+function setScore(key, value) {
+  document.getElementById(`s_${key}`).textContent = value;
+  const bar = document.getElementById(`bar_${key}`);
+  const card = document.getElementById(`card_${key}`);
+  setTimeout(() => { bar.style.width = value + '%'; }, 200);
+  card.classList.remove('good', 'warn', 'danger');
+  if (value >= 75) card.classList.add('good');
+  else if (value >= 50) card.classList.add('warn');
+  else card.classList.add('danger');
+}
+
+function buildExecSummary(scores) {
+  const { resilience, marketAlignment, aiReady } = scores;
+  const name = state.formData.name.split(' ')[0];
+  const years = state.formData.years;
+  const profile = state.formData.profile_type;
+
+  let summary = `Tu perfil de ${profile.includes('ic') ? 'Individual Contributor' : profile === 'manager' ? 'manager' : profile === 'director' ? 'líder ejecutiva' : 'founder'} con ${years} años de experiencia muestra `;
+
+  if (resilience >= 70 && marketAlignment >= 70) {
+    summary += `una base sólida y bien alineada al mercado actual. `;
+  } else if (resilience >= 70) {
+    summary += `un stack resiliente pero con desbalance hacia tecnologías estables vs. emergentes. `;
+  } else if (marketAlignment >= 70) {
+    summary += `buena alineación con tendencias actuales pero algunas dependencias técnicas que conviene fortalecer. `;
+  } else {
+    summary += `áreas críticas que conviene atender antes de planear el siguiente movimiento. `;
+  }
+
+  if (aiReady < 50) {
+    summary += `Tu mayor brecha es AI-readiness (${aiReady}/100), lo cual limitará tu acceso a roles senior+ en los próximos 18-24 meses si no se atiende. `;
+  } else if (aiReady < 70) {
+    summary += `Tu exposición a IA es intermedia (${aiReady}/100) — suficiente para no quedarte atrás, insuficiente para liderar. `;
+  } else {
+    summary += `Tu AI-readiness es notable (${aiReady}/100), lo cual te posiciona en el cuartil superior del mercado. `;
+  }
+
+  if (state.formData.change_appetite === 'high') {
+    summary += `Tu apetito de cambio es alto, lo que abre múltiples trayectorias — el riesgo aquí es la dispersión, no la falta de opciones.`;
+  } else if (state.formData.change_appetite === 'low') {
+    summary += `Tu preferencia por crecer en el contexto actual requiere una estrategia explícita de visibilidad interna y desarrollo vertical.`;
+  } else {
+    summary += `Tu apertura moderada a cambio es saludable: te permite optimizar dentro de tu contexto sin cerrarte a oportunidades externas relevantes.`;
+  }
+
+  return summary;
+}
+
+function renderSkillsList(skills) {
+  const trendLabels = {
+    rising: 'En ascenso', stable: 'Estable',
+    declining: 'En descenso', critical: 'Riesgo crítico'
+  };
+  const trendDesc = {
+    rising: 'Demanda creciente · alta valorización',
+    stable: 'Demanda consistente · estable',
+    declining: 'Demanda decreciente · considerar transición',
+    critical: 'Obsolescencia en horizonte 12-24 meses'
+  };
+  const fillClass = v => v >= 70 ? 'high' : v >= 40 ? 'med' : 'low';
+
+  const html = skills.map(s => `
+    <li class="skill-row">
+      <div class="skill-name">${escapeHtml(s.name)}<small>${trendDesc[s.trend]}</small></div>
+      <span class="skill-trend ${s.trend}">${trendLabels[s.trend]}</span>
+      <div class="skill-bar"><div class="skill-bar-fill ${fillClass(s.value)}" style="width: ${s.value}%;"></div></div>
+    </li>
+  `).join('');
+  document.getElementById('skillsList').innerHTML = html;
+}
+
+function recommendEmergingSkills(currentSkills) {
+  const has = cat => currentSkills.some(s => s.category === cat);
+  const recs = [];
+  if (!has('ai')) recs.push('AI tooling aplicado a tu dominio (no necesitas ser ML engineer — basta con uso experto de Claude/ChatGPT, prompt engineering y un agente o workflow propio)');
+  if (state.formData.profile_type.includes('ic-tech') && !has('infra')) recs.push('observability y platform engineering — los IC senior técnicos sin esto están topados');
+  if (state.formData.profile_type === 'ic-product') recs.push('product analytics avanzado (Amplitude, Mixpanel) + experimentación rigurosa');
+  if (state.formData.profile_type === 'ic-business') recs.push('SQL básico y dashboarding propio para no depender de equipos de data');
+  if (state.formData.profile_type === 'manager' || state.formData.profile_type === 'director') recs.push('financial literacy aplicada a tech (unit economics, burn, runway) y board communication');
+  if (recs.length === 0) recs.push('Profundización vertical en tu área core — el mercado premia más expertise profunda que generalismo');
+  return recs.join('. ') + '.';
+}
+
+function renderRoles() {
+  const profile = state.formData.profile_type;
+  const roles = (ROLES_DB[profile] && ROLES_DB[profile].senior) || ROLES_DB['ic-product'].senior;
+
+  // Ajuste de fit según AI-readiness y change appetite
+  const adjusted = roles.map(r => {
+    let fit = r.fit;
+    if (state.scores.aiReady < 40 && (r.title.includes('AI') || r.title.includes('ML'))) fit -= 25;
+    if (state.formData.change_appetite === 'low' && (r.title.includes('Founder') || r.title.includes('Indie'))) fit -= 20;
+    return { ...r, fit: Math.max(20, fit) };
+  }).sort((a, b) => b.fit - a.fit);
+
+  const html = adjusted.map((r, i) => `
+    <div class="role-card">
+      <div class="role-card-tag">Trayectoria · 0${i+1}</div>
+      <div class="role-card-title">${r.title}</div>
+      <div class="role-card-salary">${r.salary}<small>Mercado LATAM · empresas tech mid-large</small></div>
+      <div class="role-card-desc">${r.desc}</div>
+      <div class="role-card-fit">Fit con tu perfil <strong>${r.fit}%</strong></div>
+    </div>
+  `).join('');
+  document.getElementById('rolesGrid').innerHTML = html;
+}
+
+// ════════════════════════════════════════════════════════════════
+// AI-POWERED PLAN GENERATION (vía backend seguro con web search)
+// ════════════════════════════════════════════════════════════════
+async function generateAIPlan(scores) {
+  const container = document.getElementById('planSection');
+  container.innerHTML = `
+    <div style="text-align: center; padding: 40px;">
+      <div style="font-family: var(--mono); font-size: 11px; color: var(--ink); background: var(--neon-magenta); display: inline-block; padding: 6px 12px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px; font-weight: 600;">Generando con datos del mercado</div>
+      <p style="font-family: var(--serif); font-size: 22px; font-weight: 400; line-height: 1.4; max-width: 500px; margin: 0 auto 24px;">Cruzando tu perfil con tendencias actuales del mercado LATAM.</p>
+      <div style="max-width: 360px; margin: 0 auto;">
+        <div class="insight-loading-bar"><div class="insight-loading-fill" id="planLoadingBar" style="background: linear-gradient(90deg, var(--neon-magenta), var(--neon-green));"></div></div>
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--ink-muted); margin-top: 12px; letter-spacing: 0.1em;">
+          <span id="planLoadingStatus">Buscando data salarial actualizada</span><span class="insight-loading-dots"></span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Animación de progreso visual (estimado 30-60s para plan con web search)
+  const estimatedSeconds = 35;
+  const fillEl = document.getElementById('planLoadingBar');
+  const statusEl = document.getElementById('planLoadingStatus');
+  const statusMessages = [
+    'Buscando data salarial actualizada',
+    'Cruzando tendencias LATAM 2026',
+    'Personalizando con tu contexto',
+    'Refinando el plan trimestral'
+  ];
+  let elapsed = 0;
+  let statusIdx = 0;
+  let apiDone = false;
+  let apiResult = null;
+
+  const tickInterval = setInterval(() => {
+    elapsed += 0.3;
+    const progress = Math.min(95, (elapsed / estimatedSeconds) * 100);
+    if (fillEl) fillEl.style.width = progress + '%';
+    const newStatusIdx = Math.min(statusMessages.length - 1, Math.floor(elapsed / 9));
+    if (newStatusIdx !== statusIdx && statusEl) {
+      statusIdx = newStatusIdx;
+      statusEl.textContent = statusMessages[statusIdx];
+    }
+  }, 300);
+
+  try {
+    const response = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'plan',
+        payload: {
+          formData: state.formData,
+          skills: state.skills,
+          scores: scores
+        }
+      })
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error || 'Error desconocido');
+    apiResult = data.data;
+  } catch (err) {
+    console.error('Plan generation error:', err);
+    apiResult = { quarters: buildFallbackPlan(scores) };
+  }
+
+  apiDone = true;
+  clearInterval(tickInterval);
+  if (fillEl) fillEl.style.width = '100%';
+
+  setTimeout(() => {
+    renderPlan(apiResult.quarters);
+  }, 400);
+}
+
+function renderPlan(quarters) {
+  const months = ['Mes 1-3', 'Mes 4-6', 'Mes 7-9', 'Mes 10-12'];
+  const html = quarters.map((q, i) => `
+    <div class="plan-quarter">
+      <div class="quarter-label">Q${i+1}<small>${months[i]}</small></div>
+      <div class="quarter-content">
+        <h4>${escapeHtml(q.title)}</h4>
+        <p>${escapeHtml(q.narrative)}</p>
+        <ul class="quarter-actions">${q.actions.map(a => `<li>${escapeHtml(a)}</li>`).join('')}</ul>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('planSection').innerHTML = html;
+}
+
+function buildFallbackPlan(scores) {
+  const q1Focus = scores.aiReady < 50
+    ? { title: "Cerrar la brecha de IA", narrative: "Tu AI-readiness es la palanca más urgente. Sin esto, tu acceso a roles senior+ se restringe en los próximos 18 meses.", actions: ["Adoptar Claude o ChatGPT como herramienta diaria de trabajo (no sólo curiosidad)", "Construir un workflow propio con IA aplicado a tu rol actual", "Tomar el curso de prompt engineering de Anthropic o equivalente", "Documentar 3 procesos de tu trabajo donde la IA te ahorró tiempo"] }
+    : { title: "Consolidar fortalezas y visibilidad", narrative: "Tienes base técnica sólida. Este trimestre es para hacer visible el valor que ya generas.", actions: ["Documentar 3 logros recientes con números concretos de impacto", "Identificar 2 stakeholders clave y agendar 1:1 estratégico", "Actualizar LinkedIn con narrativa alineada al rol que quieres a 3 años", "Publicar un post técnico en tu área de expertise"] };
+
+  return [
+    q1Focus,
+    { title: "Profundizar el área de mayor leverage", narrative: "Identifica la skill que más impacto puede tener en tu próximo salto y dedícale tiempo dirigido.", actions: ["Elegir 1 skill emergente alineada a tu trayectoria y profundizar (no 5 a la vez)", "Encontrar un proyecto laboral donde aplicarla en producción", "Buscar un mentor o referente que ya esté en el nivel que aspiras", "Construir o contribuir a un proyecto público que demuestre la skill"] },
+    { title: "Construir red de oportunidades", narrative: "El siguiente movimiento rara vez sale de aplicar en bolsas de trabajo. Sale de relaciones cultivadas con intención.", actions: ["Agendar 6 cafés (1 cada 2 semanas) con personas en el rol o empresa objetivo", "Asistir a 2 eventos del sector con objetivo claro de aprender, no networking pasivo", "Pedir feedback estructurado a tu manager y a 2 pares senior", "Hacer una presentación pública o charla en tu área"] },
+    { title: "Activar el siguiente movimiento", narrative: "Con base, expertise y red, ahora ejecutas. El movimiento puede ser interno o externo — lo importante es que sea deliberado.", actions: ["Tener al menos 2 conversaciones serias con empresas o roles objetivo", "Renegociar tu paquete actual con data de mercado y logros documentados", "Definir tu siguiente decisión con criterios escritos, no sólo intuición", "Bloquear tiempo recurrente para revisar tu carrera trimestralmente"] }
+  ];
+}
+
+// ════════════════════════════════════════════════════════════════
+// REFLECTION SECTION
+// ════════════════════════════════════════════════════════════════
+const REFLECTION_QUESTIONS = [
+  { id: 'r1', q: 'Si en 5 años miras hacia atrás, ¿qué decisión profesional habrá sido la más cara — no por dinero, sino por costo de oportunidad?' },
+  { id: 'r2', q: '¿Qué parte de tu trabajo actual te da identidad pero ya no te da crecimiento?' },
+  { id: 'r3', q: '¿A quién admiras profesionalmente y qué de lo que esa persona hizo a tu edad no estás haciendo tú?' },
+  { id: 'r4', q: 'Si te despidieran mañana sin razón, ¿qué harías primero — y por qué no lo estás haciendo ya?' },
+  { id: 'r5', q: '¿Qué temas te aburren ya en tu rol actual, y qué te dice eso sobre dónde está tu próxima frontera?' }
+];
+
+function renderReflection() {
+  const html = REFLECTION_QUESTIONS.map((r, i) => `
+    <div class="reflection-q">
+      <div class="reflection-q-label">Pregunta · 0${i+1}</div>
+      <div class="reflection-q-text">${r.q}</div>
+      <textarea id="${r.id}" placeholder="Responde con honestidad. Mientras más específica, más útil el insight..." style="min-height: 80px;"></textarea>
+      <button class="btn btn-secondary" style="margin-top: 12px;" onclick="getInsight('${r.id}', ${i})">Obtener insight →</button>
+      <div id="${r.id}_insight"></div>
+    </div>
+  `).join('');
+  document.getElementById('reflectionContainer').innerHTML = html;
+}
+
+async function getInsight(id, index) {
+  const answer = document.getElementById(id).value.trim();
+  if (answer.length < 20) {
+    alert('Escribe una respuesta más sustantiva (al menos un par de oraciones) para que el insight sea útil.');
+    return;
+  }
+  const container = document.getElementById(`${id}_insight`);
+
+  container.innerHTML = `
+    <div class="insight-loading" id="${id}_loading">
+      <div class="insight-loading-header">
+        <span class="insight-loading-label">Generando insight</span>
+        <span class="insight-loading-timer">~<span id="${id}_timer">12</span>s</span>
+      </div>
+      <div class="insight-loading-bar"><div class="insight-loading-fill" id="${id}_fill"></div></div>
+      <div class="insight-loading-status">
+        <span id="${id}_status">Analizando tu respuesta</span><span class="insight-loading-dots"></span>
+      </div>
+    </div>
+  `;
+
+  const estimatedSeconds = 10;
+  const fillEl = document.getElementById(`${id}_fill`);
+  const timerEl = document.getElementById(`${id}_timer`);
+  const statusEl = document.getElementById(`${id}_status`);
+  const statusMessages = [
+    'Analizando tu respuesta',
+    'Identificando patrones y tensiones',
+    'Construyendo el insight personalizado',
+    'Refinando la provocación final'
+  ];
+
+  let elapsed = 0;
+  let statusIdx = 0;
+  let apiDone = false;
+  let apiResult = null;
+
+  const tickInterval = setInterval(() => {
+    elapsed += 0.1;
+    const progress = Math.min(95, (elapsed / estimatedSeconds) * 100);
+    fillEl.style.width = progress + '%';
+    const remaining = Math.max(0, Math.ceil(estimatedSeconds - elapsed));
+    timerEl.textContent = remaining;
+    const newStatusIdx = Math.min(statusMessages.length - 1, Math.floor(elapsed / 2.5));
+    if (newStatusIdx !== statusIdx) {
+      statusIdx = newStatusIdx;
+      statusEl.textContent = statusMessages[statusIdx];
+    }
+  }, 100);
+
+  const question = REFLECTION_QUESTIONS[index].q;
+
+  try {
+    const response = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'insight',
+        payload: {
+          question: question,
+          answer: answer,
+          context: {
+            role: state.formData.role,
+            years: state.formData.years,
+            level: state.formData.level,
+            concern: state.formData.concern,
+            aspiration: state.formData.aspiration
+          }
+        }
+      })
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error || 'Error desconocido');
+    apiResult = data.data.insight;
+  } catch (err) {
+    console.error('Insight error:', err);
+    apiResult = null;
+  }
+
+  apiDone = true;
+  clearInterval(tickInterval);
+  fillEl.style.width = '100%';
+
+  setTimeout(() => {
+    if (apiResult) {
+      container.innerHTML = `<div class="reflection-insight"><strong>Insight personalizado</strong>${escapeHtml(apiResult)}</div>`;
+    } else {
+      container.innerHTML = `<div class="reflection-insight"><strong>Insight</strong>Tu respuesta sugiere que ya tienes claridad sobre dónde está la tensión — pero quizá no sobre el costo de no actuar. ¿Qué te detiene específicamente: información, recursos, o el miedo a equivocarte con una decisión que sentirás como definitiva?</div>`;
+    }
+  }, 300);
+}
+
+// ════════════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════════════
+// Progress bar simple según screen
+function updateProgress(percent) {
+  document.getElementById('progressFill').style.width = percent + '%';
+}
+</script>
+
+</body>
+</html>
