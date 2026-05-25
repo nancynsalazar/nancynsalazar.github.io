@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* === MISMO CSS DEL REPORTE PRINCIPAL === */
 :root {
@@ -23,11 +23,16 @@
   --neon-orange: #FF7F00;
   --neon-red: #FF0000;
   --neon-yellow: #FFFF00;
+  --neon-cyan: #00F0FF;
+  --shadow-ink: 6px 6px 0 var(--ink);
+  --shadow-ink-sm: 4px 4px 0 var(--ink);
+  --shadow-green: 0 0 40px rgba(44, 255, 5, 0.4);
+  --shadow-magenta: 0 0 40px rgba(255, 0, 255, 0.4);
   --good: var(--neon-green);
   --warn: var(--neon-orange);
   --danger: var(--neon-red);
   --serif: 'Fraunces', Georgia, serif;
-  --sans: 'Inter', -apple-system, sans-serif;
+  --sans: 'Poppins', -apple-system, sans-serif;
   --mono: 'JetBrains Mono', monospace;
 }
 
@@ -307,9 +312,232 @@ body::before {
   color: var(--ink-muted);
 }
 .archived-note strong { color: var(--ink); font-weight: 700; }
+
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* UPGRADE v2: Blobs, mesh gradient, animaciones                     */
+/* ═══════════════════════════════════════════════════════════════ */
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-weight: 400;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(44, 255, 5, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 50%);
+  animation: meshMove 20s ease-in-out infinite alternate;
+  opacity: 1;
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(44, 255, 5, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 50%);
+}
+
+@keyframes meshMove {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(20px, -30px) rotate(2deg); }
+  100% { transform: translate(-30px, 20px) rotate(-1deg); }
+}
+
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
+  will-change: transform;
+}
+.blob-1 {
+  width: 480px; height: 480px;
+  background: var(--neon-green);
+  top: -100px; left: -100px;
+  animation: blobFloat1 18s ease-in-out infinite;
+}
+.blob-2 {
+  width: 380px; height: 380px;
+  background: var(--neon-magenta);
+  bottom: -50px; right: -80px;
+  animation: blobFloat2 22s ease-in-out infinite;
+}
+.blob-3 {
+  width: 300px; height: 300px;
+  background: var(--neon-cyan);
+  top: 50%; left: 50%;
+  opacity: 0.18;
+  animation: blobFloat3 25s ease-in-out infinite;
+}
+@keyframes blobFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(100px, 80px) scale(1.1); }
+  66% { transform: translate(-50px, 150px) scale(0.95); }
+}
+@keyframes blobFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-120px, -100px) scale(1.05); }
+  66% { transform: translate(80px, -150px) scale(0.9); }
+}
+@keyframes blobFloat3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-30%, -70%) scale(1.2); }
+}
+
+/* Container relative para que esté arriba de los blobs */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header con línea animada */
+.brand-header {
+  border-bottom: none !important;
+  position: relative;
+}
+.brand-header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ink) 0%, var(--neon-magenta) 50%, var(--ink) 100%);
+  background-size: 200% 100%;
+  animation: gradientFlow 4s linear infinite;
+}
+@keyframes gradientFlow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.brand-mark {
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+.brand-mark:hover { transform: scale(1.05); }
+
+/* Title con gradient animado en em */
+h1 em {
+  background: linear-gradient(135deg, var(--neon-magenta) 0%, #ff60ff 50%, var(--neon-magenta) 100%) !important;
+  background-size: 200% 100% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: gradientShift 6s ease-in-out infinite;
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Labels con pulse dot */
+.doc-label {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-magenta);
+}
+.doc-label::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--neon-yellow);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--neon-yellow);
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* h2 section-num con borde redondeado y glow */
+h2 .section-num {
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(255, 0, 255, 0.4);
+}
+
+/* Callouts con bordes redondeados */
+.callout {
+  border-radius: 18px !important;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 0.3s ease;
+}
+.callout:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.callout strong {
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(44, 255, 5, 0.3);
+}
+
+/* Data table con bordes redondeados */
+.data-table {
+  border-radius: 16px !important;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* Highlight box: bordes redondeados, sombra 3D */
+.highlight-box {
+  border-radius: 20px !important;
+  box-shadow: 6px 6px 0 var(--ink), 0 20px 60px rgba(0,0,0,0.06);
+}
+
+/* Back link */
+.back-link {
+  border-radius: 14px !important;
+  position: relative;
+  overflow: hidden;
+}
+.back-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 0, 255, 0) 0%, rgba(255, 0, 255, 0.3) 50%, rgba(255, 0, 255, 0) 100%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+.back-link:hover::before { transform: translateX(100%); }
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 </style>
 </head>
 <body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
 
 <div class="container">
 
@@ -671,6 +899,19 @@ function renderRoles(report) {
 
 // Cargar al abrir
 loadReport();
+</script>
+
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('h2, .callout, .data-table, .highlight-box').forEach(el => {
+  el.classList.add('reveal');
+  observer.observe(el);
+});
 </script>
 
 </body>
