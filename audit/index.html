@@ -6,7 +6,7 @@
 <title>Audit de tu Carrera Tech a 5 Años — por @nancynsalazar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
   /* Base — blancos y negros */
@@ -44,7 +44,7 @@
 
   /* Tipografía */
   --serif: 'Fraunces', Georgia, serif;
-  --sans: 'Inter', -apple-system, sans-serif;
+  --sans: 'Poppins', -apple-system, sans-serif;
   --mono: 'JetBrains Mono', monospace;
 
   /* Sombras */
@@ -1350,9 +1350,272 @@ textarea {
   body { background: white; color: black; }
   .no-print { display: none !important; }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* UPGRADE v2: Neon Soft Brutalism                                   */
+/* ═══════════════════════════════════════════════════════════════ */
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-weight: 400;
+  position: relative;
+}
+
+/* Mesh gradient de fondo */
+body {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(44, 255, 5, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 50%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+.blob-1 {
+  width: 480px; height: 480px;
+  background: var(--neon-green);
+  top: -100px; left: -100px;
+  animation: blobFloat1 18s ease-in-out infinite;
+}
+.blob-2 {
+  width: 380px; height: 380px;
+  background: var(--neon-magenta);
+  bottom: -50px; right: -80px;
+  animation: blobFloat2 22s ease-in-out infinite;
+}
+.blob-3 {
+  width: 300px; height: 300px;
+  background: var(--neon-cyan);
+  top: 50%; left: 50%;
+  opacity: 0.18;
+  animation: blobFloat3 25s ease-in-out infinite;
+}
+@keyframes blobFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(100px, 80px) scale(1.1); }
+  66% { transform: translate(-50px, 150px) scale(0.95); }
+}
+@keyframes blobFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-120px, -100px) scale(1.05); }
+  66% { transform: translate(80px, -150px) scale(0.9); }
+}
+@keyframes blobFloat3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-30%, -70%) scale(1.2); }
+}
+
+/* Container relative para estar arriba de blobs */
+.container, .screen {
+  position: relative;
+  z-index: 1;
+}
+
+/* Brand mark hover */
+.brand-mark {
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+.brand-mark:hover { transform: scale(1.05); }
+
+/* Header con línea gradient animada */
+.brand-header {
+  border-bottom: none !important;
+  position: relative;
+}
+.brand-header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ink) 0%, var(--neon-magenta) 50%, var(--ink) 100%);
+  background-size: 200% 100%;
+  animation: gradientFlow 4s linear infinite;
+}
+@keyframes gradientFlow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+/* Heroes con gradient en em */
+h1 em, h2 em {
+  background: linear-gradient(135deg, var(--neon-magenta) 0%, #ff60ff 50%, var(--neon-magenta) 100%) !important;
+  background-size: 200% 100% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: gradientShift 6s ease-in-out infinite;
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Labels con pulse dot + bordes redondeados */
+.hero-label, .doc-label, .form-label, .scaling-tag {
+  border-radius: 8px;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+}
+.hero-label::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--neon-yellow);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--neon-yellow);
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* Botones con efectos */
+.btn, .btn-primary, .btn-arrow {
+  border-radius: 14px !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: var(--shadow-ink-sm) !important;
+  font-family: var(--sans);
+  font-weight: 600;
+}
+.btn::before, .btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 0, 255, 0) 0%, rgba(255, 0, 255, 0.3) 50%, rgba(255, 0, 255, 0) 100%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+.btn:hover::before, .btn-primary:hover::before { transform: translateX(100%); }
+
+.btn:hover, .btn-primary:hover {
+  transform: translate(-3px, -3px) !important;
+  box-shadow: 7px 7px 0 var(--ink), 0 0 40px rgba(255, 0, 255, 0.5) !important;
+}
+
+.btn:active, .btn-primary:active {
+  transform: translate(0, 0) !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
+}
+
+/* Inputs con focus animado */
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  border-radius: 12px !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  font-family: var(--sans);
+  font-weight: 500;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 4px 4px 0 var(--neon-green) !important;
+  transform: translate(-2px, -2px);
+}
+
+/* Cards y secciones con bordes redondeados */
+.gate-content,
+.gate-preview,
+.form-section,
+.score-card,
+.role-card,
+.feature,
+.exec-summary,
+.skill-row,
+.callout,
+.reflection-card,
+.q-card,
+.insight-card,
+.path-card,
+.cta-final {
+  border-radius: 16px !important;
+}
+
+.gate-content {
+  box-shadow: var(--shadow-ink) !important;
+}
+
+.score-card:hover,
+.role-card:hover,
+.feature:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--ink) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.report-cover {
+  border-radius: 24px !important;
+  box-shadow: var(--shadow-ink), 0 20px 60px rgba(0,0,0,0.15);
+}
+
+/* Section nums con glow */
+.report-section-num,
+.section-num {
+  border-radius: 6px !important;
+  box-shadow: 0 0 12px rgba(255, 0, 255, 0.4);
+}
+
+/* Skill trends con bordes redondeados */
+.skill-trend {
+  border-radius: 6px !important;
+}
+
+/* Loading screens con vibe nuevo */
+.loading-screen {
+  border-radius: 24px;
+  position: relative;
+}
+
+/* Footer hover */
+.footer a {
+  transition: color 0.2s ease;
+}
+.footer a:hover { color: var(--neon-magenta); }
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 </style>
 </head>
 <body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
 
 <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
@@ -1364,7 +1627,7 @@ textarea {
 <div class="screen active" id="screen-landing">
   <header class="brand-header">
     <div class="brand-mark">@nancyn<em>salazar</em></div>
-    <div class="brand-tag">Strategic Career Tools</div>
+    <div class="brand-tag">Strategic Career Tools — v1.0</div>
   </header>
 
   <div class="hero">
