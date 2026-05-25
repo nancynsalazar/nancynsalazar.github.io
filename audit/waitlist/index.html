@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waitlist — Audit de Carrera Tech · @nancynsalazar</title>
+<meta name="description" content="Anótate a la lista de espera del Audit de Carrera Tech y obtén 30% de descuento + acceso anticipado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-elev: #fafafa;
+  --bg-elev-2: #f4f4f4;
+  --ink: #0a0a0a;
+  --ink-muted: #6b6b6b;
+  --ink-dim: #a3a3a3;
+  --line: #e8e8e8;
+  --neon-green: #2CFF05;
+  --neon-magenta: #FF00FF;
+  --neon-yellow: #FFFF00;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1000;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 40px 120px;
+}
+
+.brand-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 80px;
+}
+
+.brand-mark {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand-mark em { color: var(--neon-magenta); font-style: italic; }
+
+.brand-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero-label {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--neon-magenta);
+  color: var(--bg);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 8px 14px;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(48px, 7vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 32px;
+  max-width: 720px;
+}
+
+h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--neon-magenta);
+}
+
+.lead {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1.5;
+  max-width: 640px;
+  color: var(--ink);
+  margin-bottom: 56px;
+}
+
+/* Benefits box */
+.benefits {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 48px;
+  margin-bottom: 56px;
+  border: 2px solid var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.benefits::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  background: var(--neon-green);
+  transform: rotate(45deg) translate(45px, -75px);
+}
+
+.benefits-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--neon-green);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+}
+
+.benefits h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.benefits h2 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--neon-magenta);
+}
+
+.benefits-list {
+  list-style: none;
+  position: relative;
+  z-index: 1;
+}
+
+.benefits-list li {
+  padding: 16px 0 16px 36px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.benefits-list li:last-child { border-bottom: none; }
+
+.benefits-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--neon-green);
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.benefits-list strong {
+  color: var(--neon-green);
+  font-weight: 600;
+}
+
+/* Form */
+.form-section {
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  border-top: 8px solid var(--neon-green);
+  padding: 48px;
+  margin-bottom: 56px;
+}
+
+.form-section h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.field {
+  margin-bottom: 24px;
+}
+
+.field-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+}
+
+.field-label .required { color: var(--neon-magenta); }
+
+input[type="text"],
+input[type="email"],
+select {
+  width: 100%;
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  padding: 14px 16px;
+  transition: all 0.15s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  box-shadow: 4px 4px 0 var(--neon-green);
+  transform: translate(-2px, -2px);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .field-row { grid-template-columns: 1fr; }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 32px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: 2px solid var(--ink);
+  background: var(--neon-green);
+  color: var(--ink);
+  transition: all 0.18s ease;
+  text-decoration: none;
+  width: 100%;
+  justify-content: center;
+}
+
+.btn:hover {
+  background: var(--neon-magenta);
+  color: var(--bg);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn::after {
+  content: '→';
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.btn:hover::after {
+  transform: translateX(4px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.form-disclaimer {
+  margin-top: 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+}
+
+.form-disclaimer a {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+/* Success state */
+.success-state {
+  display: none;
+  background: var(--neon-green);
+  color: var(--ink);
+  padding: 56px 48px;
+  border: 2px solid var(--ink);
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.success-state.show { display: block; }
+
+.success-state .icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+.success-state h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 42px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.success-state p {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 300;
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+
+.success-state strong {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--ink);
+  color: var(--neon-green);
+  padding: 8px 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  display: inline-block;
+}
+
+/* What is */
+.what-is {
+  margin-bottom: 56px;
+}
+
+.what-is h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.what-is p {
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+  max-width: 720px;
+  font-size: 17px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+@media (max-width: 700px) {
+  .features { grid-template-columns: 1fr; }
+}
+
+.feature {
+  padding: 20px;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+}
+
+.feature-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink);
+  background: var(--neon-green);
+  padding: 3px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.feature h4 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.feature p {
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* Counter */
+.counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 20px 24px;
+  background: var(--bg-elev);
+  border: 2px solid var(--ink);
+  margin-bottom: 32px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.counter strong {
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--neon-magenta);
+  letter-spacing: -0.02em;
+  text-transform: none;
+  font-weight: 500;
+}
+
+/* Footer */
+.footer {
+  margin-top: 80px;
+  padding-top: 32px;
+  border-top: 2px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer a {
+  color: var(--ink-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer a:hover { color: var(--neon-magenta); }
+
+@media (max-width: 600px) {
+  .container { padding: 32px 20px 80px; }
+  .form-section, .benefits { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="brand-header">
+    <a href="/" class="brand-mark">@nancyn<em>salazar</em></a>
+    <div class="brand-tag">Lista de espera</div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero-label">Pre-lanzamiento · Cupo limitado</div>
+
+  <h1>Tu carrera tech<br>merece más que <em>buenas intenciones</em>.</h1>
+
+  <p class="lead">
+    Estoy construyendo el <strong>Audit de Carrera Tech a 5 Años</strong> — una herramienta digital que te ayuda a entender dónde estás realmente, qué se está depreciando en tu stack, y qué pasos sí mover en los próximos 12 meses. Sin coaching genérico, sin clichés motivacionales.
+  </p>
+
+  <!-- Beneficios -->
+  <div class="benefits">
+    <div class="benefits-label">Beneficios para waitlisters</div>
+    <h2>Las primeras <em>50 personas</em><br>obtienen acceso anticipado.</h2>
+    <ul class="benefits-list">
+      <li><strong>30% de descuento</strong> sobre el precio de lanzamiento: $244 MXN en lugar de $349 MXN</li>
+      <li><strong>Acceso anticipado</strong> al menos 7 días antes del lanzamiento público</li>
+      <li><strong>Sin costos ocultos:</strong> es pago único, sin suscripciones, sin renovaciones</li>
+      <li>Comunicación directa conmigo si necesitas profundizar después del audit</li>
+    </ul>
+  </div>
+
+  <!-- Form -->
+  <div class="form-section" id="formSection">
+    <h3>Anótate a la lista</h3>
+
+    <div class="field">
+      <label class="field-label">Tu nombre <span class="required">*</span></label>
+      <input type="text" id="wl_name" placeholder="Ej. María Rodríguez">
+    </div>
+
+    <div class="field">
+      <label class="field-label">Tu correo <span class="required">*</span></label>
+      <input type="email" id="wl_email" placeholder="tu@correo.com">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Tu rol actual</label>
+        <input type="text" id="wl_role" placeholder="Ej. Senior Engineer">
+      </div>
+      <div class="field">
+        <label class="field-label">Años en tech</label>
+        <select id="wl_years">
+          <option value="">Selecciona...</option>
+          <option value="0-2">Menos de 3</option>
+          <option value="3-5">3 a 5 años</option>
+          <option value="5-8">5 a 8 años</option>
+          <option value="8-12">8 a 12 años</option>
+          <option value="12+">Más de 12 años</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">¿Qué te trajo aquí? (opcional)</label>
+      <select id="wl_source">
+        <option value="">Selecciona...</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="instagram">Instagram</option>
+        <option value="twitter">Twitter/X</option>
+        <option value="referral">Una amiga me lo compartió</option>
+        <option value="other">Otro</option>
+      </select>
+    </div>
+
+    <button class="btn" id="submitBtn" onclick="submitWaitlist()">Apartar mi lugar</button>
+
+    <div class="form-disclaimer">
+      Al anotarte aceptas el <a href="/audit/aviso-privacidad">Aviso de Privacidad</a>.
+      Te escribiremos cuando el audit esté listo. Sin spam.
+    </div>
+  </div>
+
+  <!-- Success state (oculto inicialmente) -->
+  <div class="success-state" id="successState">
+    <div class="icon">✓</div>
+    <h2>Estás dentro.</h2>
+    <p>Te escribiré en cuanto el audit esté listo. Tu código de descuento llegará con el primer correo.</p>
+    <strong id="positionTag">Lugar reservado</strong>
+  </div>
+
+  <!-- Qué es -->
+  <div class="what-is">
+    <h3>¿Qué incluye el Audit?</h3>
+    <p>Una herramienta digital interactiva que toma tu perfil, lo cruza con datos de mercado actuales, y te entrega un reporte estratégico sin endulzar lo que tienes que ver.</p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-num">01</div>
+        <h4>Mapa de depreciación</h4>
+        <p>Cuáles de tus skills suben, cuáles bajan, cuáles están en riesgo crítico de obsolescencia.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">02</div>
+        <h4>Roles aspirables</h4>
+        <p>4-6 trayectorias realistas a 3-5 años con rangos salariales LATAM verificados.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">03</div>
+        <h4>Plan a 12 meses</h4>
+        <p>Roadmap trimestral hiperpersonalizado generado con IA y datos de mercado en vivo.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">04</div>
+        <h4>Reflexión estratégica</h4>
+        <p>5 preguntas socráticas con insights personalizados para ganar claridad real.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div>© 2026 @nancynsalazar · León, México</div>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <a href="/audit/aviso-privacidad">Privacidad</a>
+      <a href="/audit/terminos">Términos</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+async function submitWaitlist() {
+  const name = document.getElementById('wl_name').value.trim();
+  const email = document.getElementById('wl_email').value.trim();
+  const role = document.getElementById('wl_role').value.trim();
+  const years = document.getElementById('wl_years').value;
+  const source = document.getElementById('wl_source').value;
+  const btn = document.getElementById('submitBtn');
+
+  if (!name || name.length < 2) {
+    alert('Por favor escribe tu nombre.');
+    return;
+  }
+  if (!email || !email.includes('@')) {
+    alert('Por favor ingresa un correo válido.');
+    return;
+  }
+
+  const originalText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = 'Apartando tu lugar...';
+
+  try {
+    const response = await fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'waitlist',
+        payload: {
+          name: name,
+          email: email,
+          role: role,
+          years: years,
+          source: source
+        }
+      })
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error || 'Error al guardar');
+
+    // Mostrar success state
+    document.getElementById('formSection').style.display = 'none';
+    document.getElementById('successState').classList.add('show');
+
+    // Scroll suave al success
+    document.getElementById('successState').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } catch (err) {
+    console.error('Waitlist error:', err);
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+    alert('Hubo un problema al guardar. Por favor escríbeme a hola@nancynsalazar.tech y te anoto manualmente.');
+  }
+}
+</script>
+
+</body>
+</html>
