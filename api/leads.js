@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   try {
     const { type, payload } = req.body;
 
-    if (type !== 'compra' && type !== 'audit') {
+    if (type !== 'compra' && type !== 'audit' && type !== 'email') {
       return res.status(400).json({ error: 'Tipo de evento no reconocido' });
     }
 
@@ -51,7 +51,11 @@ export default async function handler(req, res) {
       throw new Error(result.error || 'Apps Script devolvió error');
     }
 
-    return res.status(200).json({ success: true });
+    // Devolver toda la data del Apps Script (incluye auditId cuando type=audit)
+    return res.status(200).json({
+      success: true,
+      auditId: result.auditId || null
+    });
 
   } catch (err) {
     // Log el error pero NO bloqueamos el flujo del usuario
