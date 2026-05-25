@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   try {
     const { type, payload } = req.body;
 
-    if (type !== 'compra' && type !== 'audit' && type !== 'email') {
+    if (type !== 'compra' && type !== 'audit' && type !== 'email' && type !== 'waitlist') {
       return res.status(400).json({ error: 'Tipo de evento no reconocido' });
     }
 
