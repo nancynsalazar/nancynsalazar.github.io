@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Reporte — Audit de Carrera Tech · @nancynsalazar</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* === MISMO CSS DEL REPORTE PRINCIPAL === */
+:root {
+  --bg: #ffffff;
+  --bg-elev: #fafafa;
+  --bg-elev-2: #f4f4f4;
+  --ink: #0a0a0a;
+  --ink-muted: #6b6b6b;
+  --ink-dim: #a3a3a3;
+  --line: #e8e8e8;
+  --neon-green: #2CFF05;
+  --neon-magenta: #FF00FF;
+  --neon-orange: #FF7F00;
+  --neon-red: #FF0000;
+  --neon-yellow: #FFFF00;
+  --good: var(--neon-green);
+  --warn: var(--neon-orange);
+  --danger: var(--neon-red);
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1000;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+
+.brand-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 24px; border-bottom: 2px solid var(--ink); margin-bottom: 60px;
+}
+.brand-mark {
+  font-family: var(--serif); font-weight: 600; font-size: 18px;
+  letter-spacing: -0.02em; text-decoration: none; color: var(--ink);
+}
+.brand-mark em { color: var(--neon-magenta); font-style: italic; }
+.brand-tag {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-muted);
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+
+/* Estados: loading, error, ready */
+.state-loading, .state-error {
+  text-align: center; padding: 120px 40px;
+}
+
+.state-loading .spinner {
+  display: inline-block;
+  width: 48px; height: 48px;
+  border: 3px solid var(--line);
+  border-top-color: var(--neon-magenta);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  margin-bottom: 32px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.state-loading h2, .state-error h2 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 32px; letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.state-loading p, .state-error p {
+  color: var(--ink-muted); max-width: 480px; margin: 0 auto;
+}
+
+.state-error h2 { color: var(--neon-red); }
+
+.state-error .err-actions { margin-top: 32px; }
+.state-error a {
+  display: inline-block;
+  padding: 16px 28px;
+  border: 2px solid var(--ink);
+  background: var(--neon-green);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.state-error a:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* Report */
+#report { display: none; }
+#report.ready { display: block; }
+
+.report-cover {
+  background: var(--ink); color: var(--bg);
+  padding: 80px 60px; margin-bottom: 60px;
+  position: relative; overflow: hidden;
+  border: 2px solid var(--ink);
+}
+.report-cover::after {
+  content: ''; position: absolute; top: 0; right: 0;
+  width: 200px; height: 200px; background: var(--neon-magenta);
+  transform: rotate(45deg) translate(60px, -100px);
+}
+.report-cover::before {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 120px; height: 120px; background: var(--neon-green);
+  transform: rotate(45deg) translate(-60px, 60px);
+}
+.report-cover-label {
+  font-family: var(--mono); font-size: 10px; color: var(--neon-green);
+  text-transform: uppercase; letter-spacing: 0.2em;
+  margin-bottom: 20px; position: relative; z-index: 1;
+}
+.report-cover h1 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(40px, 5vw, 64px); line-height: 1;
+  letter-spacing: -0.03em; margin-bottom: 28px; max-width: 700px;
+  position: relative; z-index: 1;
+}
+.report-cover h1 em { font-style: italic; font-weight: 300; color: var(--neon-magenta); }
+.report-cover-meta {
+  display: flex; gap: 48px; font-family: var(--mono); font-size: 12px;
+  color: rgba(255,255,255,0.6); text-transform: uppercase;
+  letter-spacing: 0.1em; position: relative; z-index: 1; flex-wrap: wrap;
+}
+.report-cover-meta strong {
+  color: var(--bg); display: block; font-family: var(--serif);
+  font-size: 16px; margin-top: 4px; text-transform: none;
+  letter-spacing: 0; font-weight: 500;
+}
+
+.report-section { margin-bottom: 80px; }
+.report-section-header {
+  display: grid; grid-template-columns: 80px 1fr; gap: 24px;
+  margin-bottom: 32px; padding-bottom: 16px; border-bottom: 2px solid var(--ink);
+}
+.report-section-num {
+  font-family: var(--mono); font-size: 11px; color: var(--ink);
+  background: var(--neon-magenta); letter-spacing: 0.15em;
+  padding: 6px 10px; font-weight: 600; display: inline-block; height: fit-content;
+}
+.report-section-title {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 36px; letter-spacing: -0.02em;
+}
+.report-content { padding-left: 104px; }
+@media (max-width: 700px) {
+  .report-section-header { grid-template-columns: 1fr; }
+  .report-content { padding-left: 0; }
+}
+
+.exec-summary {
+  background: var(--bg-elev); padding: 40px;
+  border-left: 6px solid var(--neon-green);
+  border-top: 2px solid var(--ink);
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 32px;
+}
+.exec-summary-label {
+  font-family: var(--mono); font-size: 11px; color: var(--ink);
+  background: var(--neon-green); display: inline-block;
+  padding: 4px 8px; text-transform: uppercase; letter-spacing: 0.15em;
+  margin-bottom: 16px; font-weight: 600;
+}
+.exec-summary p {
+  font-family: var(--serif); font-size: 20px; line-height: 1.5; font-weight: 400;
+}
+
+.score-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px;
+}
+@media (max-width: 700px) { .score-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.score-card {
+  background: var(--bg); padding: 24px; border: 2px solid var(--ink);
+}
+.score-card-label {
+  font-family: var(--mono); font-size: 10px; color: var(--ink-muted);
+  text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px;
+}
+.score-card-value {
+  font-family: var(--serif); font-size: 48px; font-weight: 500;
+  line-height: 1; letter-spacing: -0.03em;
+}
+.score-card-value .denom { font-size: 16px; color: var(--ink-muted); font-weight: 400; }
+.score-card-bar {
+  margin-top: 16px; height: 6px; background: var(--line);
+  overflow: hidden; border: 1px solid var(--ink);
+}
+.score-card-fill {
+  height: 100%; background: var(--neon-magenta); width: 0%;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.score-card.warn .score-card-fill { background: var(--neon-orange); }
+.score-card.danger .score-card-fill { background: var(--neon-red); }
+.score-card.good .score-card-fill { background: var(--neon-green); }
+
+.skills-list { list-style: none; margin-bottom: 40px; }
+.skill-row {
+  display: grid; grid-template-columns: 1fr auto 100px; gap: 24px;
+  align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line);
+}
+.skill-name { font-family: var(--serif); font-size: 18px; font-weight: 400; }
+.skill-name small {
+  display: block; font-family: var(--sans); font-size: 13px;
+  color: var(--ink-muted); margin-top: 4px;
+}
+.skill-trend {
+  font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.12em; padding: 4px 10px; font-weight: 600;
+  color: var(--ink); border: 2px solid var(--ink);
+}
+.skill-trend.rising { background: var(--neon-green); }
+.skill-trend.stable { background: var(--bg); color: var(--ink-muted); border-color: var(--ink-muted); }
+.skill-trend.declining { background: var(--neon-orange); }
+.skill-trend.critical { background: var(--neon-red); color: var(--bg); }
+.skill-bar { height: 8px; background: var(--line); position: relative; border: 1px solid var(--ink); }
+.skill-bar-fill { height: 100%; width: 0%; transition: width 1s ease; }
+.skill-bar-fill.high { background: var(--neon-green); }
+.skill-bar-fill.med { background: var(--neon-orange); }
+.skill-bar-fill.low { background: var(--neon-red); }
+
+.roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .roles-grid { grid-template-columns: 1fr; } }
+
+.role-card {
+  background: var(--bg); border: 2px solid var(--ink); padding: 24px;
+}
+.role-card-tag {
+  display: inline-block; font-family: var(--mono); font-size: 10px;
+  color: var(--ink); background: var(--neon-magenta);
+  text-transform: uppercase; letter-spacing: 0.15em;
+  margin-bottom: 12px; padding: 3px 8px; font-weight: 600;
+}
+.role-card-title {
+  font-family: var(--serif); font-size: 22px; font-weight: 500;
+  letter-spacing: -0.01em; margin-bottom: 8px;
+}
+.role-card-salary {
+  font-family: var(--mono); font-size: 14px; color: var(--ink);
+  margin-bottom: 16px; padding-bottom: 16px;
+  border-bottom: 1px dashed var(--ink-muted); font-weight: 500;
+}
+.role-card-salary small {
+  color: var(--ink-muted); font-size: 11px; display: block;
+  margin-top: 4px; font-weight: 400;
+}
+.role-card-desc {
+  font-size: 14px; color: var(--ink-muted); line-height: 1.6; margin-bottom: 16px;
+}
+.role-card-fit {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-muted);
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+.role-card-fit strong { color: var(--neon-magenta); margin-left: 8px; font-weight: 700; }
+
+.footer {
+  margin-top: 120px; padding-top: 40px; border-top: 2px solid var(--ink);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 11px; color: var(--ink-muted);
+  text-transform: uppercase; letter-spacing: 0.12em; flex-wrap: wrap; gap: 16px;
+}
+.footer a { color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+
+@media (max-width: 700px) {
+  .container { padding: 32px 20px; }
+}
+
+@media print {
+  body { background: white; }
+  .brand-tag, .no-print { display: none !important; }
+}
+
+/* Info message para indicar que es la versión guardada */
+.archived-note {
+  background: var(--bg-elev); border: 2px solid var(--ink);
+  border-left: 6px solid var(--neon-magenta);
+  padding: 16px 20px; margin-bottom: 32px;
+  font-family: var(--mono); font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ink-muted);
+}
+.archived-note strong { color: var(--ink); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="brand-header">
+    <a href="/" class="brand-mark">@nancyn<em>salazar</em></a>
+    <div class="brand-tag">Reporte archivado</div>
+  </header>
+
+  <!-- Loading state -->
+  <div class="state-loading" id="stateLoading">
+    <div class="spinner"></div>
+    <h2>Cargando tu reporte...</h2>
+    <p>Recuperando tu audit de los registros.</p>
+  </div>
+
+  <!-- Error state -->
+  <div class="state-error" id="stateError" style="display: none;">
+    <h2 id="errorTitle">Reporte no encontrado</h2>
+    <p id="errorMsg">El link puede haber expirado o no es válido. Si tienes problemas, escríbenos a hola@nancynsalazar.tech.</p>
+    <div class="err-actions">
+      <a href="/audit/">Volver al inicio</a>
+    </div>
+  </div>
+
+  <!-- Report content -->
+  <div id="report">
+
+    <div class="archived-note">
+      <strong>↳ Versión archivada</strong> · Este es tu reporte guardado. Puedes regresar a esta página las veces que quieras.
+    </div>
+
+    <div class="report-cover">
+      <div class="report-cover-label">Audit Estratégico · Carrera Tech</div>
+      <h1>Reporte para <em id="r_name">—</em></h1>
+      <div class="report-cover-meta">
+        <div>Generado<strong id="r_date">—</strong></div>
+        <div>Perfil<strong id="r_profile">—</strong></div>
+        <div>Años en tech<strong id="r_years">—</strong></div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-header">
+        <span class="report-section-num">01</span>
+        <h2 class="report-section-title">Resumen ejecutivo</h2>
+      </div>
+      <div class="report-content">
+        <div class="exec-summary">
+          <div class="exec-summary-label">Diagnóstico</div>
+          <p id="r_summary">—</p>
+        </div>
+        <div class="score-grid">
+          <div class="score-card" id="card_resilience">
+            <div class="score-card-label">Resiliencia stack</div>
+            <div class="score-card-value"><span id="s_resilience">—</span><span class="denom">/100</span></div>
+            <div class="score-card-bar"><div class="score-card-fill" id="bar_resilience"></div></div>
+          </div>
+          <div class="score-card" id="card_market">
+            <div class="score-card-label">Alineación mercado</div>
+            <div class="score-card-value"><span id="s_market">—</span><span class="denom">/100</span></div>
+            <div class="score-card-bar"><div class="score-card-fill" id="bar_market"></div></div>
+          </div>
+          <div class="score-card" id="card_growth">
+            <div class="score-card-label">Potencial crecimiento</div>
+            <div class="score-card-value"><span id="s_growth">—</span><span class="denom">/100</span></div>
+            <div class="score-card-bar"><div class="score-card-fill" id="bar_growth"></div></div>
+          </div>
+          <div class="score-card" id="card_ai">
+            <div class="score-card-label">AI-readiness</div>
+            <div class="score-card-value"><span id="s_ai">—</span><span class="denom">/100</span></div>
+            <div class="score-card-bar"><div class="score-card-fill" id="bar_ai"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-header">
+        <span class="report-section-num">02</span>
+        <h2 class="report-section-title">Mapa de depreciación</h2>
+      </div>
+      <div class="report-content">
+        <p style="color: var(--ink-muted); margin-bottom: 32px;">Análisis de la trayectoria de mercado de cada una de tus skills declaradas.</p>
+        <ul class="skills-list" id="skillsList"></ul>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="report-section-header">
+        <span class="report-section-num">03</span>
+        <h2 class="report-section-title">Roles aspirables a 3-5 años</h2>
+      </div>
+      <div class="report-content">
+        <p style="color: var(--ink-muted); margin-bottom: 32px;">Trayectorias realistas basadas en tu stack, experiencia y apetito de cambio.</p>
+        <div class="roles-grid" id="rolesGrid"></div>
+      </div>
+    </div>
+
+    <div style="text-align: center; padding: 48px; background: var(--bg-elev); border: 2px solid var(--ink); margin-top: 60px;">
+      <p style="font-family: var(--serif); font-size: 20px; font-weight: 400; line-height: 1.5; max-width: 560px; margin: 0 auto 24px;">El plan a 12 meses y la sesión de reflexión que recibiste durante el audit eran únicos para ese momento. Si quieres una nueva versión actualizada, puedes hacer un audit nuevo.</p>
+      <a href="/audit/" style="display: inline-block; padding: 16px 28px; background: var(--neon-green); color: var(--ink); border: 2px solid var(--ink); font-family: var(--sans); font-weight: 600; font-size: 14px; text-decoration: none;">Hacer un nuevo audit →</a>
+    </div>
+
+    <footer class="footer">
+      <div>Reporte archivado · @nancynsalazar</div>
+      <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+        <a href="/audit/aviso-privacidad">Privacidad</a>
+        <a href="/audit/terminos">Términos</a>
+        <span>v1.0</span>
+      </div>
+    </footer>
+  </div>
+
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// Base de datos de skills (igual que en audit principal)
+// ════════════════════════════════════════════════════════════════
+const SKILLS_DB = {
+  'ai': { trend: 'rising', value: 95 }, 'llm': { trend: 'rising', value: 95 },
+  'prompt': { trend: 'rising', value: 88 }, 'rag': { trend: 'rising', value: 92 },
+  'langchain': { trend: 'rising', value: 85 }, 'mlops': { trend: 'rising', value: 90 },
+  'machine learning': { trend: 'rising', value: 88 }, 'deep learning': { trend: 'rising', value: 85 },
+  'agents': { trend: 'rising', value: 90 }, 'rust': { trend: 'rising', value: 82 },
+  'go': { trend: 'rising', value: 80 }, 'typescript': { trend: 'rising', value: 85 },
+  'kubernetes': { trend: 'rising', value: 82 }, 'terraform': { trend: 'rising', value: 80 },
+  'webassembly': { trend: 'rising', value: 75 }, 'next.js': { trend: 'rising', value: 82 },
+  'observability': { trend: 'rising', value: 78 }, 'platform engineering': { trend: 'rising', value: 80 },
+  'product analytics': { trend: 'rising', value: 80 }, 'product-led growth': { trend: 'rising', value: 78 },
+  'design systems': { trend: 'rising', value: 75 }, 'figma': { trend: 'rising', value: 78 },
+  'python': { trend: 'stable', value: 85 }, 'sql': { trend: 'stable', value: 82 },
+  'aws': { trend: 'stable', value: 80 }, 'gcp': { trend: 'stable', value: 78 },
+  'azure': { trend: 'stable', value: 75 }, 'react': { trend: 'stable', value: 78 },
+  'node': { trend: 'stable', value: 72 }, 'docker': { trend: 'stable', value: 78 },
+  'product management': { trend: 'stable', value: 75 }, 'scrum': { trend: 'stable', value: 60 },
+  'agile': { trend: 'stable', value: 68 }, 'okrs': { trend: 'stable', value: 70 },
+  'leadership': { trend: 'stable', value: 85 }, 'stakeholder': { trend: 'stable', value: 80 },
+  'communication': { trend: 'stable', value: 80 }, 'research': { trend: 'stable', value: 75 },
+  'ux research': { trend: 'stable', value: 78 }, 'customer research': { trend: 'stable', value: 75 },
+  'data analysis': { trend: 'stable', value: 78 }, 'tableau': { trend: 'stable', value: 65 },
+  'power bi': { trend: 'stable', value: 68 }, 'java': { trend: 'stable', value: 65 },
+  'c#': { trend: 'stable', value: 60 }, '.net': { trend: 'stable', value: 58 },
+  'jquery': { trend: 'declining', value: 30 }, 'php': { trend: 'declining', value: 45 },
+  'wordpress': { trend: 'declining', value: 40 }, 'angularjs': { trend: 'declining', value: 25 },
+  'ruby on rails': { trend: 'declining', value: 48 }, 'sketch': { trend: 'declining', value: 35 },
+  'invision': { trend: 'declining', value: 25 }, 'photoshop': { trend: 'declining', value: 45 },
+  'waterfall': { trend: 'declining', value: 30 }, 'pmp': { trend: 'declining', value: 40 },
+  'flash': { trend: 'critical', value: 5 }, 'cobol': { trend: 'critical', value: 15 },
+  'perl': { trend: 'critical', value: 20 }, 'silverlight': { trend: 'critical', value: 5 },
+  'visual basic': { trend: 'critical', value: 18 }
+};
+
+const ROLES_DB = {
+  'ic-tech': [
+    { title: 'Staff Engineer', salary: '$110k-$180k MXN/mes', desc: 'Liderazgo técnico sin gestión de personas.', fit: 85 },
+    { title: 'AI/ML Engineer', salary: '$130k-$220k MXN/mes', desc: 'Construyes sistemas con IA en producción.', fit: 78 },
+    { title: 'Platform Engineer', salary: '$100k-$165k MXN/mes', desc: 'Construyes la infraestructura sobre la que otros equipos desarrollan.', fit: 75 },
+    { title: 'Engineering Manager', salary: '$120k-$190k MXN/mes', desc: 'Salto a gestión.', fit: 70 }
+  ],
+  'ic-product': [
+    { title: 'Principal Designer', salary: '$95k-$160k MXN/mes', desc: 'Líder de craft sin gestión de personas.', fit: 88 },
+    { title: 'Senior Product Manager', salary: '$110k-$180k MXN/mes', desc: 'Llevas un área de producto end-to-end.', fit: 80 },
+    { title: 'Head of Design', salary: '$140k-$230k MXN/mes', desc: 'Gestionas un equipo de diseñadoras.', fit: 72 },
+    { title: 'Design Engineer', salary: '$90k-$150k MXN/mes', desc: 'Híbrido entre diseño y código.', fit: 75 }
+  ],
+  'ic-business': [
+    { title: 'Head of Growth', salary: '$120k-$200k MXN/mes', desc: 'Diriges la estrategia de crecimiento.', fit: 80 },
+    { title: 'Product Marketing Lead', salary: '$95k-$160k MXN/mes', desc: 'Lideras posicionamiento y narrativa.', fit: 82 },
+    { title: 'Strategy & Ops Manager', salary: '$100k-$170k MXN/mes', desc: 'Brazo derecho del CEO o CPO.', fit: 75 },
+    { title: 'Revenue Operations', salary: '$85k-$140k MXN/mes', desc: 'Optimizas todo el funnel de ingresos.', fit: 70 }
+  ],
+  'manager': [
+    { title: 'Director of Engineering', salary: '$180k-$320k MXN/mes', desc: 'Diriges múltiples equipos.', fit: 82 },
+    { title: 'Senior Engineering Manager', salary: '$140k-$230k MXN/mes', desc: 'Gestionas a managers.', fit: 85 },
+    { title: 'Head of Product', salary: '$170k-$280k MXN/mes', desc: 'Diriges toda la función de producto.', fit: 70 },
+    { title: 'Fractional CTO', salary: '$80k-$200k MXN/mes', desc: 'Asesor técnico de múltiples startups.', fit: 65 }
+  ],
+  'director': [
+    { title: 'VP of Engineering', salary: '$280k-$500k MXN/mes', desc: 'Lideras la organización completa.', fit: 85 },
+    { title: 'CTO (startup)', salary: '$200k-$400k MXN/mes + equity', desc: 'Lideras tecnología en startup mid-stage.', fit: 78 },
+    { title: 'Chief Product Officer', salary: '$300k-$550k MXN/mes', desc: 'Lideras producto a nivel ejecutivo.', fit: 72 },
+    { title: 'Independent Board Advisor', salary: '$30k-$100k MXN/mes por board', desc: 'Múltiples roles de consejera.', fit: 68 }
+  ],
+  'founder': [
+    { title: 'Solo Founder (bootstrapped)', salary: 'Variable + equity 100%', desc: 'Construyes algo propio sin VC.', fit: 80 },
+    { title: 'Co-Founder (VC-backed)', salary: '$80k-$250k MXN/mes + equity', desc: 'Levantas capital.', fit: 75 },
+    { title: 'Indie Hacker / Studio', salary: '$50k-$300k MXN/mes', desc: 'Múltiples productos pequeños.', fit: 78 },
+    { title: 'Operator-Investor', salary: 'Variable + portfolio', desc: 'Combinas operación con inversiones angel.', fit: 70 }
+  ]
+};
+
+function classifySkill(name) {
+  const lower = name.toLowerCase().trim();
+  if (SKILLS_DB[lower]) return { ...SKILLS_DB[lower], name };
+  for (const key in SKILLS_DB) {
+    if (lower.includes(key) || key.includes(lower)) return { ...SKILLS_DB[key], name };
+  }
+  return { trend: 'stable', value: 60, name };
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+
+// ════════════════════════════════════════════════════════════════
+// CARGAR REPORTE DESDE EL SHEET
+// ════════════════════════════════════════════════════════════════
+async function loadReport() {
+  const params = new URLSearchParams(window.location.search);
+  const auditId = params.get('id');
+
+  if (!auditId || auditId.length < 10) {
+    showError('Link inválido', 'No proporcionaste un ID de reporte válido. Verifica el link que recibiste.');
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/report?id=' + encodeURIComponent(auditId));
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+
+    if (!data.success || !data.report) {
+      throw new Error(data.error || 'No se encontró el reporte');
+    }
+
+    renderReport(data.report);
+  } catch (err) {
+    console.error('Error cargando reporte:', err);
+    showError('Reporte no encontrado',
+      'No pudimos encontrar este reporte. Puede haber expirado, no existir, o el link estar incompleto. Si tienes problemas, escríbenos a hola@nancynsalazar.tech con tu correo y te ayudamos.');
+  }
+}
+
+function showError(title, msg) {
+  document.getElementById('stateLoading').style.display = 'none';
+  document.getElementById('stateError').style.display = 'block';
+  document.getElementById('errorTitle').textContent = title;
+  document.getElementById('errorMsg').textContent = msg;
+}
+
+function renderReport(report) {
+  // Header
+  const name = (report.formData.name || '').split(' ')[0] || 'Profesionista';
+  document.getElementById('r_name').textContent = name;
+
+  const dateStr = report.timestamp
+    ? new Date(report.timestamp).toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' })
+    : '—';
+  document.getElementById('r_date').textContent = dateStr;
+
+  const profileLabels = {
+    'ic-tech': 'IC Técnico', 'ic-product': 'IC Producto/Diseño', 'ic-business': 'IC Business',
+    'manager': 'Manager/Lead', 'director': 'Director/VP', 'founder': 'Founder'
+  };
+  document.getElementById('r_profile').textContent = profileLabels[report.formData.profile_type] || '—';
+  document.getElementById('r_years').textContent = report.formData.years || '—';
+
+  // Resumen ejecutivo regenerado del scoring
+  document.getElementById('r_summary').textContent = buildExecSummary(report);
+
+  // Scores
+  setScore('resilience', report.scores.resilience);
+  setScore('market', report.scores.marketAlignment);
+  setScore('growth', report.scores.growth);
+  setScore('ai', report.scores.aiReady);
+
+  // Skills
+  renderSkillsList(report.skills.map(classifySkill));
+
+  // Roles
+  renderRoles(report);
+
+  // Mostrar el reporte y ocultar loading
+  document.getElementById('stateLoading').style.display = 'none';
+  document.getElementById('report').classList.add('ready');
+}
+
+function buildExecSummary(report) {
+  const { resilience, marketAlignment, aiReady } = report.scores;
+  const profile = report.formData.profile_type || '';
+  const years = report.formData.years || '';
+
+  let summary = `Tu perfil de ${profile.includes('ic') ? 'Individual Contributor' : profile === 'manager' ? 'manager' : profile === 'director' ? 'líder ejecutiva' : 'profesionista'} con ${years} años de experiencia muestra `;
+
+  if (resilience >= 70 && marketAlignment >= 70) {
+    summary += `una base sólida y bien alineada al mercado actual. `;
+  } else if (resilience >= 70) {
+    summary += `un stack resiliente pero con desbalance hacia tecnologías estables vs. emergentes. `;
+  } else if (marketAlignment >= 70) {
+    summary += `buena alineación con tendencias actuales pero algunas dependencias técnicas que conviene fortalecer. `;
+  } else {
+    summary += `áreas críticas que conviene atender antes de planear el siguiente movimiento. `;
+  }
+
+  if (aiReady < 50) {
+    summary += `Tu mayor brecha es AI-readiness (${aiReady}/100), lo cual limitará tu acceso a roles senior+ en los próximos 18-24 meses si no se atiende.`;
+  } else if (aiReady < 70) {
+    summary += `Tu exposición a IA es intermedia (${aiReady}/100) — suficiente para no quedarte atrás, insuficiente para liderar.`;
+  } else {
+    summary += `Tu AI-readiness es notable (${aiReady}/100), lo cual te posiciona en el cuartil superior del mercado.`;
+  }
+
+  return summary;
+}
+
+function setScore(key, value) {
+  document.getElementById(`s_${key}`).textContent = value;
+  const bar = document.getElementById(`bar_${key}`);
+  const card = document.getElementById(`card_${key}`);
+  setTimeout(() => { bar.style.width = value + '%'; }, 200);
+  card.classList.remove('good', 'warn', 'danger');
+  if (value >= 75) card.classList.add('good');
+  else if (value >= 50) card.classList.add('warn');
+  else card.classList.add('danger');
+}
+
+function renderSkillsList(skills) {
+  const trendLabels = { rising: 'En ascenso', stable: 'Estable', declining: 'En descenso', critical: 'Riesgo crítico' };
+  const trendDesc = {
+    rising: 'Demanda creciente · alta valorización',
+    stable: 'Demanda consistente · estable',
+    declining: 'Demanda decreciente · considerar transición',
+    critical: 'Obsolescencia en horizonte 12-24 meses'
+  };
+  const fillClass = v => v >= 70 ? 'high' : v >= 40 ? 'med' : 'low';
+
+  document.getElementById('skillsList').innerHTML = skills.map(s => `
+    <li class="skill-row">
+      <div class="skill-name">${escapeHtml(s.name)}<small>${trendDesc[s.trend]}</small></div>
+      <span class="skill-trend ${s.trend}">${trendLabels[s.trend]}</span>
+      <div class="skill-bar"><div class="skill-bar-fill ${fillClass(s.value)}" style="width: ${s.value}%;"></div></div>
+    </li>
+  `).join('');
+}
+
+function renderRoles(report) {
+  const profile = report.formData.profile_type;
+  const roles = ROLES_DB[profile] || ROLES_DB['ic-product'];
+
+  const adjusted = roles.map(r => {
+    let fit = r.fit;
+    if (report.scores.aiReady < 40 && (r.title.includes('AI') || r.title.includes('ML'))) fit -= 25;
+    if (report.formData.change_appetite === 'low' && (r.title.includes('Founder') || r.title.includes('Indie'))) fit -= 20;
+    return { ...r, fit: Math.max(20, fit) };
+  }).sort((a, b) => b.fit - a.fit);
+
+  document.getElementById('rolesGrid').innerHTML = adjusted.map((r, i) => `
+    <div class="role-card">
+      <div class="role-card-tag">Trayectoria · 0${i+1}</div>
+      <div class="role-card-title">${escapeHtml(r.title)}</div>
+      <div class="role-card-salary">${escapeHtml(r.salary)}<small>Mercado LATAM · empresas tech mid-large</small></div>
+      <div class="role-card-desc">${escapeHtml(r.desc)}</div>
+      <div class="role-card-fit">Fit con tu perfil <strong>${r.fit}%</strong></div>
+    </div>
+  `).join('');
+}
+
+// Cargar al abrir
+loadReport();
+</script>
+
+</body>
+</html>
