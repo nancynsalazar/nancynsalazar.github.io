@@ -1609,6 +1609,26 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
+
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* FIX: Padding para swashes de itálicas Fraunces con gradient       */
+/* ═══════════════════════════════════════════════════════════════ */
+h1 em,
+h2 em,
+.h-display em,
+.benefits h2 em,
+.what-is h3 em,
+.success-state h2 em,
+.report-cover h1 em,
+.exec-summary p em,
+.report-section-title em,
+.role-card-title em {
+  padding-right: 0.12em;
+  margin-right: -0.04em;
+  display: inline-block;
+}
+
 </style>
 </head>
 <body>
@@ -1627,7 +1647,7 @@ input:focus, select:focus, textarea:focus {
 <div class="screen active" id="screen-landing">
   <header class="brand-header">
     <div class="brand-mark">@nancyn<em>salazar</em></div>
-    <div class="brand-tag">Strategic Career Tools</div>
+    <div class="brand-tag">Strategic Career Tools — v1.0</div>
   </header>
 
   <div class="hero">
@@ -1675,7 +1695,7 @@ input:focus, select:focus, textarea:focus {
   </div>
 
   <footer class="footer">
-    <div>© 2026 @nancynsalazar · Hecho con {🩷}</div>
+    <div>© 2026 @nancynsalazar · Hecho en León, México</div>
     <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
       <a href="/audit/aviso-privacidad" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Aviso de Privacidad</a>
       <a href="/audit/terminos" style="color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--line);">Términos</a>
