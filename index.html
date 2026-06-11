@@ -342,44 +342,18 @@ footer{
 }
 footer .logo{font-size:1.05rem;color:var(--paper)}
 
-/* ---------- CURSOR CUSTOM ---------- */
+/* ---------- BOTONES MAGNÉTICOS ---------- */
 @media (pointer:fine){
-  body{cursor:none}
-  a,button,.btn{cursor:none}
-  .cur-dot,.cur-ring{
-    position:fixed;top:0;left:0;pointer-events:none;z-index:1000;border-radius:50%;
-    transform:translate(-50%,-50%);
-  }
-  .cur-dot{
-    width:8px;height:8px;
-    background:conic-gradient(var(--r1),var(--r3),var(--r4),var(--r5),var(--r6),var(--r7),var(--r1));
-    animation:spin 2.4s linear infinite;
-    transition:width .2s, height .2s;
-  }
-  .cur-ring{
-    width:38px;height:38px;border:1.5px solid var(--ink);
-    transition:width .25s, height .25s, border-color .25s;
-  }
-  body.cur-hover .cur-dot{width:14px;height:14px}
-  body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--r6)}
-  body.cur-down .cur-ring{width:28px;height:28px}
-}
-@media (pointer:coarse){
-  .cur-dot,.cur-ring{display:none}
-  body, a, button, .btn{cursor:auto}
+  .btn,.nav-cta{will-change:transform}
 }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
   h1,.kicker,.hero-sub,.hero-actions,.hero-photo{opacity:1}
-  .cur-dot,.cur-ring{display:none}
-  body, a, button, .btn{cursor:auto}
 }
 </style>
 </head>
 <body>
-<div class="cur-ring" aria-hidden="true"></div>
-<div class="cur-dot" aria-hidden="true"></div>
 
 <nav>
   <a class="logo" href="#top">nancy<span class="grad">.</span>salazar</a>
@@ -658,25 +632,18 @@ if(!reduced && words.length){
   }, 2400);
 }
 
-/* ---- cursor custom con inercia ---- */
+/* ---- botones magnéticos ---- */
 const fine = window.matchMedia('(pointer:fine)').matches;
 if(fine && !reduced){
-  const dot = document.querySelector('.cur-dot');
-  const ring = document.querySelector('.cur-ring');
-  let mx=-100,my=-100,rx=-100,ry=-100;
-  window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  (function loop(){
-    rx += (mx-rx)*.16; ry += (my-ry)*.16;
-    dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
-    ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-    requestAnimationFrame(loop);
-  })();
-  document.querySelectorAll('a,button,.btn').forEach(el=>{
-    el.addEventListener('mouseenter',()=>document.body.classList.add('cur-hover'));
-    el.addEventListener('mouseleave',()=>document.body.classList.remove('cur-hover'));
+  document.querySelectorAll('.btn, .nav-cta').forEach(el=>{
+    el.addEventListener('mousemove', e=>{
+      const r = el.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width/2)) / r.width;
+      const dy = (e.clientY - (r.top + r.height/2)) / r.height;
+      el.style.transform = `translate(${dx*8}px, ${dy*6}px)`;
+    });
+    el.addEventListener('mouseleave', ()=>{ el.style.transform = ''; });
   });
-  window.addEventListener('mousedown',()=>document.body.classList.add('cur-down'));
-  window.addEventListener('mouseup',()=>document.body.classList.remove('cur-down'));
 }
 
 /* ---- reveal on scroll ---- */
