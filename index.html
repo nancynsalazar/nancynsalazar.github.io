@@ -100,6 +100,16 @@ nav{
 @media(max-width:380px){
   .nav-cta{padding:8px 12px;font-size:.74rem}
   .theme-toggle{width:34px;height:34px}
+  .logo{font-size:clamp(.92rem,4.2vw,1.1rem)}
+  nav{padding:12px 14px}
+  .nav-links{gap:8px}
+}
+@media(max-width:480px){
+  h1{font-size:clamp(1.9rem,8.5vw,2.6rem)}
+  h2{font-size:clamp(1.7rem,8vw,2.4rem);overflow-wrap:break-word;word-break:break-word}
+  .manifesto blockquote{font-size:clamp(1.4rem,6.5vw,1.9rem);overflow-wrap:break-word}
+  .hago-item h3, .talk h3, .idx h4, .t-item h4{overflow-wrap:break-word;word-break:break-word}
+  .hero-sub, .section-intro, .talk p, .hago-item p, .t-item p{overflow-wrap:break-word}
 }
 
 /* ---------- HERO EDITORIAL ---------- */
@@ -120,11 +130,12 @@ header{
 }
 h1{
   font-family:'Syne',sans-serif;font-weight:800;letter-spacing:-.03em;
-  font-size:clamp(2.5rem,6.2vw,4.9rem);line-height:1.02;
+  font-size:clamp(2.1rem,6.2vw,4.9rem);line-height:1.02;
+  overflow-wrap:break-word;word-break:break-word;hyphens:auto;
   opacity:0;animation:rise .9s .25s forwards;
 }
 h1 .serif{font-weight:600;font-size:1.04em}
-.rotator{display:inline-block;position:relative;min-width:11ch;height:1.05em;vertical-align:bottom}
+.rotator{display:inline-block;position:relative;min-width:11ch;height:1.05em;vertical-align:bottom;max-width:100%}
 .rotator span{
   position:absolute;left:0;top:0;opacity:0;transform:translateY(24px);
   transition:opacity .45s, transform .45s;white-space:nowrap;
