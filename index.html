@@ -16,6 +16,7 @@
   --ink:#0D0D0D;
   --gris:#6B675C;
   --line:#D9D2C0;
+  --nav-bg:rgba(250,246,236,.82);
   --r1:#FF3B30;--r2:#FF9500;--r3:#FFD400;--r4:#00C853;--r5:#0091FF;--r6:#8E3DFF;--r7:#FF2D95;
   --rainbow:linear-gradient(90deg,var(--r1),var(--r2),var(--r3),var(--r4),var(--r5),var(--r6),var(--r7));
   --radius:18px;
@@ -26,6 +27,7 @@
   --ink:#FAF6EC;
   --gris:#9A968C;
   --line:#2C2C2C;
+  --nav-bg:rgba(11,11,11,.82);
   --r3:#FFE600;--r4:#2CFF6B;--r5:#00C8FF;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -60,7 +62,7 @@ nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
   padding:16px clamp(20px,5vw,56px);
-  background:rgba(250,246,236,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1.5px solid var(--ink);
 }
 .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:-.02em}
@@ -345,8 +347,8 @@ h2{
 .cta-final h2{margin:0 auto;font-size:clamp(2.3rem,6.5vw,4.6rem);color:var(--cta-fg)}
 .cta-final p{color:var(--cta-dim);max-width:520px;margin:24px auto 0;font-size:1.08rem}
 .cta-final .hero-actions{justify-content:center;opacity:1;animation:none}
-.cta-final .btn{border-color:var(--cta-fg);background:transparent;color:var(--cta-fg)}
-.cta-final .btn-primary{border-color:var(--cta-fg);color:#000;box-shadow:6px 6px 0 var(--cta-fg);animation:breathe2 3.2s ease-in-out infinite, hueslide 6s linear infinite}
+.cta-final .btn-ghost{border-color:var(--cta-fg);background:transparent;color:var(--cta-fg)}
+.cta-final .btn-primary{background:var(--rainbow);background-size:300% 100%;border-color:var(--cta-fg);color:#000;box-shadow:6px 6px 0 var(--cta-fg);animation:breathe2 3.2s ease-in-out infinite, hueslide 6s linear infinite}
 @keyframes breathe2{0%,100%{box-shadow:6px 6px 0 var(--cta-fg)}50%{box-shadow:9px 9px 0 var(--cta-fg)}}
 .cta-final .btn-primary:hover{box-shadow:9px 9px 0 var(--cta-fg)}
 .cta-final .btn-ghost:hover{background:var(--cta-fg);color:var(--cta-bg)}
